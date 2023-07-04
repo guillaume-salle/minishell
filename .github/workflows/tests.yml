@@ -1,0 +1,18 @@
+name: Tests
+
+on: 
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Norme check
+        uses: alexandregv/norminette-action@v3
+        with:
+          flags: '.'
+
