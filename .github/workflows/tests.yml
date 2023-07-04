@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       
-      - name: Norme check
-        uses: alexandregv/norminette-action@v3
-        with:
-          flags: '.'
+      -name: norme check
+      run: |
+      python3 -m pip install --disable-pip-version-check --no-cache-dir norminette
+      norminette
 
