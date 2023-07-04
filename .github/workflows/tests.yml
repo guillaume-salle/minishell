@@ -1,4 +1,4 @@
-name: Tests
+name: Basic tests
 
 on: 
   push:
@@ -7,12 +7,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    env:
+      exe: minishell
+      TERM: xterm
+
 
     steps:
       - uses: actions/checkout@v3
       
-      - name: norme check
+      - name: Install norminette
+        run: python3 -m pip install --no-cache-dir --quiet norminette
+      - name: Norme check
+        run: "! norminette | grep Error"
+          
+      - name: Make test
         run: |
-          python3 -m pip install --disable-pip-version-check --no-cache-dir norminette
-          norminette
-
+          make
+          if [[ ! -f "${{ env.exe }}" ]]; then
+            echo "Error: minishell executable not found"
+            exit 1
+          fi
+          
+      - name: Execution test
+        run: |
+          chmod +x "${{ env.exe }}"
+          ./"${{ env.exe }}"
+          exit 0
