@@ -4,16 +4,13 @@ SRCS_DIR	= srcs
 OBJS_DIR	= objs
 INC_DIR		= includes
 
-SRCS		= main.c		\
-
+SRCS		= main.c	
 OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-
 DEPS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
-
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
-CC			= cc
+CC			= cc $(CPPFLAGS) $(CFLAGS)
 
 LIBFT_DIR	= Libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
@@ -25,13 +22,13 @@ CPPFLAGS	+= -I$(LIBFT_INC)
 all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
+	$(CC) $(OBJS) -o $(NAME) $(LDFLAGS) $(LDLIBS)
 
+# Create objs directory if does not exist
 $(OBJS): | $(OBJS_DIR)
-
 $(OBJS_DIR):
 	mkdir $(OBJS_DIR)
 
@@ -42,13 +39,15 @@ $(LIBFT_LIB)@build:
 
 clean:
 	rm -rf $(OBJS_DIR)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: 
 	rm -rf $(OBJS_DIR)
 	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
 -include $(DEPS)
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
