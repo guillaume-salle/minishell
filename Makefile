@@ -4,36 +4,29 @@ SRCS_DIR	= srcs
 OBJS_DIR	= objs
 INC_DIR		= includes
 
-SRCS		= main.c		\
-
+SRCS		= main.c	
 OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-
 DEPS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
-
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
-CC			= cc
+CC			= cc $(CPPFLAGS) $(CFLAGS)
 
 LIBFT_DIR	= Libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
-LIBFT_INC	= $(LIBFT_DIR)
-LDFLAGS		+= -L$(LIBFT_DIR)
+LIBFT_INC	= $(LIBFT_DIR)/includes
 LDLIBS		+= -lft
+LDFLAGS		+= -L$(LIBFT_DIR)
 CPPFLAGS	+= -I$(LIBFT_INC)
 
 all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@mkdir -p $(OBJS_DIR)
+	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $(NAME)
-
-$(OBJS): | $(OBJS_DIR)
-
-$(OBJS_DIR):
-	mkdir $(OBJS_DIR)
+	$(CC) $(OBJS) -o $(NAME) $(LDFLAGS) $(LDLIBS)
 
 $(LIBFT_LIB): $(LIBFT_LIB)@build
 .PHONY: $(LIBFT_LIB)@build
@@ -42,13 +35,15 @@ $(LIBFT_LIB)@build:
 
 clean:
 	rm -rf $(OBJS_DIR)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: 
 	rm -rf $(OBJS_DIR)
 	rm -f $(NAME)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
 
 -include $(DEPS)
 
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re
