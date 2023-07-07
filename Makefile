@@ -14,7 +14,9 @@ CC			= cc $(CPPFLAGS) $(CFLAGS)
 
 LIBFT_DIR	= Libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
+LIBFT_INC	= $(LIBFT_DIR)/includes
 LDLIBS		+= -lft
+LDFLAGS		+= -L$(LIBFT_DIR)
 CPPFLAGS	+= -I$(LIBFT_INC)
 
 all: $(NAME)
