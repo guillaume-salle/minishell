@@ -30,9 +30,8 @@ jobs:
             echo "Error: minishell executable not found"
             exit 1
           fi
-          
-      - name: Execution test
-        run: |
           chmod +x "${{ env.exe }}"
           ./"${{ env.exe }}"
           exit 0
+          
+          
