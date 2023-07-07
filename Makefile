@@ -44,6 +44,22 @@ fclean:
 
 re: fclean all
 
+# Tests
+TESTS_DIR	= tests
+# Libraries for framework Check
+LDLIBS		+= -lcheck -lm -lrt -lpthread
+TESTS		= echo.c
+TESTS_OBJS	= $(addprefix $(TESTS_DIR)/, $(TESTS:.c=.o))
+$(NAME).o: $(OBJS) $(LIBFT_LIB)
+	$(CC) -c $(OBJS) -o $@
+$(OBJS_DIR)/%.o: $(TESTS_DIR)/%.c
+	$(CC) -c $< -o $@
+tests: $(NAME).o $(TESTS_OBJS) 
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(NAME).o $(TESTS_OBJ) -o $@
+test: tests
+	./tests
+.PHONY: test
+
 -include $(DEPS)
 
 .PHONY: all clean fclean re
