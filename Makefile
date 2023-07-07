@@ -20,15 +20,11 @@ CPPFLAGS	+= -I$(LIBFT_INC)
 all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
+	@mkdir -p $(OBJS_DIR)
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
 	$(CC) $(OBJS) -o $(NAME) $(LDFLAGS) $(LDLIBS)
-
-# Create objs directory if does not exist
-$(OBJS): | $(OBJS_DIR)
-$(OBJS_DIR):
-	mkdir $(OBJS_DIR)
 
 $(LIBFT_LIB): $(LIBFT_LIB)@build
 .PHONY: $(LIBFT_LIB)@build
