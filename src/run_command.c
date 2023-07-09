@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 02:10:40 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/09 02:11:21 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/09 15:07:39 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 char	*run_command(char *s)
 {
-	char	*str;
-
-	str = s;
+	(void)s;
 	return ("hello\n");
 }
