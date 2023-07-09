@@ -5,7 +5,7 @@ int main(void) {
     Suite *s;
     SRunner *sr;
 
-    s = add_suite_echo();
+    s = echo_suite();
     sr = srunner_create(s);
 
     srunner_run_all(sr, CK_NORMAL);

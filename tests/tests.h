@@ -11,6 +11,6 @@
 int redirect_stdout_to_buffer();
 ssize_t restore_stdout_and_read_buffer(char* buffer, size_t size);
 
-Suite	*add_suite_echo(void);
+Suite	*echo_suite(void);
 
 #endif // TEST_H
