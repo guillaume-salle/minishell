@@ -18,6 +18,9 @@ jobs:
         with:
           submodules: 'recursive'
       
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y check
+
       - name: Install norminette
         run: python3 -m pip install --no-cache-dir --quiet norminette
       - name: Norme check
@@ -34,5 +37,5 @@ jobs:
           ./"${{ env.exe }}"
           exit 0
       
-      - name: test
+      - name: Test
         run: make test
