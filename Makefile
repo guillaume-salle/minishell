@@ -1,7 +1,7 @@
 NAME		= minishell
 
-SRCS_DIR	= srcs
-OBJS_DIR	= objs
+SRCS_DIR	= src
+OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	
@@ -48,14 +48,15 @@ re: fclean all
 TESTS_DIR	= tests
 TESTS_SRCS	= test_echo.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
-test.exe: $(TESTS) srcs/run_command.c
+TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
+test.exe: $(TESTS)
 	cc -Iincludes $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
-test: test.exe 
+check: test.exe 
 	chmod +x ./test.exe
 	./test.exe
 fclean::
 	rm -f test.exe
-.PHONY: test
+.PHONY: check 
 
 -include $(DEPS)
 

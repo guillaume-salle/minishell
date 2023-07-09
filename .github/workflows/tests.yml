@@ -35,4 +35,4 @@ jobs:
           exit 0
       
       - name: test
-       run: make test
+       run: make check 
