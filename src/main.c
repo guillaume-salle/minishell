@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/09 02:07:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/09 18:49:23 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 int	main(void)
 {
+	char* test_strings[] = {"echo", "Hello,", "World!", NULL};
+
+    echo(test_strings);
+
 	return (0);
 }

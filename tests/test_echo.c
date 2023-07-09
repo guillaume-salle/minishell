@@ -2,7 +2,7 @@
 
 START_TEST(test_echo)
 {
-	char* test_strings[] = {"Hello,", "World!", NULL};
+	char* test_strings[] = {"echo", "Hello,", "World!", NULL};
 
 	if (redirect_stdout_to_buffer() == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
