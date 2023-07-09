@@ -48,7 +48,8 @@ re: fclean all
 
 # Tests
 TESTS_DIR	= tests
-TESTS_SRCS	= test_echo.c
+TESTS_SRCS	= main.c	\
+			  test_echo.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 test.exe: $(TESTS)
