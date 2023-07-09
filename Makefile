@@ -4,9 +4,11 @@ SRCS_DIR	= src
 OBJS_DIR	= obj
 INC_DIR		= includes
 
-SRCS		= main.c	
-OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-DEPS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
+SRCS		= main.c	\
+			  run_command.c
+OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
+SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
@@ -61,11 +63,3 @@ fclean::
 -include $(DEPS)
 
 .PHONY: all clean fclean re
-
-
-
-#TESTS_OBJS	= $(addprefix $(TESTS_DIR)/, $(TESTS:.c=.o))
-#$(NAME).o: $(OBJS) $(LIBFT_LIB)
-#	$(CC) -c $(OBJS) -o $@
-#$(OBJS_DIR)/%.o: $(TESTS_DIR)/%.c
-#	$(CC) -c $< -o $@
