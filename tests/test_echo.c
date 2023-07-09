@@ -1,24 +1,30 @@
 #include "tests.h"
 
-START_TEST (test_echo)
+START_TEST(test_echo)
 {
-    // The echo command should return the string passed to it
-    char *output = echo("echo hello");
-    ck_assert_str_eq(output, "hello\n");
+	char* test_strings[] = {"Hello,", "World!", NULL};
+
+	if (redirect_stdout_to_buffer() == -1) {
+        ck_abort_msg("Failed to redirect stdout to buffer");
+    }
+
+    echo(test_strings);
+
+    char buffer[128];
+    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    if (len == -1) {
+        ck_abort_msg("Failed to restore stdout and read buffer");
+    }
+
+	char* expected_output = "Hello, World!\n";
+    ck_assert_msg(strcmp(buffer, expected_output) == 0, "Output was '%s'", buffer);
 }
 END_TEST
 
-Suite *add_suite_echo(void) {
-    Suite *s;
-    TCase *tc_core;
-
-    s = suite_create("test echo");
-
-    /* Core test case */
-    tc_core = tcase_create("Core");
-
+Suite* echo_suite() {
+    Suite* s = suite_create("echo");
+    TCase* tc_core = tcase_create("Core");
     tcase_add_test(tc_core, test_echo);
     suite_add_tcase(s, tc_core);
-
     return s;
 }
