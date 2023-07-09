@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   run_command.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/09 02:07:04 by gusalle          ###   ########.fr       */
+/*   Created: 2023/07/09 02:10:40 by gusalle           #+#    #+#             */
+/*   Updated: 2023/07/09 02:11:21 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+char	*run_command(char *s)
 {
-	return (0);
+	char	*str;
+
+	str = s;
+	return ("hello\n");
 }

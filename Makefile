@@ -37,7 +37,7 @@ clean:
 	rm -rf $(OBJS_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
-fclean: 
+fclean::
 	rm -rf $(OBJS_DIR)
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
@@ -46,20 +46,25 @@ re: fclean all
 
 # Tests
 TESTS_DIR	= tests
-# Libraries for framework Check
-LDLIBS		+= -lcheck -lm -lrt -lpthread
-TESTS		= echo.c
-TESTS_OBJS	= $(addprefix $(TESTS_DIR)/, $(TESTS:.c=.o))
-$(NAME).o: $(OBJS) $(LIBFT_LIB)
-	$(CC) -c $(OBJS) -o $@
-$(OBJS_DIR)/%.o: $(TESTS_DIR)/%.c
-	$(CC) -c $< -o $@
-tests: $(NAME).o $(TESTS_OBJS) 
-	$(CC) $(CFLAGS) $(LDFLAGS) $(LDLIBS) $(NAME).o $(TESTS_OBJ) -o $@
-test: tests
-	./tests
+TESTS_SRCS	= test_echo.c
+TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
+test.exe: $(TESTS) srcs/run_command.c
+	cc -Iincludes $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
+test: test.exe 
+	chmod +x ./test.exe
+	./test.exe
+fclean::
+	rm -f test.exe
 .PHONY: test
 
 -include $(DEPS)
 
 .PHONY: all clean fclean re
+
+
+
+#TESTS_OBJS	= $(addprefix $(TESTS_DIR)/, $(TESTS:.c=.o))
+#$(NAME).o: $(OBJS) $(LIBFT_LIB)
+#	$(CC) -c $(OBJS) -o $@
+#$(OBJS_DIR)/%.o: $(TESTS_DIR)/%.c
+#	$(CC) -c $< -o $@
