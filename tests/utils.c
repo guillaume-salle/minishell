@@ -22,12 +22,6 @@ int redirect_stdout_to_buffer() {
 }
 
 ssize_t restore_stdout_and_read_buffer(char* buffer, size_t size) {
-    // Add this check to ensure STDOUT is restored even if an error occurs later
-    if (dup2(saved_stdout, STDOUT_FILENO) == -1) {
-        perror("dup2");
-        return -1;
-    }
-
     if (close(pipefd[1]) == -1) {
         perror("close");
         return -1;
@@ -39,10 +33,15 @@ ssize_t restore_stdout_and_read_buffer(char* buffer, size_t size) {
         return -1;
     }
 
-    buffer[len] = '\0';  // Ensure the buffer is null-terminated
+    buffer[len] = '\0';
 
     if (close(pipefd[0]) == -1) {
         perror("close");
+        return -1;
+    }
+
+    if (dup2(saved_stdout, STDOUT_FILENO) == -1) {
+        perror("dup2");
         return -1;
     }
 
