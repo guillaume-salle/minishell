@@ -24,7 +24,7 @@ CPPFLAGS	+= -I$(LIBFT_INC)
 all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
