@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_command.c                                      :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 02:10:40 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/09 15:07:39 by gusalle          ###   ########.fr       */
+/*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
+/*   Updated: 2023/07/09 16:45:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*run_command(char *s)
+int	echo(char **argv)
 {
-	(void)s;
-	return ("hello\n");
+	char	*str;
+
+	str = ft_join_str(argv + 1, " ");
+	if (str == NULL)
+		return (1);
+	ft_putendl_fd(str, 1);
+	free(str);
+	return (0);
 }
