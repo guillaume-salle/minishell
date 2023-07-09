@@ -5,7 +5,7 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
-			  run_command.c
+			  builtins/echo.c
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
