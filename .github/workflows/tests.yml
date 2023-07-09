@@ -33,6 +33,6 @@ jobs:
           chmod +x "${{ env.exe }}"
           ./"${{ env.exe }}"
           exit 0
-          
-     - name: test
+      
+      - name: test
        run: make test
