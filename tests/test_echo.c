@@ -1,6 +1,3 @@
-#include <check.h>
-#include <stdlib.h>
-#include "minishell.h"
 #include "tests.h"
 
 START_TEST (test_echo)
