@@ -59,7 +59,7 @@ check: test.exe
 	./test.exe
 fclean::
 	rm -f test.exe
-	rm test.d
+	rm -f test.d
 .PHONY: check 
 
 -include $(DEPS)
