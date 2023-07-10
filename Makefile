@@ -53,7 +53,7 @@ TESTS_SRCS	= main.c utils.c\
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 test.exe: $(TESTS) $(LIBFT_LIB)
-	cc $(CPPFLAGS) -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
+	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
 check: test.exe 
 	chmod +x ./test.exe
 	./test.exe

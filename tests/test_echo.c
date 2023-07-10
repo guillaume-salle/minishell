@@ -26,6 +26,7 @@ START_TEST(test_echo)
     char *buffer = ft_strjoin_table(test_strings + 1, " ");
 
 	char* expected_output = "Hello, World!\n";
+
     ck_assert_msg(strcmp(buffer, expected_output) == 0, "Output was '%s'", buffer);
 }
 END_TEST
