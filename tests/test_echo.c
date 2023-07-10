@@ -8,7 +8,7 @@ START_TEST(test_echo)
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
-//    echo(test_strings);
+    echo(test_strings);
 
     char buffer[128];
     ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
