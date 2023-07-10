@@ -52,13 +52,14 @@ TESTS_SRCS	= main.c utils.c\
 			  test_echo.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
-test.exe: $(TESTS)
+test.exe: $(TESTS) $(LIBFT_LIB)
 	cc $(CPPFLAGS) -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
 check: test.exe 
 	chmod +x ./test.exe
 	./test.exe
 fclean::
 	rm -f test.exe
+	rm test.d
 .PHONY: check 
 
 -include $(DEPS)
