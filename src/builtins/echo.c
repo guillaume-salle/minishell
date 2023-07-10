@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/10 16:34:36 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/10 19:45:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ int	echo(char **argv)
 	str = ft_strjoin_table(argv + 1, " ");
 	if (str == NULL)
 		return (1);
-// REMOVE
-	ft_putendl_fd("Hello, World!", 1);
-	ft_putendl_fd("Hello, World!", 1);
+//	ft_putendl_fd(str, 1);
+	ft_putendl_fd(*(argv+1), 1);
 	free(str);
 	return (0);
 }
