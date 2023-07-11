@@ -6,15 +6,17 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 20:11:08 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 20:24:32 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env(t_list* head)
+void	env(t_list *head)
 {
-	t_list* current = head;
+	t_list	*current;
+
+	current = head;
 	while (current != NULL)
 	{
 		ft_putstr_fd(current->name, 1);
@@ -24,4 +26,3 @@ void	env(t_list* head)
 		current = current->next;
 	}
 }
-		

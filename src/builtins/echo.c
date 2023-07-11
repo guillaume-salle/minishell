@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 20:11:25 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 20:25:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 static int	is_option(char *str, char *options)
 {
 	int	i;
-	int len;
+	int	len;
 
 	if (str[0] != '-')
 		return (0);
-	// Check if options are valid
 	i = 1;
 	while (str[i])
 	{
@@ -27,7 +26,6 @@ static int	is_option(char *str, char *options)
 			return (0);
 		i++;
 	}
-	// Add options to the string 'options'
 	i = 1;
 	while (str[i])
 	{
@@ -35,7 +33,7 @@ static int	is_option(char *str, char *options)
 		{
 			len = ft_strlen(options);
 			options[len] = str[i];
-			options[len + 1] = '\0';			
+			options[len + 1] = '\0';
 		}
 		i++;
 	}

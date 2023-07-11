@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 20:21:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 20:23:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 
 typedef struct s_list
 {
-    char			*name;
-    char			*content;
-    struct s_list	*next;
-} t_list;
+	char			*name;
+	char			*content;
+	struct s_list	*next;
+}	t_list;
 
 void	echo(int argc, char **argv);
 void	env(t_list *head);
