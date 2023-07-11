@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 17:54:01 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 20:11:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	is_option(char *str, char *options)
 	return (1);
 }
 
-int	echo(int argc, char **argv)
+void	echo(int argc, char **argv)
 {
 	int		i;
 	char	options[OPTIONS_SIZE];
@@ -60,5 +60,4 @@ int	echo(int argc, char **argv)
 	}
 	if (!ft_strchr(options, 'n'))
 		ft_putstr_fd("\n", 1);
-	return (0);
 }

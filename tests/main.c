@@ -2,11 +2,14 @@
 
 int main(void) {
     int number_failed;
-    Suite *s;
+    Suite *s1, *s2;
     SRunner *sr;
 
-    s = echo_suite();
-    sr = srunner_create(s);
+    s1 = echo_suite();
+    s2 = env_suite();
+
+    sr = srunner_create(s1);
+    srunner_add_suite(sr, s2);
 
     srunner_run_all(sr, CK_NORMAL);
     number_failed = srunner_ntests_failed(sr);

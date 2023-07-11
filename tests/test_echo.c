@@ -113,7 +113,8 @@ START_TEST(test_echo_13)
 Suite* echo_suite() {
     Suite* s = suite_create("echo");
     TCase* tc_core = tcase_create("Core");
-    tcase_add_test(tc_core, test_echo_1);
+
+	tcase_add_test(tc_core, test_echo_1);
     tcase_add_test(tc_core, test_echo_2);
     tcase_add_test(tc_core, test_echo_3);
     tcase_add_test(tc_core, test_echo_4);
@@ -125,6 +126,7 @@ Suite* echo_suite() {
     tcase_add_test(tc_core, test_echo_10);
     tcase_add_test(tc_core, test_echo_11);
     tcase_add_test(tc_core, test_echo_12);
+
     suite_add_tcase(s, tc_core);
     return s;
 }

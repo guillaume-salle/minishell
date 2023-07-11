@@ -48,3 +48,24 @@ ssize_t restore_stdout_and_read_buffer(char* buffer, size_t size) {
     return len;
 }
 
+t_list* new_node(char* name, char* content) {
+    t_list* node = (t_list*)malloc(sizeof(t_list));
+    node->name = strdup(name); // Make a copy of the string
+    node->content = strdup(content); // Make a copy of the string
+    node->next = NULL;
+    return node;
+}
+
+// Function to add a new node at the end of the list
+void add_node(t_list** head, char* name, char* content) {
+    t_list* node = new_node(name, content);
+    if (*head == NULL) {
+        *head = node;
+    } else {
+        t_list* last = *head;
+        while (last->next != NULL) {
+            last = last->next;
+        }
+        last->next = node;
+    }
+}
