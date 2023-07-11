@@ -1,8 +1,7 @@
 name: Basic tests
 
 on: 
-  pull_request:
-    branches: [ main ]
+  push:
   workflow_dispatch:
 
 jobs:
@@ -19,10 +18,13 @@ jobs:
         with:
           submodules: 'recursive'
       
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y check
+
       - name: Install norminette
         run: python3 -m pip install --no-cache-dir --quiet norminette
       - name: Norme check
-        run: "! norminette srcs | grep Error"
+        run: "! norminette srcs includes | grep Error"
           
       - name: Make
         run: |
@@ -34,5 +36,6 @@ jobs:
           chmod +x "${{ env.exe }}"
           ./"${{ env.exe }}"
           exit 0
-          
-          
+
+      - name: Test
+        run: make check 

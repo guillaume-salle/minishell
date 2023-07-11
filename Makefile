@@ -1,12 +1,14 @@
 NAME		= minishell
 
-SRCS_DIR	= srcs
-OBJS_DIR	= objs
+SRCS_DIR	= src
+OBJS_DIR	= obj
 INC_DIR		= includes
 
-SRCS		= main.c	
-OBJS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
-DEPS		= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
+SRCS		= main.c	\
+			  builtins/echo.c
+OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
+DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
+SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
@@ -22,7 +24,7 @@ CPPFLAGS	+= -I$(LIBFT_INC)
 all: $(NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@mkdir -p $(OBJS_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) -c $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT_LIB)
@@ -37,12 +39,28 @@ clean:
 	rm -rf $(OBJS_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
-fclean: 
+fclean::
 	rm -rf $(OBJS_DIR)
 	rm -f $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+# Tests
+TESTS_DIR	= tests
+TESTS_SRCS	= main.c utils.c\
+			  test_echo.c
+TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
+TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
+test.exe: $(TESTS) $(LIBFT_LIB)
+	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
+check: test.exe 
+	chmod +x ./test.exe
+	./test.exe
+fclean::
+	rm -f test.exe
+	rm -f test.d
+.PHONY: check 
 
 -include $(DEPS)
 
