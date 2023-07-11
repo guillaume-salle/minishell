@@ -9,6 +9,8 @@ void run_test_echo(char* test_strings[], char* expected_output) {
 	while (test_strings[argc] != NULL)
 		argc++;
     echo(argc, test_strings);
+	if (strlen(expected_output) == 0)
+		write(1, "\0", 1);
 
     char buffer[128];
     ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
