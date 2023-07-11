@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 16:47:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 16:50:15 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ int	echo(int argc, char **argv)
 		i++;
 	while (i < argc)
 	{
+		ft_putstr_fd(argv[i], 1);
 		if (i + 1 < argc)
-			ft_putstr_fd(argv[i], 1);
-		else
-			ft_putstr_fd(argv[i], 1);
+			ft_putstr_fd(" ", 1);
 		i++;
 	}
 	if (!ft_strchr(options, 'n'))
