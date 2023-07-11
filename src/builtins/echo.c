@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 17:35:08 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 17:54:01 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@ static int	is_option(char *str, char *options)
 		return (0);
 	// Check if options are valid
 	i = 1;
-	while (str[i] && ft_strchr(ECHO_OPTIONS, str[i]))
+	while (str[i])
+	{
+		if (!ft_strchr(ECHO_OPTIONS, str[i]))
+			return (0);
 		i++;
-	if (str[i])
-		return (0);
+	}
 	// Add options to the string 'options'
-	while (str[i] && ft_strchr(ECHO_OPTIONS, str[i]))
+	i = 1;
+	while (str[i])
 	{
 		if (!ft_strchr(options, str[i]))
 		{
@@ -44,7 +47,7 @@ int	echo(int argc, char **argv)
 	int		i;
 	char	options[OPTIONS_SIZE];
 
-	options[0] = 0;
+	options[0] = '\0';
 	i = 1;
 	while (i < argc && is_option(argv[i], options))
 		i++;
