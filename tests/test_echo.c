@@ -123,6 +123,8 @@ Suite* echo_suite() {
     tcase_add_test(tc_core, test_echo_8);
     tcase_add_test(tc_core, test_echo_9);
     tcase_add_test(tc_core, test_echo_10);
+    tcase_add_test(tc_core, test_echo_11);
+    tcase_add_test(tc_core, test_echo_12);
     suite_add_tcase(s, tc_core);
     return s;
 }
