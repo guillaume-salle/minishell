@@ -47,7 +47,7 @@ START_TEST(test_echo_4) {
 
 START_TEST(test_echo_5) {
 	char* test_strings[] = {"echo", "-s", "Hello,", "World!", NULL};
-	char* expected_output = "-s Hello, World!";
+	char* expected_output = "-s Hello, World!\n";
 	run_test_echo(test_strings, expected_output);
 } END_TEST
 
