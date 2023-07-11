@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 16:39:57 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 16:47:10 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	echo(int argc, char **argv)
 			ft_putstr_fd(argv[i], 1);
 		i++;
 	}
-	if (ft_strchr(options, 'n'))
+	if (!ft_strchr(options, 'n'))
 		ft_putstr_fd("\n", 1);
 	return (0);
 }
