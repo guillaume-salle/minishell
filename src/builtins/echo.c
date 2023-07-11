@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 16:50:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/11 17:29:18 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,23 @@
 static int	is_option(char *str, char *options)
 {
 	int	i;
+	int len;
 
-	if (str[0] == '-'){
-		i = 1;
-		while (str + i && ft_strchr(ECHO_OPTIONS, str[i]))
+	if (str[0] != '-')
+		return (0);
+	i = 1;
+	while (str[i] && ft_strchr(ECHO_OPTIONS, str[i]))
+	{
+		if (!ft_strchr(options, str[i]))
 		{
-			if (!ft_strchr(options, str[i]))
-				ft_strlcat(options, str + i, OPTIONS_SIZE);
-			i++;
+			len = ft_strlen(options);
+			options[len] = str[i];
+			options[len + 1] = '\0';			
 		}
-		if (str[i] == 0)
-			return (1);
+		i++;
 	}
+	if (str[i] == 0)
+		return (1);
 	return (0);
 }
 
