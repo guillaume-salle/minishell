@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/13 17:43:07 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/13 20:23:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ typedef struct s_list2
 	char			*content;
 	struct s_list2	*next;
 }	t_list2;
+
+typedef struct s_global
+{
+	char	**envp;
+}	t_global;
 
 void	echo(int argc, char **argv);
 void	env(t_list2 *head);

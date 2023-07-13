@@ -6,13 +6,16 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/11 16:40:16 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/13 20:23:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+t_global	g_vars;
+
+int main(int argc, char *argv[], char *envp[])
 {
+	g_vars.envp = envp;
 	return (0);
 }
