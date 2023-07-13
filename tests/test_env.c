@@ -11,20 +11,20 @@ START_TEST(test_new_node) {
 } END_TEST
 
 START_TEST(test_add_node) {
-    t_list2* env = NULL;
-    add_node(&env, "TEST1", "VALUE1");
-    add_node(&env, "TEST2", "VALUE2");
-    ck_assert_str_eq(env->name, "TEST1");
-    ck_assert_str_eq(env->content, "VALUE1");
-    ck_assert_str_eq(env->next->name, "TEST2");
-    ck_assert_str_eq(env->next->content, "VALUE2");
+    t_list2* env_list = NULL;
+    add_node(&env_list, "TEST1", "VALUE1");
+    add_node(&env_list, "TEST2", "VALUE2");
+    ck_assert_str_eq(env_list->name, "TEST1");
+    ck_assert_str_eq(env_list->content, "VALUE1");
+    ck_assert_str_eq(env_list->next->name, "TEST2");
+    ck_assert_str_eq(env_list->next->content, "VALUE2");
     // Free the nodes after testing
-    free(env->next->name);
-    free(env->next->content);
-    free(env->next);
-    free(env->name);
-    free(env->content);
-    free(env);
+    free(env_list->next->name);
+    free(env_list->next->content);
+    free(env_list->next);
+    free(env_list->name);
+    free(env_list->content);
+    free(env_list);
 } END_TEST
 
 START_TEST(test_env) {
