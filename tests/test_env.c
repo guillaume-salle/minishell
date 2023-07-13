@@ -1,7 +1,7 @@
 #include "tests.h"
 
 START_TEST(test_new_node) {
-    t_list* node = new_node("TEST", "VALUE");
+    t_list2* node = new_node("TEST", "VALUE");
     ck_assert_str_eq(node->name, "TEST");
     ck_assert_str_eq(node->content, "VALUE");
     ck_assert_ptr_eq(node->next, NULL);
@@ -11,7 +11,7 @@ START_TEST(test_new_node) {
 } END_TEST
 
 START_TEST(test_add_node) {
-    t_list* env = NULL;
+    t_list2* env = NULL;
     add_node(&env, "TEST1", "VALUE1");
     add_node(&env, "TEST2", "VALUE2");
     ck_assert_str_eq(env->name, "TEST1");
@@ -29,7 +29,7 @@ START_TEST(test_add_node) {
 
 START_TEST(test_print_env) {
     // Prepare the environment
-    t_list* env = NULL;
+    t_list2* env = NULL;
     add_node(&env, "TEST1", "VALUE1");
     add_node(&env, "TEST2", "VALUE2");
     
