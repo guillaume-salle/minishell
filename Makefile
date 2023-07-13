@@ -49,7 +49,7 @@ re: fclean all
 # Tests
 TESTS_DIR	= tests
 TESTS_SRCS	= main.c utils.c\
-			  test_echo.c
+			  test_echo.c test_env.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 test.exe: $(TESTS) $(LIBFT_LIB)
