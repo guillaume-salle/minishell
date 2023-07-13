@@ -61,7 +61,7 @@ START_TEST(test_print_env) {
     free(env);
 } END_TEST
 
-Suite* list_suite(void) {
+Suite* env_suite(void) {
     Suite* s = suite_create("env");
     TCase* tc_core = tcase_create("Core");
 
