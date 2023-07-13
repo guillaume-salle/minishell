@@ -27,6 +27,61 @@ START_TEST(test_add_node) {
     free(env_list);
 } END_TEST
 
+START_TEST(test_env_empty) {
+    // Prepare an empty environment
+    t_list2* env_list = NULL;
+
+    // Redirect stdout to a buffer
+    if (redirect_stdout_to_buffer() == -1) {
+        ck_abort_msg("Failed to redirect stdout to buffer");
+    }
+
+    // Call env
+    env(env_list);
+    write(1, "\0", 1); // Write a null byte to the pipe to signal the end of the output
+
+    // Read the buffer
+    char buffer[128];
+    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    if (len == -1) {
+        ck_abort_msg("Failed to restore stdout and read buffer");
+    }
+
+    // Check the output
+    char expected_output[] = "";
+    ck_assert_msg(strcmp(buffer, expected_output) == 0, "Expected output was '%s', but actual output was '%s'", expected_output, buffer);
+} END_TEST
+
+START_TEST(test_env_single) {
+    // Prepare the environment with a single entry
+    t_list2* env_list = NULL;
+    add_node(&env_list, "SINGLE_TEST", "SINGLE_VALUE");
+
+    // Redirect stdout to a buffer
+    if (redirect_stdout_to_buffer() == -1) {
+        ck_abort_msg("Failed to redirect stdout to buffer");
+    }
+
+    // Call env
+    env(env_list);
+
+    // Read the buffer
+    char buffer[128];
+    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    if (len == -1) {
+        ck_abort_msg("Failed to restore stdout and read buffer");
+    }
+
+    // Check the output
+    char expected_output[] = "SINGLE_TEST=SINGLE_VALUE\n";
+    ck_assert_msg(strcmp(buffer, expected_output) == 0, "Expected output was '%s', but actual output was '%s'", expected_output, buffer);
+
+    // Free the node after testing
+    free(env_list->name);
+    free(env_list->content);
+    free(env_list);
+} END_TEST
+
 START_TEST(test_env) {
     // Prepare the environment
     t_list2* env_list = NULL;
@@ -67,7 +122,8 @@ Suite* env_suite(void) {
 
     tcase_add_test(tc_core, test_new_node);
     tcase_add_test(tc_core, test_add_node);
-    tcase_add_test(tc_core, test_env);
+    tcase_add_test(tc_core, test_env_empty);
+    tcase_add_test(tc_core, test_env_single);
 
     suite_add_tcase(s, tc_core);
 
