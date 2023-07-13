@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/13 17:43:07 by gusalle          ###   ########.fr       */
+/*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
+/*   Updated: 2023/07/13 18:25:43 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "libft.h"
-
-# define ECHO_OPTIONS "n"
-# define OPTIONS_SIZE 128
-
-typedef struct s_list2
+void	env(t_list2 *head)
 {
-	char			*name;
-	char			*content;
-	struct s_list2	*next;
-}	t_list2;
+	t_list2	*current;
 
-void	echo(int argc, char **argv);
-void	env(t_list2 *head);
-
-#endif
+	current = head;
+	while (current != NULL)
+	{
+		ft_putstr_fd(current->name, 1);
+		ft_putstr_fd("=", 1);
+		ft_putstr_fd(current->content, 1);
+		ft_putstr_fd("\n", 1);
+		current = current->next;
+	}
+}
