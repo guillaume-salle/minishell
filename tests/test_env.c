@@ -67,7 +67,7 @@ Suite* env_suite(void) {
 
     tcase_add_test(tc_core, test_new_node);
     tcase_add_test(tc_core, test_add_node);
-    tcase_add_test(tc_core, test_print_env);
+    tcase_add_test(tc_core, test_env);
 
     suite_add_tcase(s, tc_core);
 
