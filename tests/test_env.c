@@ -27,19 +27,19 @@ START_TEST(test_add_node) {
     free(env);
 } END_TEST
 
-START_TEST(test_print_env) {
+START_TEST(test_env) {
     // Prepare the environment
-    t_list2* env = NULL;
-    add_node(&env, "TEST1", "VALUE1");
-    add_node(&env, "TEST2", "VALUE2");
+    t_list2* env_list = NULL;
+    add_node(&env_list, "TEST1", "VALUE1");
+    add_node(&env_list, "TEST2", "VALUE2");
     
     // Redirect stdout to a buffer
     if (redirect_stdout_to_buffer() == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
-    // Call print_env
-    print_env(env);
+    // Call env
+    env(env_list);
 
     // Read the buffer
     char buffer[128];
@@ -53,12 +53,12 @@ START_TEST(test_print_env) {
     ck_assert_msg(strcmp(buffer, expected_output) == 0, "Expected output was '%s', but actual output was '%s'", expected_output, buffer);
 
     // Free the nodes after testing
-    free(env->next->name);
-    free(env->next->content);
-    free(env->next);
-    free(env->name);
-    free(env->content);
-    free(env);
+    free(env_list->next->name);
+    free(env_list->next->content);
+    free(env_list->next);
+    free(env_list->name);
+    free(env_list->content);
+    free(env_list);
 } END_TEST
 
 Suite* env_suite(void) {
