@@ -23,9 +23,9 @@ typedef struct s_list
 	char			*name;
 	char			*content;
 	struct s_list	*next;
-}	t_list;
+}	t_list2;
 
 void	echo(int argc, char **argv);
-void	env(t_list *head);
+void	env(t_list2 *head);
 
 #endif

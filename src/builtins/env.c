@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-void	env(t_list *head)
+void	env(t_list2 *head)
 {
-	t_list	*current;
+	t_list2	*current;
 
 	current = head;
 	while (current != NULL)
