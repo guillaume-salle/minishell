@@ -1,7 +1,12 @@
 #include "tests.h"
 
-int main(void) {
-    int number_failed;
+t_global g_vars;
+
+int main(int argc, char *argv[], char *envp[]) {
+	
+	g_vars.envp_list = init_envp_list(envp);
+   
+   	int number_failed;
     Suite *s1, *s2, *s3;
     SRunner *sr;
 

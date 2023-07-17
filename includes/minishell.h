@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/17 16:14:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/17 19:56:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "libft.h"
+# include "stdio.h"
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
@@ -32,6 +33,9 @@ typedef struct s_global
 
 void	echo(int argc, char **argv);
 void	env(t_list2 *head);
+int		cd(int argc, char *argv[]);
+
+t_list2	*init_envp_list(char **envp);
 char	*my_getenv(const char *name);
 int		my_putenv(const char *key, const char *value);
 int		add_node(t_list2 **head, const char *name, const char *content);

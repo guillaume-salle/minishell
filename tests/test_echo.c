@@ -1,7 +1,7 @@
 #include "tests.h"
 
 void run_test_echo(char* test_strings[], char* expected_output) {
-    if (redirect_stdout_to_buffer() == -1) {
+    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
@@ -13,7 +13,7 @@ void run_test_echo(char* test_strings[], char* expected_output) {
 		write(1, "\0", 1);
 
     char buffer[128];
-    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
     if (len == -1) {
         ck_abort_msg("Failed to restore stdout and read buffer");
     }
