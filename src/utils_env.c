@@ -6,13 +6,35 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/17 16:25:31 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/17 20:50:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_global	g_vars;
+
+t_list2	*init_envp_list(char **envp)
+{
+	t_list2	*head;
+	char	*key;
+	char	*value;
+
+	head = NULL;
+	while (*envp)
+	{
+		key = ft_strtok(*envp, "=");
+		value = ft_strtok(NULL, "\0");
+		if (key == NULL || value == NULL)
+		{
+			envp++;
+			continue;
+		}
+		add_node(&head, key, value);
+		envp++;
+	}
+	return (head);
+}
 
 int	add_node(t_list2 **head, const char *name, const char *content)
 {
@@ -21,21 +43,19 @@ int	add_node(t_list2 **head, const char *name, const char *content)
 	new_node = malloc(sizeof(t_list2));
 	if (new_node == NULL)
 		return (-1);
-	new_node->name = malloc(ft_strlen(name) + 1);
+	new_node->name = ft_strdup(name);
 	if (new_node->name == NULL)
 	{
 		free(new_node);
 		return (-1);
 	}
-	ft_strlcpy(new_node->name, name, ft_strlen(name) + 1);
-	new_node->content = malloc(ft_strlen(content) + 1);
+	new_node->content = ft_strdup(content);
 	if (new_node->content == NULL)
 	{
 		free(new_node->name);
 		free(new_node);
 		return (-1);
 	}
-	ft_strlcpy(new_node->content, content, ft_strlen(content) + 1);
 	new_node->next = *head;
 	*head = new_node;
 	return (0);

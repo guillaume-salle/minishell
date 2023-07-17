@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/13 18:25:43 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/07/17 21:46:26 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	env(t_list2 *head)
 	current = head;
 	while (current != NULL)
 	{
-		ft_putstr_fd(current->name, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd(current->content, 1);
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd(current->name, STDOUT_FILENO);
+		ft_putstr_fd("=", STDOUT_FILENO);
+		ft_putstr_fd(current->content, STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		current = current->next;
 	}
 }

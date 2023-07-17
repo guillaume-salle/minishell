@@ -14,10 +14,10 @@ START_TEST(test_add_node) {
     t_list2* env_list = NULL;
     add_node(&env_list, "TEST1", "VALUE1");
     add_node(&env_list, "TEST2", "VALUE2");
-    ck_assert_str_eq(env_list->name, "TEST1");
-    ck_assert_str_eq(env_list->content, "VALUE1");
-    ck_assert_str_eq(env_list->next->name, "TEST2");
-    ck_assert_str_eq(env_list->next->content, "VALUE2");
+    ck_assert_str_eq(env_list->name, "TEST2");
+    ck_assert_str_eq(env_list->content, "VALUE2");
+    ck_assert_str_eq(env_list->next->name, "TEST1");
+    ck_assert_str_eq(env_list->next->content, "VALUE1");
     // Free the nodes after testing
     free(env_list->next->name);
     free(env_list->next->content);
@@ -32,7 +32,7 @@ START_TEST(test_env_empty) {
     t_list2* env_list = NULL;
 
     // Redirect stdout to a buffer
-    if (redirect_stdout_to_buffer() == -1) {
+    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
@@ -42,7 +42,7 @@ START_TEST(test_env_empty) {
 
     // Read the buffer
     char buffer[128];
-    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
     if (len == -1) {
         ck_abort_msg("Failed to restore stdout and read buffer");
     }
@@ -58,7 +58,7 @@ START_TEST(test_env_single) {
     add_node(&env_list, "SINGLE_TEST", "SINGLE_VALUE");
 
     // Redirect stdout to a buffer
-    if (redirect_stdout_to_buffer() == -1) {
+    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
@@ -67,7 +67,7 @@ START_TEST(test_env_single) {
 
     // Read the buffer
     char buffer[128];
-    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
     if (len == -1) {
         ck_abort_msg("Failed to restore stdout and read buffer");
     }
@@ -89,7 +89,7 @@ START_TEST(test_env) {
     add_node(&env_list, "TEST2", "VALUE2");
     
     // Redirect stdout to a buffer
-    if (redirect_stdout_to_buffer() == -1) {
+    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
@@ -98,7 +98,7 @@ START_TEST(test_env) {
 
     // Read the buffer
     char buffer[128];
-    ssize_t len = restore_stdout_and_read_buffer(buffer, sizeof(buffer));
+    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
     if (len == -1) {
         ck_abort_msg("Failed to restore stdout and read buffer");
     }

@@ -1,27 +1,27 @@
 #include "tests.h"
 
-int pipefd[2];
-int saved_stdout;
+static int pipefd[2];
+static int saved_fd;
 
-int redirect_stdout_to_buffer() {
+int redirect_fd_to_buffer(int fd) {
     if (pipe(pipefd) == -1) {
         perror("pipe");
         return -1;
     }
 
-    saved_stdout = dup(STDOUT_FILENO);
-    if (saved_stdout == -1) {
+    saved_fd = dup(fd);
+    if (saved_fd == -1) {
         perror("dup");
         return -1;
     }
-    if (dup2(pipefd[1], STDOUT_FILENO) == -1) {
+    if (dup2(pipefd[1], fd) == -1) {
         perror("dup2");
         return -1;
     }
     return 0;
 }
 
-ssize_t restore_stdout_and_read_buffer(char* buffer, size_t size) {
+ssize_t restore_fd_and_read_buffer(int fd, char* buffer, size_t size) {
     if (close(pipefd[1]) == -1) {
         perror("close");
         return -1;
@@ -40,7 +40,7 @@ ssize_t restore_stdout_and_read_buffer(char* buffer, size_t size) {
         return -1;
     }
 
-    if (dup2(saved_stdout, STDOUT_FILENO) == -1) {
+    if (dup2(saved_fd, fd) == -1) {
         perror("dup2");
         return -1;
     }
@@ -56,16 +56,3 @@ t_list2* new_node(char* name, char* content) {
     return node;
 }
 
-// Function to add a new node at the end of the list
-void add_node(t_list2** head, char* name, char* content) {
-    t_list2* node = new_node(name, content);
-    if (*head == NULL) {
-        *head = node;
-    } else {
-        t_list2* last = *head;
-        while (last->next != NULL) {
-            last = last->next;
-        }
-        last->next = node;
-    }
-}
