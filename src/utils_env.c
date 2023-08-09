@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/07/17 20:50:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/09 16:15:32 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_list2	*init_envp_list(char **envp)
 		if (key == NULL || value == NULL)
 		{
 			envp++;
-			continue;
+			continue ;
 		}
 		add_node(&head, key, value);
 		envp++;
@@ -79,6 +79,8 @@ int	my_putenv(const char *key, const char *value)
 {
 	t_list2	*current;
 
+	if (key == NULL || value == NULL)
+		return (-1);
 	current = g_vars.envp_list;
 	while (current)
 	{
