@@ -34,6 +34,47 @@ START_TEST (test_cd_change_to_invalid_directory)
 }
 END_TEST
 
+START_TEST (test_cd_update_PWD_and_OLDPWD)
+{
+    char *initial_dir = "/usr";
+    char *new_dir = "/bin";
+    
+    // Change to initial directory and update PWD and OLDPWD
+    cd(2, (char *[]){"cd", initial_dir, NULL});
+    my_putenv("PWD", initial_dir);
+    my_putenv("OLDPWD", initial_dir);
+
+    // Change to new directory
+    cd(2, (char *[]){"cd", new_dir, NULL});
+
+    char *pwd = NULL;
+    char *oldpwd = NULL;
+
+    t_list2* current = g_vars.envp_list;
+    while (current) {
+        if (strcmp(current->name, "PWD") == 0) {
+            pwd = current->content;
+        }
+        if (strcmp(current->name, "OLDPWD") == 0) {
+            oldpwd = current->content;
+        }
+        current = current->next;
+    }
+
+	printf("PWD: %s\n", pwd);      // Debugging print
+    printf("OLDPWD: %s\n", oldpwd); // Debugging print
+
+	printf("PWD: %s\n", getenv("PWD"));      // Debugging print
+    printf("OLDPWD: %s\n", getenv("OLDPWD")); // Debugging print
+
+    // Check that PWD is updated to the new directory
+    ck_assert_str_eq(pwd, new_dir);
+
+    // Check that OLDPWD is updated to the initial directory
+    ck_assert_str_eq(oldpwd, initial_dir);
+}
+END_TEST
+
 Suite* cd_suite(void) {
     Suite *s;
     TCase *tc_core;
@@ -43,6 +84,7 @@ Suite* cd_suite(void) {
 
     tcase_add_test(tc_core, test_cd_change_to_valid_directory);
     tcase_add_test(tc_core, test_cd_change_to_invalid_directory);
+	tcase_add_test(tc_core, test_cd_update_PWD_and_OLDPWD);
     suite_add_tcase(s, tc_core);
 
     return s;
