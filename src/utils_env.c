@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/09 16:15:32 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/10 18:46:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,25 @@ t_list2	*init_envp_list(char **envp)
 	t_list2	*head;
 	char	*key;
 	char	*value;
+	int		i;
 
 	head = NULL;
 	while (*envp)
 	{
-		key = ft_strtok(*envp, "=");
-		value = ft_strtok(NULL, "\0");
-		if (key == NULL || value == NULL)
+		i = 0;
+		while ((*envp)[i] != '\0')
 		{
-			envp++;
-			continue ;
+			if ((*envp)[i] == '=')
+			{
+				(*envp)[i] = '\0';
+				key = *envp;
+				value = *envp + i + 1;
+				break;
+			}
+			i++;
 		}
-		add_node(&head, key, value);
+		if (add_node(&head, key, value))
+			return (NULL);
 		envp++;
 	}
 	return (head);
