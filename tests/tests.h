@@ -16,5 +16,6 @@ Suite* echo_suite(void);
 Suite* env_suite(void);
 Suite* cd_suite(void);
 Suite* pwd_suite(void);
+Suite* export_suite(void);
 
 #endif // TEST_H
