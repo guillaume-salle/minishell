@@ -6,13 +6,13 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:43:12 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 11:50:50 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 12:40:07 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	cd(int argc, char *argv[])
+int	cd(int argc, char *argv[], t_vars *vars)
 {
 	char cwd[1024];
 
@@ -28,10 +28,10 @@ int	cd(int argc, char *argv[])
 		perror("cd");
 		return (-1);
 	}
-	my_putenv("OLDPWD", my_getenv("PWD"));
+	my_putenv("OLDPWD", my_getenv("PWD", vars), vars);
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 	{
-		my_putenv("PWD", cwd);
+		my_putenv("PWD", cwd, vars);
 	}
 	else
 	{

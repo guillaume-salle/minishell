@@ -1,6 +1,6 @@
 #include "tests.h"
 
-t_global g_vars;
+t_vars g_vars;
 
 int main(int argc, char *argv[], char *envp[]) {
 	

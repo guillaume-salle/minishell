@@ -1,11 +1,11 @@
 #include "tests.h"
 
-extern t_global	g_vars;
+extern t_vars g_vars;
 
 START_TEST (test_cd_change_to_valid_directory)
 {
     char *new_dir = "/usr";
-    int result = cd(2, (char *[]){"cd", new_dir, NULL});
+    int result = cd(2, (char *[]){"cd", new_dir, NULL}, &g_vars);
     char cwd[1024];
     getcwd(cwd, sizeof(cwd));
     ck_assert_int_eq(result, 0);
@@ -21,7 +21,7 @@ START_TEST (test_cd_change_to_invalid_directory)
     // Redirect stderr to a buffer
     redirect_fd_to_buffer(STDERR_FILENO);
 
-    int result = cd(2, (char *[]){"cd", new_dir, NULL});
+    int result = cd(2, (char *[]){"cd", new_dir, NULL}, &g_vars);
 
     // Restore stderr and read the content of the buffer
     ssize_t len = restore_fd_and_read_buffer(STDERR_FILENO, buffer, sizeof(buffer));
@@ -40,20 +40,20 @@ START_TEST (test_cd_update_PWD_and_OLDPWD)
     char *new_dir = "/tmp";
 
     // Change to initial directory
-    int ret_val = cd(2, (char *[]){"cd", initial_dir, NULL});
+    int ret_val = cd(2, (char *[]){"cd", initial_dir, NULL}, &g_vars);
     ck_assert_int_eq(ret_val, 0); // Check that the return value is 0
 
     // Manually update PWD and OLDPWD for the test
 	char *expected_oldpwd = "expected_oldpwd";
-    my_putenv("PWD", expected_oldpwd);
-    my_putenv("OLDPWD", "whatever");
+    my_putenv("PWD", expected_oldpwd, &g_vars);
+    my_putenv("OLDPWD", "whatever", &g_vars);
 
     // Change to new directory
-    ret_val = cd(2, (char *[]){"cd", new_dir, NULL});
+    ret_val = cd(2, (char *[]){"cd", new_dir, NULL}, &g_vars);
     ck_assert_int_eq(ret_val, 0); // Check that the return value is 0
 
-    char *pwd = my_getenv("PWD");
-    char *oldpwd = my_getenv("OLDPWD");
+    char *pwd = my_getenv("PWD", &g_vars);
+    char *oldpwd = my_getenv("OLDPWD", &g_vars);
 
     // Check that PWD is updated to the new directory
     ck_assert_str_eq(pwd, new_dir);
