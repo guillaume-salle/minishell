@@ -6,13 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/10 18:46:02 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 12:39:15 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-extern t_global	g_vars;
 
 t_list2	*init_envp_list(char **envp)
 {
@@ -68,11 +66,11 @@ int	add_node(t_list2 **head, const char *name, const char *content)
 	return (0);
 }
 
-char	*my_getenv(const char *name)
+char	*my_getenv(const char *name, t_vars *vars)
 {
 	t_list2	*current;
 
-	current = g_vars.envp_list;
+	current = vars->envp_list;
 	while (current != NULL)
 	{
 		if (ft_strcmp(current->name, name) == 0)
@@ -82,13 +80,13 @@ char	*my_getenv(const char *name)
 	return (NULL);
 }
 
-int	my_putenv(const char *key, const char *value)
+int	my_putenv(const char *key, const char *value, t_vars *vars)
 {
 	t_list2	*current;
 
 	if (key == NULL || value == NULL)
 		return (-1);
-	current = g_vars.envp_list;
+	current = vars->envp_list;
 	while (current)
 	{
 		if (ft_strcmp(current->name, key) == 0)
@@ -101,7 +99,7 @@ int	my_putenv(const char *key, const char *value)
 		}
 		current = current->next;
 	}
-	if (add_node(&g_vars.envp_list, key, value))
+	if (add_node(&(vars->envp_list), key, value))
 		return (-1);
 	return (0);
 }
