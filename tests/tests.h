@@ -15,5 +15,6 @@ t_list2* new_node(char* name, char* content);
 Suite* echo_suite(void);
 Suite* env_suite(void);
 Suite* cd_suite(void);
+Suite* pwd_suite(void);
 
 #endif // TEST_H
