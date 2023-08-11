@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 16:17:42 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 18:22:11 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	env(t_list2 *head);
 int		cd(int argc, char *argv[], t_vars *vars);
 int		pwd(void);
 int		export(int argc, char **argv, t_vars *vars);
+void	unset(int argc, char *argv[], t_vars *vars);
 
 t_list2	*init_envp_list(char **envp);
 char	*my_getenv(const char *name, t_vars *vars);
