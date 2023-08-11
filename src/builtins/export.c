@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 17:13:20 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 17:31:19 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ static int	import_variable(const char *arg, t_vars *vars)
 
 	equals_sign = ft_strchr(arg, '=');
 	if (!equals_sign || equals_sign == arg)
-	{
-		ft_putstr_fd("Invalid format: missing key or '='\n", STDERR_FILENO);
-		return (-1);
-	}
+		return (0);
 	key = ft_strndup(arg, equals_sign - arg);
 	value = ft_strdup(equals_sign + 1);
 	if (!key || !value)
@@ -54,6 +51,8 @@ static int	import_variable(const char *arg, t_vars *vars)
 		free(value);
 		return (-1);
 	}
+	if (!is_valid_variable_name(key))
+		return (free(key), free(value), 0);
 	result = my_putenv(key, value, vars);
 	free(key);
 	free(value);
