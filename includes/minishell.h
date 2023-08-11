@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 12:42:03 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 12:58:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_vars
 void	echo(int argc, char **argv);
 void	env(t_list2 *head);
 int		cd(int argc, char *argv[], t_vars *vars);
+int		pwd(void);
 
 t_list2	*init_envp_list(char **envp);
 char	*my_getenv(const char *name, t_vars *vars);

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 12:39:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 13:01:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_list2	*init_envp_list(char **envp)
 				(*envp)[i] = '\0';
 				key = *envp;
 				value = *envp + i + 1;
-				break;
+				break ;
 			}
 			i++;
 		}
