@@ -6,7 +6,7 @@ INC_DIR		= includes
 
 SRCS		= main.c utils_env.c	\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
-			  builtins/pwd.c
+			  builtins/pwd.c builtins/export.c
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
@@ -50,7 +50,7 @@ re: fclean all
 # Tests
 TESTS_DIR	= tests
 TESTS_SRCS	= main.c utils.c\
-			  test_echo.c test_env.c test_cd.c test_pwd.c
+			  test_echo.c test_env.c test_cd.c test_pwd.c test_export.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 test.exe: $(TESTS) $(LIBFT_LIB)

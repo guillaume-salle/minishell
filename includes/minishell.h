@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 12:58:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 16:17:42 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "stdio.h"
+# include "stdbool.h"
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
@@ -35,10 +36,12 @@ void	echo(int argc, char **argv);
 void	env(t_list2 *head);
 int		cd(int argc, char *argv[], t_vars *vars);
 int		pwd(void);
+int		export(int argc, char **argv, t_vars *vars);
 
 t_list2	*init_envp_list(char **envp);
 char	*my_getenv(const char *name, t_vars *vars);
 int		my_putenv(const char *key, const char *value, t_vars *vars);
 int		add_node(t_list2 **head, const char *name, const char *content);
+bool	is_valid_variable_name(const char *name);
 
 #endif
