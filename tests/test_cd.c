@@ -37,41 +37,29 @@ END_TEST
 START_TEST (test_cd_update_PWD_and_OLDPWD)
 {
     char *initial_dir = "/usr";
-    char *new_dir = "/bin";
-    
-    // Change to initial directory and update PWD and OLDPWD
-    cd(2, (char *[]){"cd", initial_dir, NULL});
-    my_putenv("PWD", initial_dir);
-    my_putenv("OLDPWD", initial_dir);
+    char *new_dir = "/tmp";
+
+    // Change to initial directory
+    int ret_val = cd(2, (char *[]){"cd", initial_dir, NULL});
+    ck_assert_int_eq(ret_val, 0); // Check that the return value is 0
+
+    // Manually update PWD and OLDPWD for the test
+	char *expected_oldpwd = "expected_oldpwd";
+    my_putenv("PWD", expected_oldpwd);
+    my_putenv("OLDPWD", "whatever");
 
     // Change to new directory
-    cd(2, (char *[]){"cd", new_dir, NULL});
+    ret_val = cd(2, (char *[]){"cd", new_dir, NULL});
+    ck_assert_int_eq(ret_val, 0); // Check that the return value is 0
 
-    char *pwd = NULL;
-    char *oldpwd = NULL;
-
-    t_list2* current = g_vars.envp_list;
-    while (current) {
-        if (strcmp(current->name, "PWD") == 0) {
-            pwd = current->content;
-        }
-        if (strcmp(current->name, "OLDPWD") == 0) {
-            oldpwd = current->content;
-        }
-        current = current->next;
-    }
-
-	printf("PWD: %s\n", pwd);      // Debugging print
-    printf("OLDPWD: %s\n", oldpwd); // Debugging print
-
-	printf("PWD: %s\n", getenv("PWD"));      // Debugging print
-    printf("OLDPWD: %s\n", getenv("OLDPWD")); // Debugging print
+    char *pwd = my_getenv("PWD");
+    char *oldpwd = my_getenv("OLDPWD");
 
     // Check that PWD is updated to the new directory
     ck_assert_str_eq(pwd, new_dir);
 
     // Check that OLDPWD is updated to the initial directory
-    ck_assert_str_eq(oldpwd, initial_dir);
+    ck_assert_str_eq(oldpwd, expected_oldpwd);
 }
 END_TEST
 
