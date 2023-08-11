@@ -6,16 +6,16 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:43:12 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/09 16:14:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/11 11:50:50 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-extern t_global	g_vars;
-
 int	cd(int argc, char *argv[])
 {
+	char cwd[1024];
+
 	if (argc > 2)
 	{
 		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
@@ -28,7 +28,15 @@ int	cd(int argc, char *argv[])
 		perror("cd");
 		return (-1);
 	}
-	my_putenv("PWD", getenv("PWD"));
-	my_putenv("OLDPWD", getenv("OLDPWD"));
+	my_putenv("OLDPWD", my_getenv("PWD"));
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	{
+		my_putenv("PWD", cwd);
+	}
+	else
+	{
+		perror("getcwd");
+		return (-1);
+	}
 	return (0);
 }
