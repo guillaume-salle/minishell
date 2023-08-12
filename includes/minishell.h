@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/12 20:14:05 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/12 21:01:34 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ typedef struct s_vars
 {
 	t_list2	*envp_list;
 }	t_vars;
+
+typedef struct s_heredoc
+{
+	char	*filename;
+	char	*file;
+}	t_heredoc;
 
 typedef struct s_commande{
 	char				*cmd;
