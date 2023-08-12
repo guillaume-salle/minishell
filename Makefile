@@ -6,7 +6,8 @@ INC_DIR		= includes
 
 SRCS		= main.c utils_env.c	\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
-			  builtins/pwd.c builtins/export.c builtins/unset.c
+			  builtins/pwd.c builtins/export.c builtins/unset.c	\
+			  builtins.c 
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
