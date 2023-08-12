@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:43:12 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 13:00:50 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/12 19:30:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	cd(int argc, char *argv[], t_vars *vars)
 {
-	char	cwd[1024];
+	char	*cwd;
 
 	if (argc > 2)
 	{
@@ -29,10 +29,9 @@ int	cd(int argc, char *argv[], t_vars *vars)
 		return (-1);
 	}
 	my_putenv("OLDPWD", my_getenv("PWD", vars), vars);
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
-	{
+	cwd = getcwd(NULL, 0);
+	if (cwd != NULL)
 		my_putenv("PWD", cwd, vars);
-	}
 	else
 	{
 		perror("getcwd");
