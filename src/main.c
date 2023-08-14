@@ -6,11 +6,16 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 12:35:58 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/14 11:56:26 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	execute(t_vars *vars)
+{
+	(void *) vars;
+}
 
 int	main(int argc, char *argv[], char *envp[])
 {
