@@ -6,15 +6,39 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/14 11:56:26 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 16:36:24 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	execute(t_vars *vars)
+void	execute_command(t_commande *command)
 {
-	(void *) vars;
+	pid_t	pid;
+	pid_t	wpid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (execvp(command->cmds_split[0], command->cmds_split) == -1)
+		{
+			perror("minishell");
+		}
+		exit(EXIT_FAILURE);
+	}
+	else if (pid < 0)
+	{
+		perror("minishell");
+	}
+	else
+	{
+		wpid = waitpid(pid, &status, WUNTRACED);
+		while (!WIFEXITED(status) && !WIFSIGNALED(status))
+		{
+			wpid = waitpid(pid, &status, WUNTRACED);
+		}
+	}
 }
 
 int	main(int argc, char *argv[], char *envp[])

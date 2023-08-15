@@ -37,7 +37,7 @@ START_TEST(test_env_empty) {
     }
 
     // Call env
-    env(env_list);
+    print_env(env_list);
     write(1, "\0", 1); // Write a null byte to the pipe to signal the end of the output
 
     // Read the buffer
@@ -63,7 +63,7 @@ START_TEST(test_env_single) {
     }
 
     // Call env
-    env(env_list);
+    print_env(env_list);
 
     // Read the buffer
     char buffer[128];
@@ -94,7 +94,7 @@ START_TEST(test_env) {
     }
 
     // Call env
-    env(env_list);
+    print_env(env_list);
 
     // Read the buffer
     char buffer[128];

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/14 11:55:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 16:38:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	exec_builtins(int argc, char *argv[], t_vars *vars)
 		ret = unset(argc, argv, vars);
 	if (ft_strcmp(cmd_name, "env") == 0)
 		ret = env(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "exit") == 0)
-		ret = exit(argc, argv, vars);
 	return (ret);
 }
 
@@ -39,6 +37,6 @@ int	exec_cmd(t_commande *cmd, t_vars *vars)
 {
 	int	ret;
 
-	ret = exec_builtins(cmd->cmds_split, vars);
+	ret = exec_builtins(cmd->argc, cmd->cmds_split, vars);
 	return (ret);
 }
