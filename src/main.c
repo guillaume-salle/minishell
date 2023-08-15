@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 16:36:24 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 16:58:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	execute_command(t_commande *command)
 {
 	pid_t	pid;
-	pid_t	wpid;
 	int		status;
 
 	pid = fork();
@@ -33,10 +32,10 @@ void	execute_command(t_commande *command)
 	}
 	else
 	{
-		wpid = waitpid(pid, &status, WUNTRACED);
+		waitpid(pid, &status, WUNTRACED);
 		while (!WIFEXITED(status) && !WIFSIGNALED(status))
 		{
-			wpid = waitpid(pid, &status, WUNTRACED);
+			waitpid(pid, &status, WUNTRACED);
 		}
 	}
 }
