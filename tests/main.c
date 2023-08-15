@@ -24,6 +24,7 @@ int main(int argc, char *argv[], char *envp[]) {
     srunner_add_suite(sr, s4);
     srunner_add_suite(sr, s5);
     srunner_add_suite(sr, s6);
+    srunner_add_suite(sr, s7);
 
     srunner_run_all(sr, CK_NORMAL);
     number_failed = srunner_ntests_failed(sr);
