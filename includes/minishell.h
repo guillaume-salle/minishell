@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 16:33:18 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 17:44:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		add_node(t_list2 **head, const char *name, const char *content);
 bool	is_valid_variable_name(const char *name);
 
 //TESTING
-void	execute_command(t_commande *command);
+void	execute_command(t_commande *command, t_vars *vars);
 void	print_env(t_list2 *head);
 
 #endif

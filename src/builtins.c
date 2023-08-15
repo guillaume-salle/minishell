@@ -6,13 +6,38 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 16:38:00 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 17:45:26 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_builtins(int argc, char *argv[], t_vars *vars)
+static bool	is_builtin(const char *cmd)
+{
+	int			i;
+	const char	*builtins[] = {
+		"cd",
+		"echo",
+		"env",
+		"pwd",
+		"export",
+		"unset",
+		NULL
+	};
+
+	i = 0;
+	while (builtins[i])
+	{
+		if (ft_strcmp(cmd, builtins[i]) == 0)
+		{
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+static int	exec_builtin(int argc, char *argv[], t_vars *vars)
 {
 	int		ret;
 	char	*cmd_name;
@@ -33,10 +58,37 @@ int	exec_builtins(int argc, char *argv[], t_vars *vars)
 	return (ret);
 }
 
-int	exec_cmd(t_commande *cmd, t_vars *vars)
+static void	child_routine(t_commande *cmd, t_vars *vars)
 {
-	int	ret;
+	if (is_builtin(cmd->cmds_split[0]) 
+		&& exec_builtin(cmd->argc, cmd->cmds_split, vars) == -1)
+	{
+		perror("builtin");
+		exit(EXIT_FAILURE);
+	}
+	else if (execvp(cmd->cmds_split[0], cmd->cmds_split) == -1)
+	{
+		perror("minishell");
+		exit(EXIT_FAILURE);
+	}
+}
 
-	ret = exec_builtins(cmd->argc, cmd->cmds_split, vars);
-	return (ret);
+void	execute_command(t_commande *cmd, t_vars *vars)
+{
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		child_routine(cmd, vars);
+	}
+	else if (pid < 0)
+		perror("fork");
+	else
+	{
+		waitpid(pid, &status, WUNTRACED);
+		while (!WIFEXITED(status) && !WIFSIGNALED(status))
+			waitpid(pid, &status, WUNTRACED);
+	}
 }
