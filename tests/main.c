@@ -7,7 +7,7 @@ int main(int argc, char *argv[], char *envp[]) {
 	g_vars.envp_list = init_envp_list(envp);
    
    	int number_failed;
-    Suite *s1, *s2, *s3, *s4, *s5, *s6;
+    Suite *s1, *s2, *s3, *s4, *s5, *s6, *s7;
     SRunner *sr;
 
     s1 = echo_suite();
@@ -16,6 +16,7 @@ int main(int argc, char *argv[], char *envp[]) {
 	s4 = pwd_suite();
 	s5 = export_suite();
 	s6 = unset_suite();
+	s7 = execute_command_suite();
 
     sr = srunner_create(s1);
     srunner_add_suite(sr, s2);
