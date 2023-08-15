@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 18:25:48 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 18:26:30 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void	execute_command(t_commande *cmd, t_vars *vars);
 void	execute_command(t_commande *command, t_vars *vars);
 void	print_env(t_list2 *head);
 int		exec_builtin(int argc, char *argv[], t_vars *vars);
+bool	is_builtin(const char *cmd);
 
 #endif
