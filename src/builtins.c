@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 17:45:26 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 18:25:49 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	is_builtin(const char *cmd)
 	return (false);
 }
 
-static int	exec_builtin(int argc, char *argv[], t_vars *vars)
+int	exec_builtin(int argc, char *argv[], t_vars *vars)
 {
 	int		ret;
 	char	*cmd_name;
