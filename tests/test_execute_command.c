@@ -20,7 +20,7 @@ START_TEST(test_exec_builtin_echo) {
     // Assuming that initializing 'vars' isn't necessary for this test
     // If necessary, initialize 'vars' here
 
-    int result = exec_builtin(2, (char *[]){"echo", "test_echo"}, &vars);
+    int result = exec_builtin(2, (char *[]){"echo", "test_echo", NULL}, &vars);
     ck_assert_int_eq(result, 0);  // Assuming '0' means success in your builtins
 }
 END_TEST
@@ -29,7 +29,7 @@ START_TEST(test_exec_builtin_invalid) {
     t_vars vars;
     // Again, assuming 'vars' initialization isn't needed here
 
-    int result = exec_builtin(1, (char *[]){"invalidcmd"}, &vars);
+    int result = exec_builtin(1, (char *[]){"invalidcmd", NULL}, &vars);
     // Expecting some error code here for an invalid command, let's assume '-1' for simplicity
     ck_assert_int_eq(result, -1);
 }
@@ -42,24 +42,24 @@ END_TEST
 
 START_TEST(test_execute_command_builtin) {
     t_commande cmd;
-    cmd.cmds_split = (char *[]){"echo", "test_execute_command"};
+    cmd.cmds_split = (char *[]){"echo", "test_execute_command", NULL};
     cmd.argc = 2;
     t_vars vars;
     // Initialize 'vars' if needed
 
     // Redirect stdout to a buffer, so we can check the output
-
-    char buffer[128];
-    int old_stdout = dup(1);
-    FILE* new_stdout = fmemopen(buffer, 128, "w");
-    dup2(fileno(new_stdout), 1);
+    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
+        ck_abort_msg("Failed to redirect stdout to buffer");
+    }
 
     execute_command(&cmd, &vars);
 
-    fflush(new_stdout);
-    fclose(new_stdout);
-    dup2(old_stdout, 1);
-    close(old_stdout);
+	// Restore 
+    char buffer[128];
+    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
+    if (len == -1) {
+        ck_abort_msg("Failed to restore stdout and read buffer");
+    }
 
     ck_assert_str_eq(buffer, "test_execute_command\n");  // Assuming echo appends a newline
 }
@@ -76,7 +76,7 @@ Suite* execute_command_suite(void) {
     tcase_add_test(tc_core, test_is_builtin);
     tcase_add_test(tc_core, test_exec_builtin_echo);
     tcase_add_test(tc_core, test_exec_builtin_invalid);
-//    tcase_add_test(tc_core, test_execute_command_builtin);
+    tcase_add_test(tc_core, test_execute_command_builtin);
     
     suite_add_tcase(s, tc_core);
 
