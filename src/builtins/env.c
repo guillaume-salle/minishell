@@ -6,13 +6,13 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/10 18:54:46 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 16:25:48 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	env(t_list2 *head)
+void	print_env(t_list2 *head)
 {
 	t_list2	*current;
 
@@ -25,4 +25,12 @@ void	env(t_list2 *head)
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		current = current->next;
 	}
+}
+
+int	env(int argc, char *argv[], t_vars *vars)
+{
+	(void) argc;
+	(void) argv;
+	print_env(vars->envp_list);
+	return (0);
 }

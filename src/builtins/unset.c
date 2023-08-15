@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:02:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 18:21:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 16:20:39 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	remove_variable(const char *name, t_list2 **envp_list)
 	return (-1);
 }
 
-void	unset(int argc, char *argv[], t_vars *vars)
+int	unset(int argc, char *argv[], t_vars *vars)
 {
 	int	i;
 
@@ -48,4 +48,5 @@ void	unset(int argc, char *argv[], t_vars *vars)
 		remove_variable(argv[i], &vars->envp_list);
 		i++;
 	}
+	return (0);
 }
