@@ -8,7 +8,7 @@ void run_test_echo(char* test_strings[], char* expected_output) {
 	int argc = 0;
 	while (test_strings[argc] != NULL)
 		argc++;
-    echo(argc, test_strings);
+    echo(argc, test_strings, NULL);
 	if (strlen(expected_output) == 0)
 		write(1, "\0", 1);
 
