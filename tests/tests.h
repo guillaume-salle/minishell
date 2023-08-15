@@ -18,5 +18,6 @@ Suite* cd_suite(void);
 Suite* pwd_suite(void);
 Suite* export_suite(void);
 Suite* unset_suite(void);
+Suite* execute_command_suite(void);
 
 #endif // TEST_H
