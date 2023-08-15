@@ -10,7 +10,7 @@ void run_test_pwd() {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
-    int ret = pwd();
+    int ret = pwd(0, NULL, NULL);
     ck_assert_msg(ret == 0, "pwd function failed");
 	
     char buffer[1024];
