@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.c                                         :+:      :+:    :+:   */
+/*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 18:26:20 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/15 18:45:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	exec_builtin(int argc, char *argv[], t_vars *vars)
 	char	*cmd_name;
 
 	cmd_name = argv[0];
+	ret = -1;
 	if (ft_strcmp(cmd_name, "echo") == 0)
 		ret = echo(argc, argv, vars);
 	if (ft_strcmp(cmd_name, "cd") == 0)
