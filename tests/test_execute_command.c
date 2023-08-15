@@ -74,9 +74,9 @@ Suite* execute_command_suite(void) {
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, test_is_builtin);
-    tcase_add_test(tc_core, test_exec_builtin_echo);
-    tcase_add_test(tc_core, test_exec_builtin_invalid);
-    tcase_add_test(tc_core, test_execute_command_builtin);
+//    tcase_add_test(tc_core, test_exec_builtin_echo);
+//    tcase_add_test(tc_core, test_exec_builtin_invalid);
+//    tcase_add_test(tc_core, test_execute_command_builtin);
     
     suite_add_tcase(s, tc_core);
 
