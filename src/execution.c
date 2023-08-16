@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 18:45:54 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/16 16:15:31 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,13 @@ int	exec_builtin(int argc, char *argv[], t_vars *vars)
 
 static void	child_routine(t_commande *cmd, t_vars *vars)
 {
-	if (is_builtin(cmd->cmds_split[0]) 
-		&& exec_builtin(cmd->argc, cmd->cmds_split, vars) == -1)
+	if (is_builtin(cmd->cmds_split[0]))
 	{
-		perror("builtin");
-		exit(EXIT_FAILURE);
+		if (exec_builtin(cmd->argc, cmd->cmds_split, vars) == -1)
+		{
+			perror("builtin");
+			exit(EXIT_FAILURE);
+		}
 	}
 	else if (execvp(cmd->cmds_split[0], cmd->cmds_split) == -1)
 	{
