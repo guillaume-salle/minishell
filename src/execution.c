@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/16 16:15:31 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/16 16:26:58 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,14 @@ static void	child_routine(t_commande *cmd, t_vars *vars)
 			perror("builtin");
 			exit(EXIT_FAILURE);
 		}
+		exit(EXIT_SUCCESS);
 	}
 	else if (execvp(cmd->cmds_split[0], cmd->cmds_split) == -1)
 	{
 		perror("minishell");
 		exit(EXIT_FAILURE);
 	}
+	exit(EXIT_FAILURE);
 }
 
 void	execute_command(t_commande *cmd, t_vars *vars)
