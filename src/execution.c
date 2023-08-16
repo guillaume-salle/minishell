@@ -3,97 +3,124 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 19:54:05 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/16 16:26:58 by gusalle          ###   ########.fr       */
+/*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
+/*   Updated: 2023/08/16 19:11:27 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	is_builtin(const char *cmd)
-{
-	int			i;
-	const char	*builtins[] = {
-		"cd",
-		"echo",
-		"env",
-		"pwd",
-		"export",
-		"unset",
-		NULL
-	};
 
-	i = 0;
-	while (builtins[i])
-	{
-		if (ft_strcmp(cmd, builtins[i]) == 0)
-		{
-			return (true);
-		}
-		i++;
-	}
-	return (false);
+//void exec_command(t_commande *cmd) {
+//    int fd;
+//
+//    if (!cmd) return;
+//
+//    switch (cmd->id) {
+//        case R_DIR:
+//            fd = open(cmd->cmds_split[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//            if (fd == -1) {
+//                perror("open"); exit(1);
+//            }
+//            dup2(fd, STDOUT_FILENO);
+//            close(fd);
+//            execvp(cmd->cmds_split[0], cmd->cmds_split);
+//            perror("execvp");
+//            exit(1);
+//            break;
+//        case L_DIR:
+//            fd = open(cmd->cmds_split[1], O_RDONLY);
+//            if (fd == -1) {
+//                perror("open");
+//                exit(1);
+//            }
+//            dup2(fd, STDIN_FILENO);
+//            close(fd);
+//            execvp(cmd->cmds_split[0], cmd->cmds_split);
+//            perror("execvp");
+//            exit(1);
+//            break;
+//        case RD_DIR:
+//            fd = open(cmd->cmds_split[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+//            if (fd == -1) {
+//                perror("open");
+//                exit(1);
+//            }
+//            dup2(fd, STDOUT_FILENO);
+//            close(fd);
+//            execvp(cmd->cmds_split[0], cmd->cmds_split);
+//            perror("execvp");
+//            exit(1);
+//            break;
+//        case LD_DIR:
+//            // Handle heredoc '<<'
+//            break;
+//        case WORD:
+//            execvp(cmd->cmd, cmd->cmds_split);
+//            perror("execvp");
+//            exit(1);
+//            break;
+//    }
+//}
+
+void exec_command(t_commande *cmd) {
+    if (cmd->id == WORD) {
+        if (execvp(cmd->cmds_split[0], cmd->cmds_split) == -1) {
+            perror("minishell: command not found");
+            exit(EXIT_FAILURE);
+        }
+    }
+    // Further redirection cases and other id types can be handled here
+    // E.g., R_DIR, L_DIR, etc.
 }
 
-int	exec_builtin(int argc, char *argv[], t_vars *vars)
-{
-	int		ret;
-	char	*cmd_name;
+void exec_partition(t_partition *part) {
+    int pipe_fd[2];
+    int pid;
 
-	cmd_name = argv[0];
-	ret = -1;
-	if (ft_strcmp(cmd_name, "echo") == 0)
-		ret = echo(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "cd") == 0)
-		ret = cd(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "pwd") == 0)
-		ret = pwd(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "export") == 0)
-		ret = export(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "unset") == 0)
-		ret = unset(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "env") == 0)
-		ret = env(argc, argv, vars);
-	return (ret);
+    for (t_commande *cmd = part->cmds; cmd != NULL; cmd = cmd->next) {
+        if (cmd->next) {  // If there's a next command, set up a pipe
+            if (pipe(pipe_fd) == -1) {
+                perror("minishell: pipe error");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        pid = fork();
+
+        if (pid == 0) {  // Child
+            if (cmd->next) {
+                close(pipe_fd[0]);  // Close read end
+                dup2(pipe_fd[1], STDOUT_FILENO);
+                close(pipe_fd[1]);
+            }
+
+            exec_command(cmd);
+            exit(EXIT_SUCCESS);
+        } else if (pid > 0) {  // Parent
+            wait(NULL);  // Wait for child to finish
+
+            if (cmd->next) {
+                close(pipe_fd[1]);  // Close write end
+                dup2(pipe_fd[0], STDIN_FILENO);
+                close(pipe_fd[0]);
+            }
+        } else {
+            perror("minishell: fork error");
+            exit(EXIT_FAILURE);
+        }
+    }
 }
 
-static void	child_routine(t_commande *cmd, t_vars *vars)
-{
-	if (is_builtin(cmd->cmds_split[0]))
-	{
-		if (exec_builtin(cmd->argc, cmd->cmds_split, vars) == -1)
-		{
-			perror("builtin");
-			exit(EXIT_FAILURE);
-		}
-		exit(EXIT_SUCCESS);
-	}
-	else if (execvp(cmd->cmds_split[0], cmd->cmds_split) == -1)
-	{
-		perror("minishell");
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_FAILURE);
-}
-
-void	execute_command(t_commande *cmd, t_vars *vars)
-{
-	pid_t	pid;
-	int		status;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		child_routine(cmd, vars);
-	}
-	else if (pid < 0)
-		perror("fork");
-	else
-	{
-		waitpid(pid, &status, WUNTRACED);
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-			waitpid(pid, &status, WUNTRACED);
-	}
-}
+//int main() {
+//    t_partition *part = // ... Initialize your partitions
+//
+//    while (part) {
+//        exec_partition(part);
+//        part = part->next;
+//    }
+//
+//    return 0;
+//}

@@ -1,12 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*   minishell.h                                        :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 17:33:58 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 18:26:30 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/16 19:05:44 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +13,21 @@
 # define MINISHELL_H
 
 # include "libft.h"
-# include "stdio.h"
-# include "stdbool.h"
+# include <stdbool.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <fcntl.h>
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
+# define WORD 0
+# define R_DIR 1
+# define L_DIR 2
+# define RD_DIR 3
+# define LD_DIR 4
 
 typedef struct s_list2
 {
@@ -40,7 +47,8 @@ typedef struct s_heredoc
 	char	*file;
 }	t_heredoc;
 
-typedef struct s_commande{
+typedef struct s_commande
+{
 	char				*cmd;
 	int					argc;
 	char				**cmds_split;
@@ -48,6 +56,13 @@ typedef struct s_commande{
 	t_heredoc			*hd;
 	struct s_commande	*next;
 }	t_commande;
+
+typedef struct s_partition
+{
+    t_commande			*cmds;
+    int					pid;
+    struct s_partition	*next;
+}	t_partition;
 
 int		echo(int argc, char *argv[], t_vars *vars);
 int		env(int argc, char *argv[], t_vars *vars);
@@ -68,5 +83,8 @@ void	execute_command(t_commande *command, t_vars *vars);
 void	print_env(t_list2 *head);
 int		exec_builtin(int argc, char *argv[], t_vars *vars);
 bool	is_builtin(const char *cmd);
+
+//CHATGPT
+void exec_partition(t_partition *part);
 
 #endif
