@@ -64,6 +64,7 @@ typedef struct s_partition
     struct s_partition	*next;
 }	t_partition;
 
+//BUILTINS
 int		echo(int argc, char *argv[], t_vars *vars);
 int		env(int argc, char *argv[], t_vars *vars);
 int		cd(int argc, char *argv[], t_vars *vars);
@@ -71,20 +72,20 @@ int		pwd(int argc, char **argv, t_vars *vars);
 int		export(int argc, char **argv, t_vars *vars);
 int		unset(int argc, char *argv[], t_vars *vars);
 
+//UTILS
 t_list2	*init_envp_list(char **envp);
 char	*my_getenv(const char *name, t_vars *vars);
 int		my_putenv(const char *key, const char *value, t_vars *vars);
 int		add_node(t_list2 **head, const char *name, const char *content);
 bool	is_valid_variable_name(const char *name);
-void	execute_command(t_commande *cmd, t_vars *vars);
 
 //TESTING
-void	execute_command(t_commande *command, t_vars *vars);
 void	print_env(t_list2 *head);
 int		exec_builtin(int argc, char *argv[], t_vars *vars);
 bool	is_builtin(const char *cmd);
 
-//CHATGPT
-void exec_partition(t_partition *part);
+//EXECUTION
+void	my_execvp(t_commande *command, t_vars *vars);
+void	exec_partition(t_partition *part);
 
 #endif

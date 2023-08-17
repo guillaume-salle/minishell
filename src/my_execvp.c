@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   my_execvp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/16 18:36:38 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/16 18:36:40 by gusalle          ###   ########.fr       */
+/*   Created: 2023/08/17 17:34:43 by gusalle           #+#    #+#             */
+/*   Updated: 2023/08/17 17:37:24 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	child_routine(t_commande *cmd, t_vars *vars)
 	exit(EXIT_FAILURE);
 }
 
-void	execute_command(t_commande *cmd, t_vars *vars)
+void	my_execvp(t_commande *cmd, t_vars *vars)
 {
 	pid_t	pid;
 	int		status;
