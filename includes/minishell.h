@@ -81,11 +81,9 @@ bool	is_valid_variable_name(const char *name);
 
 //TESTING
 void	print_env(t_list2 *head);
-int		exec_builtin(int argc, char *argv[], t_vars *vars);
-bool	is_builtin(const char *cmd);
 
 //EXECUTION
-void	my_execvp(t_commande *command, t_vars *vars);
-void	exec_partition(t_partition *part);
+void	exec_command(t_commande *cmd, t_vars *vars);
+void	exec_partition(t_partition *part, t_vars *vars);
 
 #endif

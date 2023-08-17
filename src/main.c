@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/16 19:11:58 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/17 18:25:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,17 @@ void free_partition(t_partition *part) {
 }
 
 
-int main() {
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_vars	vars;
+
+	(void) argc;
+	(void) argv;
+	ft_memset(&vars, 0, sizeof(t_vars));
+	vars.envp_list = init_envp_list(envp);
+	if (!vars.envp_list)
+		return (-1);
+
     // Initialize a heredoc (not used in this example, but shown for completeness)
     t_heredoc *hd = malloc(sizeof(t_heredoc));
     hd->filename = ft_strdup("some_file");
@@ -108,7 +118,7 @@ int main() {
     part->next = NULL;
 
 	// Execute partition
-    exec_partition(part);
+    exec_partition(part, &vars);
 
     // Cleaning up
     free_partition(part);
