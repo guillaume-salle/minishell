@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/16 19:11:27 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/17 17:37:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@
 //    }
 //}
 
-void exec_command(t_commande *cmd) {
+void exec_command(t_commande *cmd, t_vars *vars)
+{
     if (cmd->id == WORD) {
         if (execvp(cmd->cmds_split[0], cmd->cmds_split) == -1) {
             perror("minishell: command not found");
@@ -76,7 +77,8 @@ void exec_command(t_commande *cmd) {
     // E.g., R_DIR, L_DIR, etc.
 }
 
-void exec_partition(t_partition *part) {
+void exec_partition(t_partition *part, t_vars *vars)
+{
     int pipe_fd[2];
     int pid;
 
