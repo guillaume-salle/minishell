@@ -11,6 +11,8 @@ void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
     }
 
 	exec_command(cmd, vars);
+	if (strlen(expected_output) == 0)
+		write(fd, "\0", 1);
 
     char buffer[1024];
     ssize_t len = restore_fd_and_read_buffer(fd, buffer, sizeof(buffer));
