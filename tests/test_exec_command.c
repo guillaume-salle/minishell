@@ -4,7 +4,7 @@ extern t_vars g_vars;
 
 #include <check.h>
 
-void run_test_cmd(char* cmd[], char* expected_output) {
+void run_test_cmd(char* cmd[], char* expected_output, t_vars vars) {
     if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
@@ -22,11 +22,21 @@ void run_test_cmd(char* cmd[], char* expected_output) {
 
 START_TEST(test_exec_builtin_echo) {
     t_vars vars;
-    // Assuming that initializing 'vars' isn't necessary for this test
-    // If necessary, initialize 'vars' here
 
-    int result = my_execvp((char *[]){"echo", "test_echo", NULL}, &vars);
-    ck_assert_int_eq(result, 0);  // Assuming '0' means success in your builtins
+	char* test_strings[] = {"echo", "Hello,", "World!", NULL};
+	char* expected_output = "Hello, World!\n";
+
+	run_test_cmd(test_strings, expected_output, vars);
+}
+END_TEST
+
+START_TEST(test_exec_builtin_echo_2) {
+    t_vars vars;
+
+	char* test_strings[] = {"echo", "-s", "Hello,", "World!", NULL};
+	char* expected_output = "-s Hello, World!\n";
+
+	run_test_cmd(test_strings, expected_output, vars);
 }
 END_TEST
 
@@ -39,6 +49,7 @@ Suite* execute_command_suite(void) {
     tc_core = tcase_create("Core");
 
     tcase_add_test(tc_core, test_exec_builtin_echo);
+    tcase_add_test(tc_core, test_exec_builtin_echo_2);
     
     suite_add_tcase(s, tc_core);
 
