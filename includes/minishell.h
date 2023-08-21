@@ -79,6 +79,11 @@ int		my_putenv(const char *key, const char *value, t_vars *vars);
 int		add_node(t_list2 **head, const char *name, const char *content);
 bool	is_valid_variable_name(const char *name);
 
+//FREE
+void	free_heredoc(t_heredoc *hd);
+void	free_commande(t_commande *cmd);
+void	free_partition(t_partition *part);
+
 //TESTING
 void	print_env(t_list2 *head);
 
