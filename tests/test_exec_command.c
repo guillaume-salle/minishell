@@ -4,15 +4,16 @@ extern t_vars g_vars;
 
 #include <check.h>
 
-void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars) {
-    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
+void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
+		int fd) {
+    if (redirect_fd_to_buffer(fd) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
 	exec_command(cmd, vars);
 
     char buffer[1024];
-    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
+    ssize_t len = restore_fd_and_read_buffer(fd, buffer, sizeof(buffer));
     if (len == -1) {
         ck_abort_msg("Failed to restore stdout and read buffer");
     }
@@ -22,7 +23,7 @@ void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars) {
 			expected_output, buffer);
 }
 
-START_TEST(test_exec_builtin_echo) {
+START_TEST(test_exec_builtin_echo_1) {
     t_vars vars;
 	t_commande cmd;
 
@@ -31,7 +32,7 @@ START_TEST(test_exec_builtin_echo) {
 	cmd.id = WORD;
 	char* expected_output = "Hello, World!\n";
 
-	run_test_cmd(&cmd, expected_output, &vars);
+	run_test_cmd(&cmd, expected_output, &vars, STDOUT_FILENO);
 }
 END_TEST
 
@@ -44,7 +45,42 @@ START_TEST(test_exec_builtin_echo_2) {
 	cmd.id = WORD;
 	char* expected_output = "-s Hello, World!\n";
 
-	run_test_cmd(&cmd, expected_output, &vars);
+	run_test_cmd(&cmd, expected_output, &vars, STDOUT_FILENO);
+}
+END_TEST
+
+START_TEST(test_exec_builtin_cd_1) {
+	t_commande cmd;
+
+	char *new_dir = "/usr";
+	char* test_strings[] = {"cd", new_dir, NULL};
+	cmd.cmds_split = test_strings;
+	cmd.id = WORD;
+	cmd.argc = 2;
+	char* expected_output = "";
+
+	run_test_cmd(&cmd, expected_output, &g_vars, STDOUT_FILENO);
+
+    char cwd[1024];
+    getcwd(cwd, sizeof(cwd));
+    ck_assert_str_eq(cwd, new_dir);
+}
+END_TEST
+
+START_TEST (test_exec_builtin_cd_2) {
+	t_commande cmd;
+
+    char *new_dir = "/nonexistentdirectory";
+    char buffer[1024];
+
+
+	char* test_strings[] = {"cd", new_dir, NULL};
+	cmd.cmds_split = test_strings;
+	cmd.id = WORD;
+	cmd.argc = 2;
+	char* expected_output = "cd: No such file or directory\n";
+
+	run_test_cmd(&cmd, expected_output, &g_vars, STDOUT_FILENO);
 }
 END_TEST
 
