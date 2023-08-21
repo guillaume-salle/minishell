@@ -1,6 +1,6 @@
 #include "tests.h"
 
-void run_test_echo(char* test_strings[], char* expected_output) {
+static void run_test_echo(char* test_strings[], char* expected_output) {
     if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
