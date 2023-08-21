@@ -31,7 +31,7 @@ START_TEST(test_exec_builtin_echo) {
 	cmd->id = WORD;
 	char* expected_output = "Hello, World!\n";
 
-	run_test_cmd(test_strings, expected_output, vars);
+	run_test_cmd(&cmd, expected_output, &vars);
 }
 END_TEST
 
@@ -43,7 +43,7 @@ START_TEST(test_exec_builtin_echo_2) {
 	cmd->id = WORD;
 	char* expected_output = "-s Hello, World!\n";
 
-	run_test_cmd(test_strings, expected_output, vars);
+	run_test_cmd(&cmd, expected_output, &vars);
 }
 END_TEST
 
