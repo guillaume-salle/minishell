@@ -86,6 +86,6 @@ void	print_env(t_list2 *head);
 //EXECUTION
 void	exec_command(t_commande *cmd, t_vars *vars);
 void	exec_partition(t_partition *part, t_vars *vars);
-int		my_execvp(char *argv[], t_vars *vars)
+int		my_execvp(char *argv[], t_vars *vars);
 
 #endif
