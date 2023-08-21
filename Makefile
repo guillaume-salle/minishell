@@ -53,7 +53,7 @@ TESTS_DIR	= tests
 TESTS_SRCS	= main.c utils.c\
 			  test_echo.c test_env.c test_cd.c test_pwd.c	\
 			  test_export.c test_unset.c	\
-			  test_execute_command.c
+			  test_exec_command.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 test.exe: $(TESTS) $(LIBFT_LIB)
