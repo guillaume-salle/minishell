@@ -92,7 +92,7 @@ Suite* execute_command_suite(void) {
 
     tc_core = tcase_create("Core");
 
-    tcase_add_test(tc_core, test_exec_builtin_echo);
+    tcase_add_test(tc_core, test_exec_builtin_echo_1);
     tcase_add_test(tc_core, test_exec_builtin_echo_2);
     tcase_add_test(tc_core, test_exec_builtin_cd_1);
     tcase_add_test(tc_core, test_exec_builtin_cd_2);
