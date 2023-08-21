@@ -37,6 +37,7 @@ END_TEST
 
 START_TEST(test_exec_builtin_echo_2) {
     t_vars vars;
+	t_commande cmd;
 
 	char* test_strings[] = {"echo", "-s", "Hello,", "World!", NULL};
 	cmd.cmds_split = test_strings;
