@@ -27,8 +27,8 @@ START_TEST(test_exec_builtin_echo) {
 	t_commande cmd;
 
 	char* test_strings[] = {"echo", "Hello,", "World!", NULL};
-	cmd->cmds_split = test_strings;
-	cmd->id = WORD;
+	cmd.cmds_split = test_strings;
+	cmd.id = WORD;
 	char* expected_output = "Hello, World!\n";
 
 	run_test_cmd(&cmd, expected_output, &vars);
@@ -39,8 +39,8 @@ START_TEST(test_exec_builtin_echo_2) {
     t_vars vars;
 
 	char* test_strings[] = {"echo", "-s", "Hello,", "World!", NULL};
-	cmd->cmds_split = test_strings;
-	cmd->id = WORD;
+	cmd.cmds_split = test_strings;
+	cmd.id = WORD;
 	char* expected_output = "-s Hello, World!\n";
 
 	run_test_cmd(&cmd, expected_output, &vars);
