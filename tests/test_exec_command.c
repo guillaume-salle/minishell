@@ -2,8 +2,6 @@
 
 extern t_vars g_vars;
 
-#include <check.h>
-
 void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
 		int fd) {
     if (redirect_fd_to_buffer(fd) == -1) {

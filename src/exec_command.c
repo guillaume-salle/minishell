@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:34:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/21 14:58:37 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/21 21:30:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	exec_command(t_commande *cmd, t_vars *vars)
 		if (my_execvp(cmd->cmds_split, vars) == -1)
 		{
 			perror("minishell: command not found");
-			exit(EXIT_FAILURE);
 		}
 	}
 }
