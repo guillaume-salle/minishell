@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:34:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/21 21:31:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/21 21:33:05 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ void	exec_command(t_commande *cmd, t_vars *vars)
 	if (cmd->id == WORD)
 	{
 		if (my_execvp(cmd->cmds_split, vars) == -1)
-			;
+		{
+		}
 	}
 }
 // Further redirection cases and other id types can be handled here
