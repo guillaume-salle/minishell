@@ -82,7 +82,7 @@ START_TEST (test_exec_builtin_cd_2) {
 	cmd.argc = 2;
 	char* expected_output = "cd: No such file or directory\n";
 
-	run_test_cmd(&cmd, expected_output, &g_vars, STDOUT_FILENO);
+	run_test_cmd(&cmd, expected_output, &g_vars, STDERR_FILENO);
 }
 END_TEST
 
