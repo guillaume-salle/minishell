@@ -94,6 +94,8 @@ Suite* execute_command_suite(void) {
 
     tcase_add_test(tc_core, test_exec_builtin_echo);
     tcase_add_test(tc_core, test_exec_builtin_echo_2);
+    tcase_add_test(tc_core, test_exec_builtin_cd_1);
+    tcase_add_test(tc_core, test_exec_builtin_cd_2);
     
     suite_add_tcase(s, tc_core);
 
