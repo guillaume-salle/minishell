@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:34:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/17 19:01:42 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/21 14:58:37 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 //	return (false);
 //}
 
-static int	my_execvp(char *argv[], t_vars *vars)
+int	my_execvp(char *argv[], t_vars *vars)
 {
 	int		ret;
 	int		argc;

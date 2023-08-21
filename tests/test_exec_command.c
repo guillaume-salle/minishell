@@ -4,6 +4,22 @@ extern t_vars g_vars;
 
 #include <check.h>
 
+void run_test_cmd(char* cmd[], char* expected_output) {
+    if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
+        ck_abort_msg("Failed to redirect stdout to buffer");
+    }
+
+    char buffer[1024];
+    ssize_t len = restore_fd_and_read_buffer(STDOUT_FILENO, buffer, sizeof(buffer));
+    if (len == -1) {
+        ck_abort_msg("Failed to restore stdout and read buffer");
+    }
+
+    ck_assert_msg(strcmp(buffer, expected_output) == 0,
+			"Expected output was '%s', but actual output was '%s'",
+			expected_output, buffer);
+}
+
 START_TEST(test_exec_builtin_echo) {
     t_vars vars;
     // Assuming that initializing 'vars' isn't necessary for this test
