@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/21 15:38:08 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:43:34 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,7 @@ int	main(int argc, char *argv[], char *envp[])
 	vars.envp_list = init_envp_list(envp);
 	if (!vars.envp_list)
 		return (-1);
-	// Initialize a heredoc (not used in this example,
-		but shown for completeness)
+	// Initialize a heredoc (not used in this example, but shown for completeness)
 	hd = malloc(sizeof(t_heredoc));
 	hd->filename = ft_strdup("some_file");
 	hd->file = ft_strdup("This is the content of some_file.");
