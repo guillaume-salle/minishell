@@ -6,63 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/17 19:15:37 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/23 16:32:18 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//void exec_command(t_commande *cmd) {
-//    int fd;
-//
-//    if (!cmd) return;
-//
-//    switch (cmd->id) {
-//        case R_DIR:
-//            fd = open(cmd->cmds_split[1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-//            if (fd == -1) {
-//                perror("open"); exit(1);
-//            }
-//            dup2(fd, STDOUT_FILENO);
-//            close(fd);
-//            execvp(cmd->cmds_split[0], cmd->cmds_split);
-//            perror("execvp");
-//            exit(1);
-//            break;
-//        case L_DIR:
-//            fd = open(cmd->cmds_split[1], O_RDONLY);
-//            if (fd == -1) {
-//                perror("open");
-//                exit(1);
-//            }
-//            dup2(fd, STDIN_FILENO);
-//            close(fd);
-//            execvp(cmd->cmds_split[0], cmd->cmds_split);
-//            perror("execvp");
-//            exit(1);
-//            break;
-//        case RD_DIR:
-//            fd = open(cmd->cmds_split[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
-//            if (fd == -1) {
-//                perror("open");
-//                exit(1);
-//            }
-//            dup2(fd, STDOUT_FILENO);
-//            close(fd);
-//            execvp(cmd->cmds_split[0], cmd->cmds_split);
-//            perror("execvp");
-//            exit(1);
-//            break;
-//        case LD_DIR:
-//            // Handle heredoc '<<'
-//            break;
-//        case WORD:
-//            execvp(cmd->cmd, cmd->cmds_split);
-//            perror("execvp");
-//            exit(1);
-//            break;
-//    }
-//}
 
 void	child_routine(int pipe_fd[2], t_commande *cmd, t_vars *vars)
 {
@@ -89,12 +37,13 @@ void	parent_routine(int pipe_fd[2], t_commande *cmd)
 
 void	pipe_and_fork(t_commande *cmd, t_vars *vars)
 {
-    int			pipe_fd[2];
-    int			pid;
+	int	pipe_fd[2];
+	int	pid;
 
 	if (cmd->next)
 	{
-		if (pipe(pipe_fd) == -1) {
+		if (pipe(pipe_fd) == -1)
+		{
 			perror("minishell: pipe error");
 			exit(EXIT_FAILURE);
 		}
@@ -110,12 +59,12 @@ void	pipe_and_fork(t_commande *cmd, t_vars *vars)
 	}
 	else
 	{
-	    perror("minishell: fork error");
-	    exit(EXIT_FAILURE);
+		perror("minishell: fork error");
+		exit(EXIT_FAILURE);
 	}
 }
 
-void exec_partition(t_partition *part, t_vars *vars)
+void	exec_partition(t_partition *part, t_vars *vars)
 {
 	t_commande	*cmd;
 
@@ -124,16 +73,5 @@ void exec_partition(t_partition *part, t_vars *vars)
 	{
 		pipe_and_fork(cmd, vars);
 		cmd = cmd->next;
-    }
+	}
 }
-
-//int main() {
-//    t_partition *part = // ... Initialize your partitions
-//
-//    while (part) {
-//        exec_partition(part);
-//        part = part->next;
-//    }
-//
-//    return 0;
-//}
