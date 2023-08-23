@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 17:34:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/23 17:19:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/23 17:28:30 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	exec_command(t_commande *cmd, t_vars *vars)
 	else if (cmd->id == R_DIR || cmd->id == RD_DIR)
 		exec_r_rd(cmd, vars);
 	else if (cmd->id == L_DIR)
-		exec_l_dir(cmd->cmds_split, vars);
+		exec_l_dir(cmd, vars);
 	else if (cmd->id == LD_DIR)
-		exec_ld_dir(cmd->cmds_split, vars);
+		exec_ld_dir(cmd, vars);
 }
