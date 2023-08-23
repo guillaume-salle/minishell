@@ -20,6 +20,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
@@ -91,6 +93,7 @@ void	print_env(t_list2 *head);
 //EXECUTION
 void	exec_command(t_commande *cmd, t_vars *vars);
 void	exec_partition(t_partition *part, t_vars *vars);
-int		my_execvp(char *argv[], t_vars *vars);
+void	my_execvp(char *argv[], t_vars *vars);
+void	exec_ld_dir(t_commande *cmd, t_vars *vars);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 17:23:40 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/23 17:24:23 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/23 17:26:57 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,17 @@ void exec_ld_dir(t_commande *cmd, t_vars *vars)
 
     // Read input lines until delimiter is encountered
     char *line = NULL;
-    size_t len = 0;
-    while (getline(&line, &len, stdin) != -1)
+    while ((line = readline("> ")) != NULL) // Prompt symbol, can be customized
     {
-        if (strcmp(line, delimiter) == 0)
+        if (ft_strcmp(line, delimiter) == 0)
+        {
+            free(line);
             break;
-        write(temp_fd, line, strlen(line));
+        }
+        write(temp_fd, line, ft_strlen(line));
+        write(temp_fd, "\n", 1); // Add newline character
+        free(line);
     }
-    free(line);
     close(temp_fd);
 
     // Redirect standard input to temporary file
