@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/21 15:45:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:24:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,21 @@ void	free_partition(t_partition *part)
 		next = part->next;
 		free(part);
 		part = next;
+	}
+}
+
+void	free_list2(t_list2 **head)
+{
+	t_list2	*temp;
+
+	while (list)
+	{
+		temp = list;
+		list = list->next;
+		if (temp->name)
+			free(temp->name);
+		if (temp->content)
+			free(temp->content);
+		free(temp);
 	}
 }
