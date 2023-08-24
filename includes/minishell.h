@@ -20,8 +20,9 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
@@ -30,6 +31,8 @@
 # define L_DIR 2
 # define RD_DIR 3
 # define LD_DIR 4
+
+extern int	received_signal;
 
 typedef struct s_list2
 {
@@ -75,16 +78,20 @@ int		export(int argc, char **argv, t_vars *vars);
 int		unset(int argc, char *argv[], t_vars *vars);
 
 //UTILS
-t_list2	*init_envp_list(char **envp);
+void	*init_envp_list(char **envp);
 char	*my_getenv(const char *name, t_vars *vars);
 int		my_putenv(const char *key, const char *value, t_vars *vars);
 int		add_node(t_list2 **head, const char *name, const char *content);
 bool	is_valid_variable_name(const char *name);
 
+//MAIN
+void	setup_signal_handlers(void);
+
 //FREE
 void	free_heredoc(t_heredoc *hd);
 void	free_commande(t_commande *cmd);
 void	free_partition(t_partition *part);
+void	free_list2(t_list2 **head);
 
 //TESTING
 void	print_env(t_list2 *head);

@@ -6,20 +6,25 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 13:01:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/24 18:35:23 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list2	*init_envp_list(char **envp)
+static void	exit_init(t_list2 **head)
 {
-	t_list2	*head;
+	free_list2(head);
+	perror("init_envp");
+	exit(EXIT_FAILURE);
+}
+
+void	init_envp_list(char **envp, t_list2 **head)
+{
 	char	*key;
 	char	*value;
 	int		i;
 
-	head = NULL;
 	while (*envp)
 	{
 		i = 0;
@@ -34,11 +39,11 @@ t_list2	*init_envp_list(char **envp)
 			}
 			i++;
 		}
-		if (add_node(&head, key, value))
-			return (NULL);
+		if (add_node(head, key, value))
+			exit_init(head);
+		(*envp)[i] = '=';
 		envp++;
 	}
-	return (head);
 }
 
 int	add_node(t_list2 **head, const char *name, const char *content)
