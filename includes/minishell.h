@@ -93,13 +93,15 @@ void	free_heredoc(t_heredoc *hd);
 void	free_commande(t_commande *cmd);
 void	free_partition(t_partition *part);
 void	free_list2(t_list2 **head);
+void	free_vars(t_vars *vars);
 
 //TESTING
 void	print_env(t_list2 *head);
 
 
 //EXECUTION
-void	exec_command(t_commande *cmd, t_vars *vars);
+void	execute_command(char *line);
+void	exec_atomic_command(t_commande *cmd, t_vars *vars);
 void	exec_partition(t_partition *part, t_vars *vars);
 void	my_execvp(char *argv[], t_vars *vars);
 void	exec_ld_dir(t_commande *cmd, t_vars *vars);
