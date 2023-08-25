@@ -8,7 +8,7 @@ SRCS		= main.c utils_env.c	\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
 			  builtins/pwd.c builtins/export.c builtins/unset.c	\
 			  exec_command.c execution.c free.c heredoc.c	\
-			  signal_handlers.c
+			  signal_handlers.c history.c
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
