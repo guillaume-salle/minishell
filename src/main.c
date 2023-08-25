@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/24 18:27:56 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/25 14:21:13 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	ft_memset(&vars, 0, sizeof(t_vars));
-	init_envp_list(envp, &(vars.envp_list));
 	setup_signal_handlers();
+	init_envp_list(envp, &(vars.envp_list));
 	while (1)
 	{
 		line = readline("myshell> ");
