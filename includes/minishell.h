@@ -86,6 +86,7 @@ bool	is_valid_variable_name(const char *name);
 
 //MAIN
 void	setup_signal_handlers(void);
+void	handle_history(char *line);
 
 //FREE
 void	free_heredoc(t_heredoc *hd);
