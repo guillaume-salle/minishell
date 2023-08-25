@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   execute_single_command.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 17:34:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/23 17:28:30 by gusalle          ###   ########.fr       */
+/*   Created: 2023/08/25 17:47:22 by gusalle           #+#    #+#             */
+/*   Updated: 2023/08/25 17:47:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void	exec_l_dir(t_commande *cmd, t_vars *vars)
 	my_execvp(cmd->cmds_split, vars);
 }
 
-void	exec_command(t_commande *cmd, t_vars *vars)
+void	exec_atomic_command(t_commande *cmd, t_vars *vars)
 {
 	if (!cmd)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/24 18:24:20 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/25 14:35:43 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,9 @@ void	free_list2(t_list2 **head)
 			free(temp->content);
 		free(temp);
 	}
+}
+
+void	free_vars(t_vars *vars)
+{
+	free_list2(vars->envp_list);
 }

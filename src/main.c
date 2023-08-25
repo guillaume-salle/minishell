@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/25 14:21:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/25 14:34:44 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (line == NULL)
 		{
 			rl_clear_history();
+			free_vars(&vars);
 			exit(EXIT_SUCCESS);
 		}
 		handle_history(line);
