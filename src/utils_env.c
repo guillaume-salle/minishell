@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/24 18:35:23 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 11:50:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	exit_init(t_list2 **head)
 	exit(EXIT_FAILURE);
 }
 
-void	init_envp_list(char **envp, t_list2 **head)
+void	init_envp_list(char *envp[], t_list2 **head)
 {
 	char	*key;
 	char	*value;

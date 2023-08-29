@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/23 16:32:18 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 11:54:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ void	pipe_and_fork(t_commande *cmd, t_vars *vars)
 	}
 }
 
-void	exec_partition(t_partition *part, t_vars *vars)
-{
-	t_commande	*cmd;
-
-	cmd = part->cmds;
-	while (cmd != NULL)
-	{
-		pipe_and_fork(cmd, vars);
-		cmd = cmd->next;
-	}
-}
+//void	exec_partition(t_partition *part, t_vars *vars)
+//{
+//	t_commande	*cmd;
+//
+//	cmd = part->cmds;
+//	while (cmd != NULL)
+//	{
+//		pipe_and_fork(cmd, vars);
+//		cmd = cmd->next;
+//	}
+//}

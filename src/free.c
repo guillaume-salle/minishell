@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/25 14:35:43 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 11:50:29 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	free_list2(t_list2 **head)
 {
 	t_list2	*temp;
 
-	while (list)
+	while (head)
 	{
-		temp = list;
-		list = list->next;
+		temp = head;
+		head= head->next;
 		if (temp->name)
 			free(temp->name);
 		if (temp->content)

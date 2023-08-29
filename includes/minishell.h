@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
+# include <errno.h>
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
@@ -73,12 +74,12 @@ typedef struct s_partition
 int		echo(int argc, char *argv[], t_vars *vars);
 int		env(int argc, char *argv[], t_vars *vars);
 int		cd(int argc, char *argv[], t_vars *vars);
-int		pwd(int argc, char **argv, t_vars *vars);
-int		export(int argc, char **argv, t_vars *vars);
+int		pwd(int argc, char *argv[], t_vars *vars);
+int		export(int argc, char *argv[], t_vars *vars);
 int		unset(int argc, char *argv[], t_vars *vars);
 
 //UTILS
-void	*init_envp_list(char **envp);
+void	init_envp_list(char *envp[], t_list2 **head);
 char	*my_getenv(const char *name, t_vars *vars);
 int		my_putenv(const char *key, const char *value, t_vars *vars);
 int		add_node(t_list2 **head, const char *name, const char *content);
