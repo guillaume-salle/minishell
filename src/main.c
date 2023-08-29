@@ -6,13 +6,13 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/25 14:34:44 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 13:01:27 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int received_signal = 0;
+int g_sigint_received;
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 	(void) argc;
 	(void) argv;
 	ft_memset(&vars, 0, sizeof(t_vars));
-	setup_signal_handlers();
+	setup_signal_handlers_main();
 	init_envp_list(envp, &(vars.envp_list));
 	while (1)
 	{
@@ -33,8 +33,8 @@ int	main(int argc, char *argv[], char *envp[])
 			free_vars(&vars);
 			exit(EXIT_SUCCESS);
 		}
-		handle_history(line);
-		execute_command(line);
+		add_history(line);
+//		exec_line(line, &vars);
 		free(line);
 	}
 	return (EXIT_SUCCESS);
