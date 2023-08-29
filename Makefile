@@ -5,7 +5,7 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
-			  utils_env.c free.c signal_handlers.c \
+			  utils_env.c free.c signal_handlers.c handle_history.c\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
 			  builtins/pwd.c builtins/export.c builtins/unset.c	\
 			  execution/exec_single_command.c execution/execution.c	\
