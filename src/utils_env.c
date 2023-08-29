@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 11:50:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 12:28:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exit_init(t_list2 **head)
 {
-	free_list2(head);
+	free_list2(*head);
 	perror("init_envp");
 	exit(EXIT_FAILURE);
 }

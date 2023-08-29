@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 11:54:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 12:33:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	child_routine(int pipe_fd[2], t_commande *cmd, t_vars *vars)
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
-	exec_command(cmd, vars);
+	exec_single_command(cmd, vars);
 	exit(EXIT_SUCCESS);
 }
 

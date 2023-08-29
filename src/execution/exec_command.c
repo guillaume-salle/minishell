@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/25 18:30:33 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/29 12:35:06 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	wait_for_children(void)
 	}
 }
 
-void	execute_partition(t_partition *partitions)
+void	exec_partition(t_partition *partitions, t_vars *vars)
 {
 	t_partition	*partition;
 	t_commande	*command;
@@ -62,7 +62,7 @@ void	execute_partition(t_partition *partitions)
 					dup2(pipe_fds[1], STDOUT_FILENO);
 					close(pipe_fds[1]);
 				}
-				execute_single_command(command);
+				exec_single_command(command, vars);
 				exit(EXIT_SUCCESS);
 			}
 			if (last_fd != -1)

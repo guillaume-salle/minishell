@@ -33,7 +33,7 @@
 # define RD_DIR 3
 # define LD_DIR 4
 
-extern int	received_signal;
+extern int	g_sigint_received;
 
 typedef struct s_list2
 {
@@ -86,14 +86,13 @@ int		add_node(t_list2 **head, const char *name, const char *content);
 bool	is_valid_variable_name(const char *name);
 
 //MAIN
-void	setup_signal_handlers(void);
-void	handle_history(char *line);
+void	setup_signal_handlers_main(void);
 
 //FREE
 void	free_heredoc(t_heredoc *hd);
 void	free_commande(t_commande *cmd);
 void	free_partition(t_partition *part);
-void	free_list2(t_list2 **head);
+void	free_list2(t_list2 *head);
 void	free_vars(t_vars *vars);
 
 //TESTING
@@ -101,8 +100,8 @@ void	print_env(t_list2 *head);
 
 
 //EXECUTION
-void	execute_command(char *line);
-void	exec_atomic_command(t_commande *cmd, t_vars *vars);
+void	exec_line(char *line, t_vars *vars);
+void	exec_single_command(t_commande *cmd, t_vars *vars);
 void	exec_partition(t_partition *part, t_vars *vars);
 void	my_execvp(char *argv[], t_vars *vars);
 void	exec_ld_dir(t_commande *cmd, t_vars *vars);
