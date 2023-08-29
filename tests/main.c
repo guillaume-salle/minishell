@@ -4,7 +4,7 @@ t_vars g_vars;
 
 int main(int argc, char *argv[], char *envp[]) {
 	
-	g_vars.envp_list = init_envp_list(envp);
+	init_envp_list(envp, &(g_vars.envp_list));
    
    	int number_failed;
     Suite *s1, *s2, *s3, *s4, *s5, *s6, *s7;
