@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:53:49 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 15:49:15 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
@@ -46,6 +47,7 @@ typedef struct s_list2
 typedef struct s_vars
 {
 	t_list2				*envp_list;
+	char				**envp;
 }						t_vars;
 
 typedef struct s_heredoc
@@ -87,11 +89,12 @@ int						my_putenv(const char *key, const char *value,
 int						add_node(t_list2 **head, const char *name,
 							const char *content);
 bool					is_valid_variable_name(const char *name);
+char					*find_command_path(const char *command, t_vars *vars);
+void					update_envp(t_vars *vars);
 
 // MAIN
 void					setup_signal_handlers_main(void);
 void					handle_history(char *line);
-
 
 // FREE
 void					free_heredoc(t_heredoc *hd);
@@ -102,12 +105,16 @@ void					free_vars(t_vars *vars);
 
 // TESTING
 void					print_env(t_list2 *head);
+void					my_execvp(char *argv[], t_vars *vars);
+void					update_exit_status(int exit_status, t_vars *vars);
+void					exec_non_builtin(char *argv[], t_vars *vars);
 
 // EXECUTION
 void					exec_line(char *line, t_vars *vars);
-void					exec_single_command(t_commande *cmd, t_vars *vars);
 void					exec_partition(t_partition *part, t_vars *vars);
-void					my_execvp(char *argv[], t_vars *vars);
+void					exec_single_command(t_commande *cmd, t_vars *vars);
+void					exec_r_rd(t_commande *cmd, t_vars *vars);
+void					exec_l_dir(t_commande *cmd, t_vars *vars);
 void					exec_ld_dir(t_commande *cmd, t_vars *vars);
 
 #endif

@@ -5,11 +5,13 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
-			  utils_env.c free.c signal_handlers.c handle_history.c\
+			  utils_env.c free.c signal_handlers.c handle_history.c	\
+			  path.c envp.c	\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
 			  builtins/pwd.c builtins/export.c builtins/unset.c	\
 			  execution/exec_single_command.c execution/execution.c	\
-		 	  execution/exec_command.c	execution/heredoc.c
+		 	  execution/exec_command.c	execution/heredoc.c	\
+			  execution/redirections.c
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
