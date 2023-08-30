@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:41:35 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:53:49 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ bool					is_valid_variable_name(const char *name);
 
 // MAIN
 void					setup_signal_handlers_main(void);
+void					handle_history(char *line);
+
 
 // FREE
 void					free_heredoc(t_heredoc *hd);
