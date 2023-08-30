@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:00:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 21:22:26 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:52:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 void	handle_history(char *line)
 {
-	if (!ft_is_only_spaces(line))
+	if (!ft_str_isspace(line))
 		add_history(line);
 }
