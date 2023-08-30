@@ -8,7 +8,7 @@ void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
-	//exec_single_command(cmd, vars);
+	exec_single_command(cmd, vars);
 	write(fd, "\0", 1);
 
     char buffer[1024];
@@ -23,7 +23,7 @@ void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
 }
 
 START_TEST(test_exec_builtin_echo_1) {
-    t_vars vars;
+ //   t_vars vars;
 	t_commande cmd;
 
 	char* test_strings[] = {"echo", "Hello,", "World!", NULL};
@@ -31,12 +31,12 @@ START_TEST(test_exec_builtin_echo_1) {
 	cmd.id = WORD;
 	char* expected_output = "Hello, World!\n";
 
-	run_test_cmd(&cmd, expected_output, &vars, STDOUT_FILENO);
+	run_test_cmd(&cmd, expected_output, &g_vars, STDOUT_FILENO);
 }
 END_TEST
 
 START_TEST(test_exec_builtin_echo_2) {
-    t_vars vars;
+  //  t_vars vars;
 	t_commande cmd;
 
 	char* test_strings[] = {"echo", "-s", "Hello,", "World!", NULL};
@@ -44,7 +44,7 @@ START_TEST(test_exec_builtin_echo_2) {
 	cmd.id = WORD;
 	char* expected_output = "-s Hello, World!\n";
 
-	run_test_cmd(&cmd, expected_output, &vars, STDOUT_FILENO);
+	run_test_cmd(&cmd, expected_output, &g_vars, STDOUT_FILENO);
 }
 END_TEST
 
