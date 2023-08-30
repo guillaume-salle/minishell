@@ -6,21 +6,21 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 21:00:58 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:42:30 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_sigint_received;
+int	g_sigint_received;
 
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_vars	vars;
 	char	*line;
 
-	(void) argc;
-	(void) argv;
+	(void)argc;
+	(void)argv;
 	ft_memset(&vars, 0, sizeof(t_vars));
 	setup_signal_handlers_main();
 	init_envp_list(envp, &(vars.envp_list));
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[], char *envp[])
 			exit(EXIT_SUCCESS);
 		}
 		handle_history(line);
-//		exec_line(line, &vars);
+		//		exec_line(line, &vars);
 		free(line);
 	}
 	return (EXIT_SUCCESS);
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 // TESTING
 
-//int	main(int argc, char *argv[], char *envp[])
+// int	main(int argc, char *argv[], char *envp[])
 //{
 //	t_vars		vars;
 //	t_heredoc	*hd;
@@ -56,7 +56,8 @@ int	main(int argc, char *argv[], char *envp[])
 //	vars.envp_list = init_envp_list(envp);
 //	if (!vars.envp_list)
 //		return (-1);
-//	// Initialize a heredoc (not used in this example, but shown for completeness)
+// //Initialize a heredoc (not used in this example,
+//		but shown for completeness)
 //	hd = malloc(sizeof(t_heredoc));
 //	hd->filename = ft_strdup("some_file");
 //	hd->file = ft_strdup("This is the content of some_file.");

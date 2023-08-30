@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 12:35:06 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:44:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ static void	wait_for_children(void)
 	int		status;
 	pid_t	pid;
 
-	while ((pid = wait(&status)) > 0)
-		;
+	pid = wait(&status);
+	while (pid > 0)
+		pid = wait(&status);
 	if (pid < 0 && errno != ECHILD)
 	{
 		perror("wait");
@@ -31,11 +32,12 @@ void	exec_partition(t_partition *partitions, t_vars *vars)
 	t_commande	*command;
 	int			pipe_fds[2];
 	pid_t		pid;
+	int			last_fd;
 
 	partition = partitions;
 	while (partition != NULL)
 	{
-		int last_fd = -1; // For piping between commands
+		last_fd = -1;
 		command = partition->cmds;
 		while (command != NULL)
 		{

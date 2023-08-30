@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 12:33:03 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:39:45 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	pipe_and_fork(t_commande *cmd, t_vars *vars)
 	}
 }
 
-//void	exec_partition(t_partition *part, t_vars *vars)
+// void	exec_partition(t_partition *part, t_vars *vars)
 //{
 //	t_commande	*cmd;
 //
