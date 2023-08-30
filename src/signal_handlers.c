@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 18:48:20 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 12:54:42 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:42:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Handle Ctrl-C
 static void	sigint_handler_main(int signo)
 {
-	(void) signo;
+	(void)signo;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -25,13 +25,13 @@ static void	sigint_handler_main(int signo)
 // Handle Ctrl-\.
 static void	sigquit_handler_main(int signo)
 {
-	(void) signo;
+	(void)signo;
 }
 
 void	setup_signal_handlers_main(void)
 {
-	struct sigaction sa_int;
-	struct sigaction sa_quit;
+	struct sigaction	sa_int;
+	struct sigaction	sa_quit;
 
 	sa_int.sa_handler = sigint_handler_main;
 	sa_int.sa_flags = 0;
