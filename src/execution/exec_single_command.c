@@ -6,11 +6,22 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 17:47:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:56:00 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 15:45:21 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exec_non_builtin(char *argv[], t_vars *vars)
+{
+	char	*pathname;
+
+	update_envp(vars);
+	pathname = find_command_path(argv[0], vars);
+	execve(pathname, argv, vars->envp);
+	perror("execve");
+	exit(EXIT_FAILURE);
+}
 
 void	update_exit_status(int exit_status, t_vars *vars)
 {
@@ -31,6 +42,7 @@ void	my_execvp(char *argv[], t_vars *vars)
 	while (argv[argc] != NULL)
 		argc++;
 	cmd_name = argv[0];
+	exit_status = 0;
 	if (ft_strcmp(cmd_name, "echo") == 0)
 		exit_status = echo(argc, argv, vars);
 	else if (ft_strcmp(cmd_name, "cd") == 0)
@@ -44,55 +56,8 @@ void	my_execvp(char *argv[], t_vars *vars)
 	else if (ft_strcmp(cmd_name, "env") == 0)
 		exit_status = env(argc, argv, vars);
 	else
-		exit_status = execvp(argv[0], argv);
+		exec_non_builtin(argv, vars);
 	update_exit_status(exit_status, vars);
-}
-
-static void	exec_r_rd(t_commande *cmd, t_vars *vars)
-{
-	int	fd;
-	int	flags;
-
-	if (cmd->id == R_DIR)
-		flags = O_WRONLY | O_CREAT | O_TRUNC;
-	else if (cmd->id == RD_DIR)
-		flags = O_WRONLY | O_CREAT | O_APPEND;
-	else
-		return ;
-	fd = open(cmd->cmds_split[1], flags, 0644);
-	if (fd == -1)
-	{
-		perror("open");
-		exit(1);
-	}
-	if (dup2(fd, STDOUT_FILENO) == -1)
-	{
-		perror("dup2");
-		close(fd);
-		exit(1);
-	}
-	close(fd);
-	my_execvp(cmd->cmds_split, vars);
-}
-
-static void	exec_l_dir(t_commande *cmd, t_vars *vars)
-{
-	int	fd;
-
-	fd = open(cmd->cmds_split[1], O_RDONLY);
-	if (fd == -1)
-	{
-		perror("open");
-		exit(1);
-	}
-	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		perror("dup2");
-		close(fd);
-		exit(1);
-	}
-	close(fd);
-	my_execvp(cmd->cmds_split, vars);
 }
 
 void	exec_single_command(t_commande *cmd, t_vars *vars)

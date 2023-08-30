@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 12:05:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 15:39:23 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	free_list2(t_list2 *head)
 void	free_vars(t_vars *vars)
 {
 	free_list2(vars->envp_list);
+	ft_free_split(vars->envp);
 }
