@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 17:47:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 12:33:26 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/08/30 11:56:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static void	exec_r_rd(t_commande *cmd, t_vars *vars)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
 	else if (cmd->id == RD_DIR)
 		flags = O_WRONLY | O_CREAT | O_APPEND;
+	else
+		return ;
 	fd = open(cmd->cmds_split[1], flags, 0644);
 	if (fd == -1)
 	{
