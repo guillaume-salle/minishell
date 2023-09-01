@@ -9,8 +9,8 @@ SRCS		= main.c	\
 			  path.c envp.c	\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
 			  builtins/pwd.c builtins/export.c builtins/unset.c	\
-			  execution/exec_single_command.c execution/execution.c	\
-		 	  execution/exec_command.c	execution/heredoc.c	\
+			  execution/my_execvp.c execution/execution.c	\
+		 	  execution/exec_partition.c	execution/heredoc.c	\
 			  execution/redirections.c
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))

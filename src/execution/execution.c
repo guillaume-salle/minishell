@@ -6,13 +6,13 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:39:45 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/01 20:14:57 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	child_routine(int pipe_fd[2], t_commande *cmd, t_vars *vars)
+static void	child_routine(int pipe_fd[2], t_commande *cmd, t_vars *vars)
 {
 	if (cmd->next)
 	{
@@ -24,7 +24,7 @@ void	child_routine(int pipe_fd[2], t_commande *cmd, t_vars *vars)
 	exit(EXIT_SUCCESS);
 }
 
-void	parent_routine(int pipe_fd[2], t_commande *cmd)
+static void	parent_routine(int pipe_fd[2], t_commande *cmd)
 {
 	wait(NULL);
 	if (cmd->next)
@@ -50,13 +50,9 @@ void	pipe_and_fork(t_commande *cmd, t_vars *vars)
 	}
 	pid = fork();
 	if (pid == 0)
-	{
 		child_routine(pipe_fd, cmd, vars);
-	}
 	else if (pid > 0)
-	{
 		parent_routine(pipe_fd, cmd);
-	}
 	else
 	{
 		perror("minishell: fork error");
@@ -64,14 +60,16 @@ void	pipe_and_fork(t_commande *cmd, t_vars *vars)
 	}
 }
 
-// void	exec_partition(t_partition *part, t_vars *vars)
-//{
-//	t_commande	*cmd;
-//
-//	cmd = part->cmds;
-//	while (cmd != NULL)
-//	{
-//		pipe_and_fork(cmd, vars);
-//		cmd = cmd->next;
-//	}
-//}
+void	exec_single_command(t_commande *cmd, t_vars *vars)
+{
+	if (!cmd)
+		return ;
+	if (cmd->id == WORD)
+		my_execvp(cmd->cmds_split, vars);
+	else if (cmd->id == R_DIR || cmd->id == RD_DIR)
+		exec_r_rd(cmd, vars);
+	else if (cmd->id == L_DIR)
+		exec_l_dir(cmd, vars);
+	else if (cmd->id == LD_DIR)
+		exec_ld_dir(cmd, vars);
+}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_single_command.c                              :+:      :+:    :+:   */
+/*   my_execvp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 17:47:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 15:45:21 by gusalle          ###   ########.fr       */
+/*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
+/*   Updated: 2023/09/01 20:14:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,4 @@ void	my_execvp(char *argv[], t_vars *vars)
 	else
 		exec_non_builtin(argv, vars);
 	update_exit_status(exit_status, vars);
-}
-
-void	exec_single_command(t_commande *cmd, t_vars *vars)
-{
-	if (!cmd)
-		return ;
-	if (cmd->id == WORD)
-		my_execvp(cmd->cmds_split, vars);
-	else if (cmd->id == R_DIR || cmd->id == RD_DIR)
-		exec_r_rd(cmd, vars);
-	else if (cmd->id == L_DIR)
-		exec_l_dir(cmd, vars);
-	else if (cmd->id == LD_DIR)
-		exec_ld_dir(cmd, vars);
 }

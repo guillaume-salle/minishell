@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 15:49:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/01 19:26:56 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ void					exec_non_builtin(char *argv[], t_vars *vars);
 // EXECUTION
 void					exec_line(char *line, t_vars *vars);
 void					exec_partition(t_partition *part, t_vars *vars);
+void					pipe_and_fork(t_commande *cmd, t_vars *vars);
 void					exec_single_command(t_commande *cmd, t_vars *vars);
 void					exec_r_rd(t_commande *cmd, t_vars *vars);
 void					exec_l_dir(t_commande *cmd, t_vars *vars);

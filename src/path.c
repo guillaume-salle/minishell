@@ -6,11 +6,22 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:52:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 15:47:48 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/01 20:10:33 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static bool	is_absolute_path(const char *command)
+{
+	struct stat	st;
+
+	if (command[0] != '/')
+		return (false);
+	if (stat(command, &st) == 0 && (st.st_mode & S_IXUSR))
+		return (true);
+	return (false);
+}
 
 static char	*make_full_path(const char *path, const char *command)
 {
@@ -31,6 +42,8 @@ static char	*make_full_path(const char *path, const char *command)
 	return (full_path);
 }
 
+// Finds command path wether 'command' is a relative or absolute path
+// Does not free command parameter and return a allocated full path
 char	*find_command_path(const char *command, t_vars *vars)
 {
 	char		*path_var;
@@ -39,6 +52,8 @@ char	*find_command_path(const char *command, t_vars *vars)
 	struct stat	st;
 	int			i;
 
+	if (is_absolute_path(command))
+		return (ft_strdup(command));
 	path_var = my_getenv("PATH", vars);
 	if (path_var == NULL)
 		return (NULL);
@@ -48,10 +63,7 @@ char	*find_command_path(const char *command, t_vars *vars)
 	{
 		full_path = make_full_path(dirs[i], command);
 		if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
-		{
-			ft_free_split(dirs);
-			return (full_path);
-		}
+			return (ft_free_split(dirs), full_path);
 		free(full_path);
 		i++;
 	}
