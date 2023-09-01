@@ -1,3 +1,4 @@
 [submodule "Libft"]
 	path = Libft
 	url = git@github.com:guillaume-salle/Libft.git
+	branch = main
