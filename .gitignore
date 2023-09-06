@@ -6,3 +6,5 @@ test.exe
 test.d
 .vscode
 *.txt
+libft/*.o
+libft/libft.a
