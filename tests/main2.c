@@ -16,8 +16,8 @@ int main(int argc, char *argv[], char *envp[]) {
 
 	init_envp_list(envp, &(g_vars.envp_list));
 
-	t_commande *head = create_command("ls", WORD);
-	head->next = create_command("> output1.txt", R_DIR);
+	t_commande *head = create_command("cat", WORD);
+	head->next = create_command("< output1.txt", R_DIR);
 
 	exec_command_list(head, &g_vars);
 

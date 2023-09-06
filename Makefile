@@ -11,6 +11,20 @@ SRCS		= main.c	\
 			  builtins/pwd.c builtins/export.c builtins/unset.c	\
 			  execution/exec_command_list.c	execution/exec_partition.c		\
 			  execution/exec_word.c execution/redirections.c
+
+SRCS		+= parsing/add_spaces.c \
+			   parsing/list_cmd.c \
+			   parsing/utils.c \
+			   parsing/utils_list.c \
+			   parsing/quotes.c \
+			   parsing/quotes_b.c \
+			   parsing/parsing.c \
+			   parsing/variables.c \
+			   parsing/utils_var.c \
+			   parsing/split_func.c \
+			   parsing/split_func_b.c \
+
+
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
@@ -19,9 +33,9 @@ CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
 CC			= cc $(CPPFLAGS) $(CFLAGS)
 
-LIBFT_DIR	= Libft
+LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
-LIBFT_INC	= $(LIBFT_DIR)/includes
+LIBFT_INC	= $(LIBFT_DIR)
 LDLIBS		+= -lft -lreadline
 LDFLAGS		+= -L$(LIBFT_DIR)
 CPPFLAGS	+= -I$(LIBFT_INC)
