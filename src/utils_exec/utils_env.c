@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/29 12:28:03 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:50:06 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 static void	exit_init(t_list2 **head)
 {

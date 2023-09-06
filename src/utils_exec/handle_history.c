@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:00:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:52:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:57 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void	handle_history(char *line)
 {

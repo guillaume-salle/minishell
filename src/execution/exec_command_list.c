@@ -6,11 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 14:20:49 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void exec_command_list(t_commande *cmd_list, t_vars *vars) {
     t_commande *current = cmd_list;

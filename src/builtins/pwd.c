@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:48:14 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 16:20:53 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:15 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 int	pwd(int argc, char *argv[], t_vars *vars)
 {

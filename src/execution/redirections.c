@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:02:34 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 14:17:43 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:34 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void handle_redirection(t_commande *cmd) {
     int fd;

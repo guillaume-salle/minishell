@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 17:31:19 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:08 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 bool	is_valid_variable_name(const char *name)
 {

@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/03 20:46:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:28 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 static void	wait_for_children(void)
 {

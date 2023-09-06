@@ -6,11 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:14:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 15:48:51 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 static void	fill_envp(t_list2 *head, char **envp, int count)
 {

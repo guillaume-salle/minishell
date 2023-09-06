@@ -6,11 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/24 18:48:20 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:42:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:50:04 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 // Handle Ctrl-C
 static void	sigint_handler_main(int signo)

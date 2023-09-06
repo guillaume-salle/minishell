@@ -6,11 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 16:25:48 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:48:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 void	print_env(t_list2 *head)
 {

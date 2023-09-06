@@ -6,11 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:52:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/01 20:10:33 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:50:01 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 static bool	is_absolute_path(const char *command)
 {

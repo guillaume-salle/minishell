@@ -6,11 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:43:12 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/12 19:30:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:46:21 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 int	cd(int argc, char *argv[], t_vars *vars)
 {
