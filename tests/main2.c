@@ -1,4 +1,4 @@
-#include "tests.h"
+#include "minishell.h"
 
 // A simple function to create a t_commande for testing
  t_commande *create_command(char *cmd, int id) {
