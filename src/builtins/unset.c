@@ -6,16 +6,16 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 18:02:43 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/15 16:20:39 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:49:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
-static int	remove_variable(const char *name, t_list2 **envp_list)
+static int	remove_variable(const char *name, t_list **envp_list)
 {
-	t_list2	*current;
-	t_list2	*prev;
+	t_list	*current;
+	t_list	*prev;
 
 	current = *envp_list;
 	prev = NULL;

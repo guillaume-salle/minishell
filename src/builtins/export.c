@@ -6,11 +6,11 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/11 17:31:19 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 19:37:19 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_exec.h"
 
 bool	is_valid_variable_name(const char *name)
 {
@@ -43,7 +43,7 @@ static int	import_variable(const char *arg, t_vars *vars)
 	if (!equals_sign || equals_sign == arg)
 		return (0);
 	key = ft_strndup(arg, equals_sign - arg);
-	value = ft_strdup(equals_sign + 1);
+	value = ft_strdup3(equals_sign + 1);
 	if (!key || !value)
 	{
 		ft_putstr_fd("Memory allocation failed\n", STDERR_FILENO);

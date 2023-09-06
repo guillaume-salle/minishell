@@ -5,24 +5,47 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
-			  utils_env.c free.c signal_handlers.c handle_history.c	\
-			  path.c envp.c	\
-			  builtins/echo.c builtins/env.c builtins/cd.c	\
-			  builtins/pwd.c builtins/export.c builtins/unset.c	\
-			  execution/exec_single_command.c execution/execution.c	\
-		 	  execution/exec_command.c	execution/heredoc.c	\
+			  utils_exec/utils_env.c	\
+			  utils_exec/free.c	\
+			  utils_exec/signal_handlers.c	\
+			  utils_exec/handle_history.c	\
+			  utils_exec/path.c	\
+			  utils_exec/envp.c	\
+			  builtins/echo.c	\
+			  builtins/env.c	\
+			  builtins/cd.c	\
+			  builtins/pwd.c	\
+			  builtins/export.c	\
+			  builtins/unset.c	\
+			  execution/exec_command_list.c	\
+			  execution/exec_partition.c	\
+			  execution/exec_word.c	\
 			  execution/redirections.c
+
+SRCS		+= parsing/add_spaces.c \
+			   parsing/list_cmd.c \
+			   parsing/utils.c \
+			   parsing/utils_list.c \
+			   parsing/quotes.c \
+			   parsing/quotes_b.c \
+			   parsing/parsing.c \
+			   parsing/variables.c \
+			   parsing/utils_var.c \
+			   parsing/split_func.c \
+			   parsing/split_func_b.c \
+
+
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
-CC			= cc $(CPPFLAGS) $(CFLAGS)
+CC			= gcc $(CPPFLAGS) $(CFLAGS)
 
-LIBFT_DIR	= Libft
+LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a
-LIBFT_INC	= $(LIBFT_DIR)/includes
+LIBFT_INC	= $(LIBFT_DIR)
 LDLIBS		+= -lft -lreadline
 LDFLAGS		+= -L$(LIBFT_DIR)
 CPPFLAGS	+= -I$(LIBFT_INC)
@@ -39,7 +62,7 @@ $(NAME): $(OBJS) $(LIBFT_LIB)
 $(LIBFT_LIB): $(LIBFT_LIB)@build
 .PHONY: $(LIBFT_LIB)@build
 $(LIBFT_LIB)@build:
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR) bonus
 
 clean:
 	rm -rf $(OBJS_DIR)
@@ -54,20 +77,26 @@ re: fclean all
 
 # Tests
 TESTS_DIR	= tests
-TESTS_SRCS	= main.c utils.c\
+TESTS_SRCS	= utils.c\
 			  test_echo.c test_env.c test_cd.c test_pwd.c	\
 			  test_export.c test_unset.c	\
-			  test_exec_command.c
+			  test_exec_word.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
-TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
-test.exe: $(TESTS) $(LIBFT_LIB)
+
+check.exe: $(TESTS_DIR)/main.c $(filter-out $(SRCS_DIR)/main.c, $(SRCS)) $(TESTS) $(LIBFT_LIB)
 	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
-check: test.exe 
+check: check.exe 
+	chmod +x ./check.exe
+	./check.exe
+
+test.exe: $(TESTS_DIR)/main2.c $(filter-out $(SRCS_DIR)/main.c, $(SRCS)) $(LIBFT_LIB)
+	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS)
+test: test.exe
 	chmod +x ./test.exe
-	./test.exe
+
 fclean::
-	rm -f test.exe
-	rm -f test.d
+	rm -f check.exe test.exe
+	rm -f check.d test.d
 .PHONY: check 
 
 -include $(DEPS)

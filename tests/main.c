@@ -16,7 +16,7 @@ int main(int argc, char *argv[], char *envp[]) {
 	s4 = pwd_suite();
 	s5 = export_suite();
 	s6 = unset_suite();
-	s7 = execute_command_suite();
+	s7 = exec_word_suite();
 
     sr = srunner_create(s1);
     srunner_add_suite(sr, s2);
