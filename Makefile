@@ -58,16 +58,18 @@ TESTS_SRCS	= utils.c\
 			  test_export.c test_unset.c	\
 			  test_exec_word.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
-TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
-check.exe: $(TESTS_DIR)/main.c $(TESTS) $(LIBFT_LIB)
+
+check.exe: $(TESTS_DIR)/main.c $(filter-out $(SRCS_DIR)/main.c, $(SRCS)) $(TESTS) $(LIBFT_LIB)
 	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
 check: check.exe 
 	chmod +x ./check.exe
 	./check.exe
-test.exe: $(TESTS_DIR)/main2.c $(TESTS) $(LIBFT_LIB)
-	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
+
+test.exe: $(TESTS_DIR)/main2.c $(filter-out $(SRCS_DIR)/main.c, $(SRCS)) $(LIBFT_LIB)
+	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS)
 test: test.exe
 	chmod +x ./test.exe
+
 fclean::
 	rm -f check.exe test.exe
 	rm -f check.d test.d
