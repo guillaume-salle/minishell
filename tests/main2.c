@@ -10,6 +10,8 @@
 	return (new_command);
 }
 
+t_vars g_vars;
+
 int main(int argc, char *argv[], char *envp[]) {
 
 	init_envp_list(envp, &(g_vars.envp_list));
