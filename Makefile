@@ -59,11 +59,11 @@ TESTS_SRCS	= main.c utils.c\
 			  test_exec_word.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
-test.exe: $(TESTS) $(LIBFT_LIB)
+check.exe: $(TESTS) $(LIBFT_LIB)
 	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
-check: test.exe 
-	chmod +x ./test.exe
-	./test.exe
+check: check.exe 
+	chmod +x ./check.exe
+	./check.exe
 fclean::
 	rm -f test.exe
 	rm -f test.d

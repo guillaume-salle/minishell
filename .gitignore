@@ -1,5 +1,6 @@
 minishell
 obj
+check.exe
 test.exe
 test.d
 .vscode
