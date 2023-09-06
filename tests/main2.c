@@ -10,7 +10,10 @@
 	return (new_command);
 }
 
- int main() {
+int main(int argc, char *argv[], char *envp[]) {
+
+	init_envp_list(envp, &(g_vars.envp_list));
+
 	t_commande *head = create_command("ls", WORD);
 	head->next = create_command("> output1.txt", R_DIR);
 	head->next->next = create_command("grep", WORD);

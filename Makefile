@@ -53,20 +53,24 @@ re: fclean all
 
 # Tests
 TESTS_DIR	= tests
-TESTS_SRCS	= main.c utils.c\
+TESTS_SRCS	= utils.c\
 			  test_echo.c test_env.c test_cd.c test_pwd.c	\
 			  test_export.c test_unset.c	\
 			  test_exec_word.c
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 check.exe: $(TESTS) $(LIBFT_LIB)
-	cc $(CPPFLAGS) -fPIE -Itests $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
+	cc $(CPPFLAGS) -fPIE -Itests tests/main.c $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
 check: check.exe 
 	chmod +x ./check.exe
 	./check.exe
+test.exe: $(TESTS) $(LIBFT_LIB)
+	cc $(CPPFLAGS) -fPIE -Itests tests/main2.c $^ -o $@ $(LDFLAGS) $(LDLIBS) -lcheck -lm -lrt -lsubunit -lpthread
+test: test.exe
+	chmod +x ./test.exe
 fclean::
-	rm -f test.exe
-	rm -f test.d
+	rm -f check.exe test.exe
+	rm -f check.d test.d
 .PHONY: check 
 
 -include $(DEPS)
