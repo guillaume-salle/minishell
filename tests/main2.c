@@ -23,7 +23,7 @@ int main(int argc, char *argv[], char *envp[]) {
 	head->next->next->next->next = create_command("cat", WORD);
 	head->next->next->next->next->next = create_command("<< STOP", LD_DIR);
 
-	exec_command_list(head);
+	exec_command_list(head, &g_vars);
 
 	return (0);
 }
