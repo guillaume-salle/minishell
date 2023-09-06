@@ -18,10 +18,6 @@ int main(int argc, char *argv[], char *envp[]) {
 
 	t_commande *head = create_command("ls", WORD);
 	head->next = create_command("> output1.txt", R_DIR);
-	head->next->next = create_command("grep", WORD);
-	head->next->next->next = create_command("<< END", LD_DIR);
-	head->next->next->next->next = create_command("cat", WORD);
-	head->next->next->next->next->next = create_command("<< STOP", LD_DIR);
 
 	exec_command_list(head, &g_vars);
 
