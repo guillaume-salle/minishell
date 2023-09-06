@@ -19,7 +19,7 @@ Suite* pwd_suite(void);
 Suite* export_suite(void);
 Suite* unset_suite(void);
 
-Suite* exec_command_suite(void);
-Suite* exec_command_word_suite(void);
+Suite* exec_command_list_suite(void);
+Suite* exec_word_suite(void);
 
 #endif // TEST_H

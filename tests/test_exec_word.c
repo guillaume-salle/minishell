@@ -81,7 +81,7 @@ START_TEST (test_exec_builtin_cd_2) {
 }
 END_TEST
 
-Suite* execute_command_word_suite(void) {
+Suite* exec_word_suite(void) {
     Suite *s;
     TCase *tc_core;
 
@@ -89,8 +89,7 @@ Suite* execute_command_word_suite(void) {
 
     tc_core = tcase_create("Core");
 
-    tcase_add_test(tc_core, test_exec_builtin_echo_1);
-    tcase_add_test(tc_core, test_exec_builtin_echo_2);
+    tcase_add_test(tc_core, test_exec_builtin_echo_1); tcase_add_test(tc_core, test_exec_builtin_echo_2);
     tcase_add_test(tc_core, test_exec_builtin_cd_1);
     tcase_add_test(tc_core, test_exec_builtin_cd_2);
     
