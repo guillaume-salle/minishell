@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/01 19:26:56 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/03 20:44:19 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,11 @@ typedef struct s_vars
 	char				**envp;
 }						t_vars;
 
-typedef struct s_heredoc
-{
-	char				*filename;
-	char				*file;
-}						t_heredoc;
-
 typedef struct s_commande
 {
 	char				*cmd;
-	int					argc;
 	char				**cmds_split;
 	int					id;
-	t_heredoc			*hd;
 	struct s_commande	*next;
 }						t_commande;
 
@@ -97,7 +89,6 @@ void					setup_signal_handlers_main(void);
 void					handle_history(char *line);
 
 // FREE
-void					free_heredoc(t_heredoc *hd);
 void					free_commande(t_commande *cmd);
 void					free_partition(t_partition *part);
 void					free_list2(t_list2 *head);
@@ -105,15 +96,13 @@ void					free_vars(t_vars *vars);
 
 // TESTING
 void					print_env(t_list2 *head);
-void					my_execvp(char *argv[], t_vars *vars);
-void					update_exit_status(int exit_status, t_vars *vars);
-void					exec_non_builtin(char *argv[], t_vars *vars);
 
 // EXECUTION
 void					exec_line(char *line, t_vars *vars);
-void					exec_partition(t_partition *part, t_vars *vars);
+int						exec_partition_list(t_partition *head, t_vars *vars);
 void					pipe_and_fork(t_commande *cmd, t_vars *vars);
-void					exec_single_command(t_commande *cmd, t_vars *vars);
+void					exec_command_list(t_commande *head, t_vars *vars);
+void					exec_word(t_commande *cmd, t_vars *vars);
 void					exec_r_rd(t_commande *cmd, t_vars *vars);
 void					exec_l_dir(t_commande *cmd, t_vars *vars);
 void					exec_ld_dir(t_commande *cmd, t_vars *vars);

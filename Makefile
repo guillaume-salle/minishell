@@ -9,9 +9,8 @@ SRCS		= main.c	\
 			  path.c envp.c	\
 			  builtins/echo.c builtins/env.c builtins/cd.c	\
 			  builtins/pwd.c builtins/export.c builtins/unset.c	\
-			  execution/my_execvp.c execution/execution.c	\
-		 	  execution/exec_partition.c	execution/heredoc.c	\
-			  execution/redirections.c
+			  execution/exec_command_list.c	execution/exec_partition.c		\
+			  execution/exec_word.c execution/redirections.c
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))
 DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
@@ -57,7 +56,7 @@ TESTS_DIR	= tests
 TESTS_SRCS	= main.c utils.c\
 			  test_echo.c test_env.c test_cd.c test_pwd.c	\
 			  test_export.c test_unset.c	\
-			  test_exec_command.c
+			  test_exec_word.c	\
 TESTS		= $(addprefix $(TESTS_DIR)/, $(TESTS_SRCS))
 TESTS		+= $(filter-out $(SRCS_DIR)/main.c, $(SRCS))
 test.exe: $(TESTS) $(LIBFT_LIB)

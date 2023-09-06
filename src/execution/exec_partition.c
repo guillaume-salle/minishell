@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   exec_partition.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 11:44:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/03 20:46:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,31 @@ static void	wait_for_children(void)
 	}
 }
 
-void	exec_partition(t_partition *partitions, t_vars *vars)
+int	exec_partition_list(t_partition *head, t_vars *vars)
 {
-	t_partition	*partition;
 	t_commande	*command;
 	int			pipe_fds[2];
 	pid_t		pid;
 	int			last_fd;
 
-	partition = partitions;
-	while (partition != NULL)
+	//DELETE  CAST
+	(void) vars;
+	while (head!= NULL)
 	{
 		last_fd = -1;
-		command = partition->cmds;
+		command = head->cmds;
 		while (command != NULL)
 		{
 			if (command->next != NULL && pipe(pipe_fds) == -1)
 			{
 				perror("pipe");
-				return ;
+				return (-1);
 			}
 			pid = fork();
 			if (pid < 0)
 			{
 				perror("fork");
-				return ;
+				return (-1);
 			}
 			if (pid == 0)
 			{
@@ -64,7 +64,7 @@ void	exec_partition(t_partition *partitions, t_vars *vars)
 					dup2(pipe_fds[1], STDOUT_FILENO);
 					close(pipe_fds[1]);
 				}
-				exec_single_command(command, vars);
+				exec_command_list(command, vars);
 				exit(EXIT_SUCCESS);
 			}
 			if (last_fd != -1)
@@ -74,7 +74,8 @@ void	exec_partition(t_partition *partitions, t_vars *vars)
 			last_fd = pipe_fds[0];
 			command = command->next;
 		}
-		wait_for_children();
-		partition = partition->next;
+		head = head->next;
 	}
+	wait_for_children();
+	return (0);
 }

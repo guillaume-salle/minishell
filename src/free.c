@@ -6,20 +6,11 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/08/30 16:25:54 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/03 16:07:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_heredoc(t_heredoc *hd)
-{
-	if (!hd)
-		return ;
-	free(hd->filename);
-	free(hd->file);
-	free(hd);
-}
 
 void	free_commande(t_commande *cmd)
 {
@@ -36,7 +27,6 @@ void	free_commande(t_commande *cmd)
 		i++;
 	}
 	free(cmd->cmds_split);
-	free_heredoc(cmd->hd);
 	while (cmd)
 	{
 		next = cmd->next;

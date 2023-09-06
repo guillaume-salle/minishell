@@ -8,7 +8,7 @@ void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
-	exec_single_command(cmd, vars);
+	exec_word(cmd, vars);
 	write(fd, "\0", 1);
 
     char buffer[1024];
@@ -55,7 +55,6 @@ START_TEST(test_exec_builtin_cd_1) {
 	char* test_strings[] = {"cd", new_dir, NULL};
 	cmd.cmds_split = test_strings;
 	cmd.id = WORD;
-	cmd.argc = 2;
 	char* expected_output = "";
 
 	run_test_cmd(&cmd, expected_output, &g_vars, STDOUT_FILENO);
@@ -76,18 +75,17 @@ START_TEST (test_exec_builtin_cd_2) {
 	char* test_strings[] = {"cd", new_dir, NULL};
 	cmd.cmds_split = test_strings;
 	cmd.id = WORD;
-	cmd.argc = 2;
 	char* expected_output = "cd: No such file or directory\n";
 
 	run_test_cmd(&cmd, expected_output, &g_vars, STDERR_FILENO);
 }
 END_TEST
 
-Suite* execute_command_suite(void) {
+Suite* execute_command_word_suite(void) {
     Suite *s;
     TCase *tc_core;
 
-    s = suite_create("Command");
+    s = suite_create("exec_command_word");
 
     tc_core = tcase_create("Core");
 

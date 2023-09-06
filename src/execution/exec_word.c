@@ -6,13 +6,30 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/01 20:14:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/03 20:38:22 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_non_builtin(char *argv[], t_vars *vars)
+static bool	is_builtin(char *cmd_name)
+{
+	if (ft_strcmp(cmd_name, "cd") == 0)
+		return (true);
+	if (ft_strcmp(cmd_name, "echo") == 0)
+		return (true);
+	if (ft_strcmp(cmd_name, "env") == 0)
+		return (true);
+	if (ft_strcmp(cmd_name, "export") == 0)
+		return (true);
+	if (ft_strcmp(cmd_name, "pwd") == 0)
+		return (true);
+	if (ft_strcmp(cmd_name, "unset") == 0)
+		return (true);
+	return (false);
+}
+
+static void	exec_non_builtin(char *argv[], t_vars *vars)
 {
 	char	*pathname;
 
@@ -23,7 +40,7 @@ void	exec_non_builtin(char *argv[], t_vars *vars)
 	exit(EXIT_FAILURE);
 }
 
-void	update_exit_status(int exit_status, t_vars *vars)
+static void	update_exit_status(int exit_status, t_vars *vars)
 {
 	char	*exit_status_str;
 
@@ -32,7 +49,8 @@ void	update_exit_status(int exit_status, t_vars *vars)
 	free(exit_status_str);
 }
 
-void	my_execvp(char *argv[], t_vars *vars)
+// exit_status??
+static void	exec_builtin(char *argv[], t_vars *vars)
 {
 	int		exit_status;
 	int		argc;
@@ -55,7 +73,16 @@ void	my_execvp(char *argv[], t_vars *vars)
 		exit_status = unset(argc, argv, vars);
 	else if (ft_strcmp(cmd_name, "env") == 0)
 		exit_status = env(argc, argv, vars);
-	else
-		exec_non_builtin(argv, vars);
 	update_exit_status(exit_status, vars);
+}
+
+void	exec_word(t_commande *cmd, t_vars *vars)
+{
+	char	*cmd_name;
+
+	cmd_name = cmd->cmds_split[0];
+	if (is_builtin(cmd_name))
+		exec_builtin(cmd->cmds_split, vars);
+	else
+		exec_non_builtin(cmd->cmds_split, vars);
 }
