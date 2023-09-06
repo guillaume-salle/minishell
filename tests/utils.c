@@ -48,8 +48,8 @@ ssize_t restore_fd_and_read_buffer(int fd, char* buffer, size_t size) {
     return len;
 }
 
-t_list2* new_node(char* name, char* content) {
-    t_list2* node = (t_list2*)malloc(sizeof(t_list2));
+t_list* new_node(char* name, char* content) {
+    t_list* node = (t_list*)malloc(sizeof(t_list));
     node->name = strdup(name); // Make a copy of the string
     node->content = strdup(content); // Make a copy of the string
     node->next = NULL;

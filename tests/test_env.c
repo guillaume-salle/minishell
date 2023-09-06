@@ -1,7 +1,7 @@
 #include "tests.h"
 
 START_TEST(test_new_node) {
-    t_list2* node = new_node("TEST", "VALUE");
+    t_list* node = new_node("TEST", "VALUE");
     ck_assert_str_eq(node->name, "TEST");
     ck_assert_str_eq(node->content, "VALUE");
     ck_assert_ptr_eq(node->next, NULL);
@@ -11,7 +11,7 @@ START_TEST(test_new_node) {
 } END_TEST
 
 START_TEST(test_add_node) {
-    t_list2* env_list = NULL;
+    t_list* env_list = NULL;
     add_node(&env_list, "TEST1", "VALUE1");
     add_node(&env_list, "TEST2", "VALUE2");
     ck_assert_str_eq(env_list->name, "TEST2");
@@ -29,7 +29,7 @@ START_TEST(test_add_node) {
 
 START_TEST(test_env_empty) {
     // Prepare an empty environment
-    t_list2* env_list = NULL;
+    t_list* env_list = NULL;
 
     // Redirect stdout to a buffer
     if (redirect_fd_to_buffer(STDOUT_FILENO) == -1) {
@@ -54,7 +54,7 @@ START_TEST(test_env_empty) {
 
 START_TEST(test_env_single) {
     // Prepare the environment with a single entry
-    t_list2* env_list = NULL;
+    t_list* env_list = NULL;
     add_node(&env_list, "SINGLE_TEST", "SINGLE_VALUE");
 
     // Redirect stdout to a buffer
@@ -84,7 +84,7 @@ START_TEST(test_env_single) {
 
 START_TEST(test_env) {
     // Prepare the environment
-    t_list2* env_list = NULL;
+    t_list* env_list = NULL;
     add_node(&env_list, "TEST1", "VALUE1");
     add_node(&env_list, "TEST2", "VALUE2");
     

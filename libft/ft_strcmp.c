@@ -6,7 +6,7 @@
 /*   By: kyacini <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 16:28:38 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 17:34:43 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 18:45:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int	ft_strcmp(const char *s1, const char *s2)
 	{
 		i++;
 	}
-	return (s1[i] - s2[i]);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
