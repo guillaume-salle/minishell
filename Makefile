@@ -5,12 +5,22 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
-			  utils_env.c free.c signal_handlers.c handle_history.c	\
-			  path.c envp.c	\
-			  builtins/echo.c builtins/env.c builtins/cd.c	\
-			  builtins/pwd.c builtins/export.c builtins/unset.c	\
-			  execution/exec_command_list.c	execution/exec_partition.c		\
-			  execution/exec_word.c execution/redirections.c
+			  utils_exec/utils_env.c	\
+			  utils_exec/free.c	\
+			  utils_exec/signal_handlers.c	\
+			  utils_exec/handle_history.c	\
+			  utils_exec/path.c	\
+			  utils_exec/envp.c	\
+			  builtins/echo.c	\
+			  builtins/env.c	\
+			  builtins/cd.c	\
+			  builtins/pwd.c	\
+			  builtins/export.c	\
+			  builtins/unset.c	\
+			  execution/exec_command_list.c	\
+			  execution/exec_partition.c	\
+			  execution/exec_word.c	\
+			  execution/redirections.c
 
 SRCS		+= parsing/add_spaces.c \
 			   parsing/list_cmd.c \
@@ -31,7 +41,7 @@ SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
 CFLAGS		= -Wall -Wextra -Werror -fPIE
-CC			= cc $(CPPFLAGS) $(CFLAGS)
+CC			= gcc $(CPPFLAGS) $(CFLAGS)
 
 LIBFT_DIR	= libft
 LIBFT_LIB	= $(LIBFT_DIR)/libft.a

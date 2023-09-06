@@ -1,49 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/05 19:34:07 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/06 16:37:16 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINISHELL_PARSING_H
+# define MINISHELL_PARSING_H
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+# include "structs.h"
 # define WORD 0;
 # define R_DIR 1;
 # define L_DIR 2;
 # define RD_DIR 3;
 # define LD_DIR 4;
-
-typedef struct s_heredoc
-{
-	char	*filename;
-	char	*file;
-}	t_heredoc;
-
-typedef struct s_commande{
-	char				*cmd;
-	char				**cmds_split;
-	int					id;
-	t_heredoc			*hd;
-	struct s_commande	*next;
-}	t_commande;
-
-typedef struct s_partition
-{
-	t_commande			*cmds;
-	int					pid;
-	struct s_partition	*next;
-}	t_partition;
 
 t_list			*initialized_env(char **env);
 void			free_double_char(char	**str);
