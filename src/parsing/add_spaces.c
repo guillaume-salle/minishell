@@ -6,11 +6,11 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:37 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/05 20:30:19 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:54:39 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell_parsing.h"
 
 int	*create_quote_rep(char *str)
 {
@@ -101,9 +101,9 @@ char	*add_spaces(char *str)
 	while (str[i])
 	{
 		if (((str[i] == '>' || str[i] == '<') && str[i + 1] != '>'
-		&& str[i + 1] != '<' && quotes[i] != 0 && str[i + 1] != ' ')
-		|| ((str[i + 1] == '>' || str[i + 1] == '<') && str[i] != '>'
-		&& str[i] != '<' && str[i] != ' ' && quotes[i + 1] != 0))
+				&& str[i + 1] != '<' && quotes[i] != 0 && str[i + 1] != ' ')
+			|| ((str[i + 1] == '>' || str[i + 1] == '<') && str[i] != '>'
+				&& str[i] != '<' && str[i] != ' ' && quotes[i + 1] != 0))
 			new_tab_with_spaces(&tab_spaces, &c);
 		else
 			tab_spaces = create_add_space(tab_spaces, 0, c);

@@ -6,11 +6,11 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:19:45 by kyacini           #+#    #+#             */
-/*   Updated: 2023/08/31 15:17:25 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:55:39 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell_parsing.h"
 
 char	*parsed_env_content(char *env)
 {
