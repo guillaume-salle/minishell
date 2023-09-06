@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include "minishell.h"
+#include "minishell_exec.h"
 
 int redirect_fd_to_buffer(int fd);
 ssize_t restore_fd_and_read_buffer(int fd, char* buffer, size_t size);
