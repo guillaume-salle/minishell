@@ -6,11 +6,11 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:42:35 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/05 20:37:25 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:55:01 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell_parsing.h"
 
 void	afflistc(t_commande *var_env)
 {
@@ -45,7 +45,8 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		commande = readline("minishell> ");
-		if (!ft_strcmp(commande, "oui")){
+		if (!ft_strcmp(commande, "oui"))
+		{
 			rl_clear_history();
 			break ;
 		}

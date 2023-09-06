@@ -6,16 +6,16 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:24:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/05 20:36:49 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/06 15:55:10 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "minishell_parsing.h"
 
 int	check_unique(char *str)
 {
-	int *tab;
-	int i;
+	int	*tab;
+	int	i;
 
 	tab = create_quote_rep(str);
 	i = 0;
@@ -23,7 +23,7 @@ int	check_unique(char *str)
 	{
 		if (tab[i] == 3 || tab[i] == 2)
 		{
-			if(i != 0 && tab[i + 1] != 0 && tab[i - 1] != 0)
+			if (i != 0 && tab[i + 1] != 0 && tab[i - 1] != 0)
 				return (free(tab), 0);
 		}
 		i++;
