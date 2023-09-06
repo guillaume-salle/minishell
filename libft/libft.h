@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:59:58 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 16:55:42 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 17:47:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 typedef struct s_list
 {
-	void			*content;
-	void			*name;
+	char			*content;
+	char			*name;
 	struct s_list	*next;
 }					t_list;
 int					ft_atoi(const char *nptr);
@@ -68,7 +68,7 @@ void				ft_lstadd_front(t_list **lst, t_list *new);
 void				ft_lstadd_back(t_list **lst, t_list *new);
 void				ft_lstdelone(t_list *lst, void (*del)(void *));
 void				ft_lstclear(t_list **lst, void (*del)(void *));
-int					ft_strcmp(char *s1, char *s2);
+int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strrejoin(int size, char **strs, char *sep, int start);
 char				*ft_strcat(char *dest, char *src);
 

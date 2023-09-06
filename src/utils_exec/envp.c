@@ -12,9 +12,9 @@
 
 #include "minishell_exec.h"
 
-static void	fill_envp(t_list2 *head, char **envp, int count)
+static void	fill_envp(t_list *head, char **envp, int count)
 {
-	t_list2	*temp;
+	t_list	*temp;
 	int		len;
 	int		i;
 
@@ -39,9 +39,9 @@ static void	fill_envp(t_list2 *head, char **envp, int count)
 	envp[count] = NULL;
 }
 
-static char	**linked_list_to_envp(t_list2 *head)
+static char	**linked_list_to_envp(t_list *head)
 {
-	t_list2	*temp;
+	t_list	*temp;
 	int		count;
 	char	**envp;
 

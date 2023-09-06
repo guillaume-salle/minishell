@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 16:28:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 17:55:41 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	afflist(t_partition *var_env)
 	while (var_env)
 	{
 		afflistc(var_env->cmds);
+		printf("||| next pipe\n");
 		var_env = var_env->next;
 	}
 }

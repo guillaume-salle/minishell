@@ -62,7 +62,7 @@ $(NAME): $(OBJS) $(LIBFT_LIB)
 $(LIBFT_LIB): $(LIBFT_LIB)@build
 .PHONY: $(LIBFT_LIB)@build
 $(LIBFT_LIB)@build:
-	$(MAKE) -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR) bonus
 
 clean:
 	rm -rf $(OBJS_DIR)

@@ -12,10 +12,10 @@
 
 #include "minishell_exec.h"
 
-static int	remove_variable(const char *name, t_list2 **envp_list)
+static int	remove_variable(const char *name, t_list **envp_list)
 {
-	t_list2	*current;
-	t_list2	*prev;
+	t_list	*current;
+	t_list	*prev;
 
 	current = *envp_list;
 	prev = NULL;

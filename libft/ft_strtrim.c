@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 15:31:03 by kyacini           #+#    #+#             */
-/*   Updated: 2022/05/11 19:55:09 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/06 17:48:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static int	debut(const char *chaine, const char *base)
 	return (i);
 }
 
-static void	norm(int bool, int *lum, int *memo, int *i)
+static void	norm(int boolean, int *lum, int *memo, int *i)
 {
-	if (bool)
+	if (boolean)
 	{
 		*lum = 0;
 		*memo = 0;

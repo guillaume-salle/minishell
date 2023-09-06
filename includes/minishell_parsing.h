@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 16:37:16 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 17:36:29 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "structs.h"
-# define WORD 0;
-# define R_DIR 1;
-# define L_DIR 2;
-# define RD_DIR 3;
-# define LD_DIR 4;
 
 t_list			*initialized_env(char **env);
 void			free_double_char(char	**str);

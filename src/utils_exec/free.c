@@ -50,9 +50,9 @@ void	free_partition(t_partition *part)
 	}
 }
 
-void	free_list2(t_list2 *head)
+void	free_list2(t_list *head)
 {
-	t_list2	*temp;
+	t_list	*temp;
 
 	if (!head)
 		return ;

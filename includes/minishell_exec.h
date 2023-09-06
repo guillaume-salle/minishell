@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 16:56:57 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 17:30:09 by gusalle          ###   ########.fr       */
 /*                                                                            */
 	/* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void					handle_history(char *line);
 // FREE
 void					free_commande(t_commande *cmd);
 void					free_partition(t_partition *part);
-void					free_list(t_list *head);
+void					free_list2(t_list *head);
 void					free_vars(t_vars *vars);
 
 // TESTING

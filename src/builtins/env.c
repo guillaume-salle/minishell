@@ -12,9 +12,9 @@
 
 #include "minishell_exec.h"
 
-void	print_env(t_list2 *head)
+void	print_env(t_list *head)
 {
-	t_list2	*current;
+	t_list	*current;
 
 	current = head;
 	while (current != NULL)
