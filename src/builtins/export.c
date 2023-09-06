@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 15:49:08 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 19:04:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	import_variable(const char *arg, t_vars *vars)
 	equals_sign = ft_strchr(arg, '=');
 	if (!equals_sign || equals_sign == arg)
 		return (0);
-	key = ft_strndup(arg, equals_sign - arg);
+	key = ft_strndup3(arg, equals_sign - arg);
 	value = ft_strdup(equals_sign + 1);
 	if (!key || !value)
 	{
