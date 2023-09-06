@@ -6,9 +6,9 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/03 20:44:19 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/06 14:14:13 by gusalle          ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+	/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -100,11 +100,8 @@ void					print_env(t_list2 *head);
 // EXECUTION
 void					exec_line(char *line, t_vars *vars);
 int						exec_partition_list(t_partition *head, t_vars *vars);
-void					pipe_and_fork(t_commande *cmd, t_vars *vars);
 void					exec_command_list(t_commande *head, t_vars *vars);
+void					handle_redirection(t_commande *cmd);
 void					exec_word(t_commande *cmd, t_vars *vars);
-void					exec_r_rd(t_commande *cmd, t_vars *vars);
-void					exec_l_dir(t_commande *cmd, t_vars *vars);
-void					exec_ld_dir(t_commande *cmd, t_vars *vars);
 
 #endif
