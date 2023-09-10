@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:23:07 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:55:29 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/11 01:10:19 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	*create_type_table(char **div, int *tab)
 	while (div[i])
 	{
 		if (ft_strcmp(div[i], ">") == 0)
-			case_tab(tab, &i, 1);
+			case_tab(tab, &i, R_DIR);
 		else if (ft_strcmp(div[i], "<") == 0)
-			case_tab(tab, &i, 2);
+			case_tab(tab, &i, L_DIR);
 		else if (ft_strcmp(div[i], "<<") == 0)
-			case_tab(tab, &i, 3);
+			case_tab(tab, &i, LD_DIR);
 		else if (ft_strcmp(div[i], ">>") == 0)
-			case_tab(tab, &i, 4);
+			case_tab(tab, &i, RD_DIR);
 		else
 			tab[i] = WORD;
 		i++;
