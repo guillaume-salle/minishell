@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 20:01:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/10 22:26:23 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ void	afflistc(t_commande *var_env)
 	{
 		printf("\t\tCMD : %s\n", var_env->cmd);
 		printf("\t\tID : %d\n", var_env->id);
+		if (var_env->hd != NULL)
+		{
+			if (var_env->hd->filename != NULL)
+				printf("\t\tHD filename : %s\n", var_env->hd->filename);
+			if (var_env->hd->file != NULL)
+				printf("\t\tHD file : %s\n", var_env->hd->file);
+		}
 		var_env = var_env->next;
 	}
 }

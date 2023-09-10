@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 19:55:09 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/10 21:35:56 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static int	exec_builtin(char *argv[], t_vars *vars)
 		exit_status = env(argc, argv, vars);
 //	else if (ft_strcmp(cmd_name, "exit") == 0)
 //		exit_status = exit(argc, argv, vars);
-	if (ft_strcmp(cmd_name, "exit") != 0)
-		free_vars(vars);
+//	if (ft_strcmp(cmd_name, "exit") == 0)
+//		free_vars(vars);   ??
 	return (exit_status);
 }
 
