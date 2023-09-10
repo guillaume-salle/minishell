@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 17:55:41 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/10 20:01:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,23 @@ void	afflistc(t_commande *var_env)
 {
 	while (var_env)
 	{
-		printf("%s\n", var_env->cmd);
-		printf("%d\n", var_env->id);
+		printf("\t\tCMD : %s\n", var_env->cmd);
+		printf("\t\tID : %d\n", var_env->id);
 		var_env = var_env->next;
 	}
 }
 
 void	afflist(t_partition *var_env)
 {
+	printf("--- PRINTING PARSING ---\n");
 	while (var_env)
 	{
 		afflistc(var_env->cmds);
-		printf("||| next pipe\n");
+		if (var_env->next)
+			printf("\t|| next pipe || \n");
 		var_env = var_env->next;
 	}
+	printf("--- END PARSING ---\n");
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -59,7 +62,7 @@ int	main(int argc, char *argv[], char *envp[])
 		line = first_transformation(line, vars.envp_list);
 		parse_result = parsing(line);
 		afflist(parse_result);
-		//		exec_line(line, &vars);
+		exec_partition_list(parse_result, &vars);
 		free(line);
 	}
 	return (EXIT_SUCCESS);

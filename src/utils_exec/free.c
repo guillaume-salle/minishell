@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 15:49:54 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/10 19:38:50 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@ void	free_list2(t_list *head)
 
 void	free_vars(t_vars *vars)
 {
-	free_list2(vars->envp_list);
-	ft_free_split(vars->envp);
+	if (vars->envp_list)
+		free_list2(vars->envp_list);
+	if (vars->envp)
+		ft_free_split(vars->envp);
+}
+
+void	display_error_and_exit(char *str, t_vars *vars)
+{
+	perror(str);
+	free_vars(vars);
+	exit(EXIT_FAILURE);
 }
