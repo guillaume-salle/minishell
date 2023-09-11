@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/11 09:07:40 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:26:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	free_commande(t_commande *cmd)
 			}
 			free(cmd->cmds_split);
 		}
-		if (cmd->heredoc)
-			free(cmd->heredoc);
+//		if (cmd->heredoc)			//Change after update parsing
+//			free(cmd->heredoc);
 		next = cmd->next;
 		free(cmd);
 		cmd = next;

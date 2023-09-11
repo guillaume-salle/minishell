@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/11 09:08:45 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:16:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	afflistc(t_commande *var_env)
 	{
 		printf("\t\tCMD : %s\n", var_env->cmd);
 		printf("\t\tID : %d\n", var_env->id);
-		if (var_env->heredoc != NULL)
-			printf("\t\tHeredoc: %s\n", var_env->heredoc);
 		var_env = var_env->next;
 	}
 }

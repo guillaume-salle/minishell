@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 19:51:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:18:06 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 
 
 //	Handle heredocs first
-//	handle_heredocs(head, vars);
+	handle_heredocs(head, vars);
 	last_fd = 0;
 	last_exit_status = 0;
 	is_last_command_builtin = false;

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:02:34 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/11 09:09:39 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:27:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void handle_heredocs(t_partition *head, t_vars *vars) {
 
                 // Read lines until the delimiter is found
                 while (true) {
-                    line = readline(">");
+                    line = readline("> ");
                     if (line == NULL) {
                         display_error_and_exit("Failed to read heredoc data", vars);
                     }
@@ -93,7 +93,7 @@ void handle_redirection(t_commande *cmd, t_vars *vars) {
             break;
 
         case RD_DIR: // >>
-            fd = open(cmd->cmds_split[1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+            fd = open(cmd->cmds_split[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
             if (fd == -1)
 				display_error_and_exit("open", vars);
             if (dup2(fd, STDOUT_FILENO) == -1)
