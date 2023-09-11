@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 22:26:23 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:08:45 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,8 @@ void	afflistc(t_commande *var_env)
 	{
 		printf("\t\tCMD : %s\n", var_env->cmd);
 		printf("\t\tID : %d\n", var_env->id);
-		if (var_env->hd != NULL)
-		{
-			if (var_env->hd->filename != NULL)
-				printf("\t\tHD filename : %s\n", var_env->hd->filename);
-			if (var_env->hd->file != NULL)
-				printf("\t\tHD file : %s\n", var_env->hd->file);
-		}
+		if (var_env->heredoc != NULL)
+			printf("\t\tHeredoc: %s\n", var_env->heredoc);
 		var_env = var_env->next;
 	}
 }
@@ -49,10 +44,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_vars		vars;
 	char		*line;
-	t_partition	*parse_result;
 
-	(void)argc;
-	(void)argv;
 	ft_memset(&vars, 0, sizeof(t_vars));
 	setup_signal_handlers_main();
 	init_envp_list(envp, &(vars.envp_list));
@@ -67,10 +59,11 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		handle_history(line);
 		line = first_transformation(line, vars.envp_list);
-		parse_result = parsing(line);
-		afflist(parse_result);
-		exec_partition_list(parse_result, &vars);
+		vars.parse_result = parsing(line);
+		afflist(vars.parse_result);
+		exec_partition_list(vars.parse_result, &vars);
+		free_partition(vars.parse_result);
 		free(line);
 	}
-	return (EXIT_SUCCESS);
+	return ((void)argc, (void)argv, EXIT_SUCCESS);
 }

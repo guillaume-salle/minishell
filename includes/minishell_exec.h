@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 22:13:38 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:07:01 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void		setup_signal_handlers_main(void);
 void		handle_history(char *line);
 
 // FREE
-void		free_commande(t_commande *cmd);
 void		free_partition(t_partition *part);
 void		free_list2(t_list *head);
 void		free_vars(t_vars *vars);
@@ -67,6 +66,7 @@ void		print_env(t_list *head);
 // EXECUTION
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);
+void		handle_heredocs(t_partition *head, t_vars *vars);
 int			exec_command_list(t_commande *head, t_vars *vars, bool forking);
 void		handle_redirection(t_commande *cmd, t_vars *vars);
 int			exec_word(t_commande *cmd, t_vars *vars, bool forking);
