@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:54:56 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/12 00:54:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_commande	*ft_lst_newcmd(char *cmd, int id)
 	c->cmd = cmd;
 	c->id = id;
 	c->cmds_split = ft_split(cmd, ' ');
+	c->hd = NULL;
 	c->next = NULL;
 	return (c);
 }
