@@ -8,7 +8,7 @@ void run_test_cmd(t_commande *cmd, char* expected_output, t_vars *vars,
         ck_abort_msg("Failed to redirect stdout to buffer");
     }
 
-	exec_word(cmd, vars);
+	exec_word(cmd, vars, 0);
 	write(fd, "\0", 1);
 
     char buffer[1024];
