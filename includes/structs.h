@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 18:00:27 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 08:48:32 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,11 @@
 # define RD_DIR 3
 # define LD_DIR 4
 
-typedef struct s_heredoc
-{
-	char	*filename;
-	char	*file;
-}	t_heredoc;
-
 typedef struct s_commande{
 	char				*cmd;
 	char				**cmds_split;
 	int					id;
-	t_heredoc			*hd;
+	char				*heredoc;
 	struct s_commande	*next;
 }	t_commande;
 
@@ -43,6 +37,7 @@ typedef struct s_vars
 {
 	t_list				*envp_list;
 	char				**envp;
+	t_partition			*parse_result;
 }						t_vars;
 
 

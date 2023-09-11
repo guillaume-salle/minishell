@@ -6,29 +6,35 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 15:49:54 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/11 09:26:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-void	free_commande(t_commande *cmd)
+static void	free_commande(t_commande *cmd)
 {
 	int			i;
 	t_commande	*next;
 
 	if (!cmd)
 		return ;
-	free(cmd->cmd);
-	i = 0;
-	while (cmd->cmds_split[i])
-	{
-		free(cmd->cmds_split[i]);
-		i++;
-	}
-	free(cmd->cmds_split);
 	while (cmd)
 	{
+		if (cmd->cmd)
+			free(cmd->cmd);
+		if (cmd->cmds_split)
+		{
+			i = 0;
+			while (cmd->cmds_split[i])
+			{
+				free(cmd->cmds_split[i]);
+				i++;
+			}
+			free(cmd->cmds_split);
+		}
+//		if (cmd->heredoc)			//Change after update parsing
+//			free(cmd->heredoc);
 		next = cmd->next;
 		free(cmd);
 		cmd = next;
@@ -70,6 +76,17 @@ void	free_list2(t_list *head)
 
 void	free_vars(t_vars *vars)
 {
-	free_list2(vars->envp_list);
-	ft_free_split(vars->envp);
+	if (vars->envp_list)
+		free_list2(vars->envp_list);
+	if (vars->envp)
+		ft_free_split(vars->envp);
+	if (vars->parse_result)
+		free_partition(vars->parse_result);
+}
+
+void	display_error_and_exit(char *str, t_vars *vars)
+{
+	perror(str);
+	free_vars(vars);
+	exit(EXIT_FAILURE);
 }

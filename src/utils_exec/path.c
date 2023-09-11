@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:52:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 17:32:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/10 23:00:23 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	is_absolute_path(const char *command)
 	return (false);
 }
 
-static char	*make_full_path(const char *path, const char *command)
+static char	*make_full_path(const char *path, const char *command, t_vars *vars)
 {
 	char	*full_path;
 	size_t	len;
@@ -31,10 +31,7 @@ static char	*make_full_path(const char *path, const char *command)
 	len = ft_strlen(path) + ft_strlen(command) + 2;
 	full_path = malloc(len);
 	if (full_path == NULL)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
+		display_error_and_exit("malloc", vars);
 	full_path[0] = '\0';
 	ft_strlcat(full_path, path, len);
 	ft_strlcat(full_path, "/", len);
@@ -61,7 +58,7 @@ char	*find_command_path(const char *command, t_vars *vars)
 	i = 0;
 	while (dirs[i] != NULL)
 	{
-		full_path = make_full_path(dirs[i], command);
+		full_path = make_full_path(dirs[i], command, vars);
 		if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
 			return (ft_free_split(dirs), full_path);
 		free(full_path);
