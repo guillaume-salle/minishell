@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 14:52:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 23:00:23 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/13 23:36:10 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,19 @@ char	*find_command_path(const char *command, t_vars *vars)
 	int			i;
 
 	if (is_absolute_path(command))
+	{
+		full_path = ft_strdup3(command);
+		if (full_path == NULL)
+			display_error_and_exit("ft_strdup3", vars);
 		return (ft_strdup3(command));
+	}
 	path_var = my_getenv("PATH", vars);
 	if (path_var == NULL)
 		return (NULL);
+	//if path_var is only ':' ??
 	dirs = ft_split(path_var, ':');
+	if (dirs == NULL)
+		display_error_and_exit("ft_split", vars);
 	i = 0;
 	while (dirs[i] != NULL)
 	{
