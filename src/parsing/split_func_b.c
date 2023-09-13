@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:26:10 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:55:20 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/13 19:11:07 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,11 @@ void	fill_lstcmd(char **div, int *tab, t_commande *c)
 	}
 }
 
-void	init_vars_count(int *i, int *res, int *len_var, char **pid)
+void	init_vars_count(int *i, int *res, int *len_var)
 {
 	*i = 0;
 	*res = 0;
 	*len_var = 0;
-	*pid = ft_itoa(getpid());
 }
 
 void	add_var_len(char *var, t_list *var_env, int *res)

@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:24:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:55:10 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/13 19:25:38 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_unique(char *str)
 	int	*tab;
 	int	i;
 
+	if (!ft_strcmp(str, "\"\"") || !ft_strcmp(str, "\'\'"))
+		return (1);
 	tab = create_quote_rep(str);
 	i = 0;
 	while (i < ft_strlen(str))

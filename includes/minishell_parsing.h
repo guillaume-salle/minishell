@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 17:36:29 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/13 19:11:32 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int				*create_add_space(int *tab, int position, int size);
 void 			fill_quote_tab(int *cases, int *switch_ab, int a, int b);
 int				*init_var_createquote(int *a, int *b, int *i, char *str);
 void 			fill_lstcmd(char **div, int *tab, t_commande *c);
-void 			init_vars_count(int *i, int *res, int *len_var, char **pid);
+void 			init_vars_count(int *i, int *res, int *len_var);
 void 			add_var_len(char *var, t_list *var_env, int *res);
 void 			init_var_illum(int *i, int *c, int *j);
 void 			affect_casu_char(char *new, char str, int *j);

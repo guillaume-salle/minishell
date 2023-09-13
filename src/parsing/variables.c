@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:59:08 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:55:43 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/13 19:13:46 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,40 +59,24 @@ int	count_char(char **vars, t_list *var_env)
 	int		len_var;
 	int		i;
 	t_list	*buff;
-	char	*pid;
 
-	init_vars_count(&i, &res, &len_var, &pid);
+	init_vars_count(&i, &res, &len_var);
 	buff = var_env;
 	while (vars[i])
 	{
-		if (!ft_strcmp(vars[i], "$"))
-			res += ft_strlen(pid);
-		else
-			add_var_len(vars[i], var_env, &res);
+		add_var_len(vars[i], var_env, &res);
 		var_env = buff;
 		len_var += ft_strlen(vars[i]) + 1;
 		i++;
 	}
-	return (free(pid), res - len_var);
+	return (res - len_var);
 }
 
 void	replace_content(char *var, t_list *var_env, char *new, int *i)
 {
 	int		c;
-	char	*pid;
 
 	c = 0;
-	pid = ft_itoa(getpid());
-	if (!ft_strcmp(var, "$"))
-	{
-		while (pid[c])
-		{
-			new[*i + c] = pid[c];
-			c++;
-		}
-		*i = *i + c - 1;
-		return ;
-	}
 	while (var_env)
 	{
 		if (!ft_strcmp(var, var_env->name))
@@ -107,7 +91,6 @@ void	replace_content(char *var, t_list *var_env, char *new, int *i)
 		var_env = var_env->next;
 	}
 	*i = *i + c - 1;
-	free(pid);
 }
 
 char	*illuminate_variables(char *str, t_list *var_env, char **vars)
@@ -126,7 +109,7 @@ char	*illuminate_variables(char *str, t_list *var_env, char **vars)
 	new[ft_strlen(str) + count_char(vars, var_env)] = '\0';
 	while (i < ft_strlen(str) + count_char(vars, var_env))
 	{
-		if (str[j] == '$' && kind_of_quote(str, j) != 2 && vars[c] && (ft_isalpha(str[j + 1]) || str[j + 1] == '_' || str[j + 1] == '$'))
+		if (str[j] == '$' && kind_of_quote(str, j) != 2 && vars[c])
 		{
 			replace_content(vars[c], var_env, new, &i);
 			j += ft_strlen(vars[c]) + 1;
