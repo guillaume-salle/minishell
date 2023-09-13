@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:56:03 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/13 19:46:15 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ char	last_character(char *str)
 			c = i;
 		i++;
 	}
-	return (str[c]);
+	if (str[c] == '>' || str[c] == '<' || str[c] == '|')
+		return (str[c]);
+	return ('\0');
 }
 
 void	splitable(char *str)
@@ -72,11 +74,9 @@ char	*first_transformation(char *commande, t_list *var_env)
 	new = NULL;
 	if (ft_strcmp(commande, "") == 0)
 		return ("");
-	if (last_character(commande) == '>'
-		|| last_character(commande) == '<'
-		|| !check_unique(commande))
+	if (last_character(commande) || !check_unique(commande))
 	{
-		printf("error\n");
+		printf("Error near \'%c\'\n", last_character(commande));
 		free(commande);
 		return (NULL);
 	}
@@ -85,13 +85,7 @@ char	*first_transformation(char *commande, t_list *var_env)
 	new = illuminate_variables(new, var_env, vars);
 	if (vars)
 		free_double_char(vars);
-	if (last_character(new) == '>'
-		|| last_character(new) == '<')
-	{
-		printf("error\n");
-		free(new);
-		return (NULL);
-	}
-	splitable(new);
-	return (new);
+	if (last_character(new))
+		return (printf("Error near \'%c\'\n", last_character(commande)), free(new), NULL);
+	return (splitable(new), new);
 }
