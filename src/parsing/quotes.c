@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/14 10:40:04 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/14 11:53:18 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*first_transformation(char *commande, t_list *var_env)
 
 	new = NULL;
 	if (ft_strcmp(commande, "") == 0)
-		return ("");
+		return (free(commande), NULL);
 	if (last_character(commande) || !check_unique(commande)
 		|| !check_pips(commande) || !check_red(commande))
 		return (free(commande), NULL);
