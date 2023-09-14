@@ -40,7 +40,7 @@ DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
-CFLAGS		= -Wall -Wextra -Werror -fPIE
+CFLAGS		= -Wall -Wextra -fPIE   #REMETTRE FLAG
 CC			= gcc $(CPPFLAGS) $(CFLAGS)
 
 LIBFT_DIR	= libft

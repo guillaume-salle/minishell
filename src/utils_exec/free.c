@@ -6,53 +6,62 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/13 23:26:08 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 11:28:13 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-static void	free_commande(t_commande *cmd)
+static void	free_commande(t_commande *head)
 {
 	int			i;
 	t_commande	*next;
 
-	if (!cmd)
-		return ;
-	while (cmd)
+	while (head)
 	{
-		if (cmd->cmd)
-			free(cmd->cmd);
-		if (cmd->cmds_split)
+		if (head->cmd)
+		{
+			free(head->cmd);
+			head->cmd = NULL;
+		}
+		if (head->cmds_split)
 		{
 			i = 0;
-			while (cmd->cmds_split[i])
+			while (head->cmds_split[i] != NULL)
 			{
-				free(cmd->cmds_split[i]);
+				free(head->cmds_split[i]);
 				i++;
 			}
-			free(cmd->cmds_split);
+			free(head->cmds_split);
+			head->cmds_split = NULL;
 		}
-		if (cmd->heredoc)
-			free(cmd->heredoc);
-		next = cmd->next;
-		free(cmd);
-		cmd = next;
+		if (head->heredoc)
+		{
+			free(head->heredoc);
+			head->heredoc = NULL;
+		}
+		next = head->next;
+		free(head);
+		head = next;
 	}
 }
 
-void	free_partition(t_partition *part)
+void	free_partition(t_partition *head)
 {
-	t_partition	*next;
+	t_partition	*temp;
 
-	if (!part)
+	if (!head)
 		return ;
-	while (part)
+	while (head)
 	{
-		free_commande(part->cmds);
-		next = part->next;
-		free(part);
-		part = next;
+		temp = head;
+		head = head->next;
+		if (temp->cmds != NULL)
+		{
+			free_commande(temp->cmds);
+			temp->cmds = NULL;
+		}
+		free(temp);
 	}
 }
 
@@ -76,17 +85,31 @@ void	free_list2(t_list *head)
 
 void	free_vars(t_vars *vars)
 {
-	if (vars->envp_list)
+	if (vars->envp_list != NULL)
+	{
 		free_list2(vars->envp_list);
-	if (vars->envp)
+		vars->envp_list = NULL;
+	}
+	if (vars->envp != NULL)
+	{
 		ft_free_split(vars->envp);
-	if (vars->parse_result)
+		vars->envp = NULL;
+	}
+	if (vars->parse_result != NULL)
+	{
 		free_partition(vars->parse_result);
+		vars->parse_result = NULL;
+	}
+	if (vars->line != NULL)
+	{
+		free(vars->line);
+		vars->line = NULL;
+	}
 }
 
 void	display_error_and_exit(char *str, t_vars *vars)
 {
 	perror(str);
 	free_vars(vars);
-	exit(EXIT_FAILURE);
+	exit(errno);
 }
