@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/11 09:07:01 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 11:56:39 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		update_envp(t_vars *vars);
 
 // MAIN
 void		setup_signal_handlers_main(void);
-void		handle_history(char *line);
+bool		handle_history(char *line);
 
 // FREE
 void		free_partition(t_partition *part);

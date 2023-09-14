@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 11:27:38 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:19:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,17 @@ int	g_sigint_received;
 
 void	afflistc(t_commande *var_env)
 {
+	if (var_env == NULL)
+		printf("\tcommande nulle\n");
 	while (var_env)
 	{
-		printf("\t\tCMD : %s\n", var_env->cmd);
+		if (var_env->cmd != NULL)
+			printf("\t\tCMD : %s\n", var_env->cmd);
+
+		if (!ft_strcmp(var_env->cmd, ""))
+			printf("\t\t juste caractere nul\n");
+		if (var_env->cmd == NULL)
+			printf("\t\tCMD : NULL\n");
 		printf("\t\tID : %d\n", var_env->id);
 		var_env = var_env->next;
 	}
@@ -28,6 +36,8 @@ void	afflistc(t_commande *var_env)
 void	afflist(t_partition *var_env)
 {
 	printf("--- PRINTING PARSING ---\n");
+	if (var_env == NULL)
+		printf("partition nulle\n");
 	while (var_env)
 	{
 		afflistc(var_env->cmds);
@@ -54,7 +64,11 @@ int	main(int argc, char *argv[], char *envp[])
 			free_vars(&vars);
 			exit(EXIT_SUCCESS);
 		}
-		handle_history(vars.line);
+		if (!handle_history(vars.line))
+		{
+			free(vars.line);
+			continue;
+		}
 		vars.line = first_transformation(vars.line, vars.envp_list);
 		vars.parse_result = parsing(vars.line);
 		afflist(vars.parse_result);

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 11:07:38 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:20:15 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static int	exec_builtin(char *argv[], t_vars *vars)
 	while (argv[argc] != NULL)
 		argc++;
 	cmd_name = argv[0];
-	if (ft_strcmp(cmd_name, "echo") == 0) exit_status = echo(argc, argv, vars); else if (ft_strcmp(cmd_name, "cd") == 0)
+	if (ft_strcmp(cmd_name, "echo") == 0)
+		exit_status = echo(argc, argv, vars);
+	else if (ft_strcmp(cmd_name, "cd") == 0)
 		exit_status = cd(argc, argv, vars);
 	else if (ft_strcmp(cmd_name, "pwd") == 0)
 		exit_status = pwd(argc, argv, vars);
