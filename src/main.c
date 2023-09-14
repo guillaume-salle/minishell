@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/13 19:19:43 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/14 11:27:38 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,28 @@ void	afflist(t_partition *var_env)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_vars		vars;
-	char		*line;
 
 	ft_memset(&vars, 0, sizeof(t_vars));
 	setup_signal_handlers_main();
 	init_envp_list(envp, &(vars.envp_list));
 	while (1)
 	{
-		line = readline("myshell> ");
-		if (line == NULL)
+		vars.line = readline("myshell> ");
+		if (vars.line == NULL)
 		{
 			rl_clear_history();
 			free_vars(&vars);
 			exit(EXIT_SUCCESS);
 		}
-		handle_history(line);
-		line = first_transformation(line, vars.envp_list);
-		vars.parse_result = parsing(line);
+		handle_history(vars.line);
+		vars.line = first_transformation(vars.line, vars.envp_list);
+		vars.parse_result = parsing(vars.line);
 		afflist(vars.parse_result);
 		exec_partition_list(vars.parse_result, &vars);
 		free_partition(vars.parse_result);
-		free(line);
+		vars.parse_result = NULL;
+		free(vars.line);
+		vars.line = NULL;
 	}
 	return ((void)argc, (void)argv, EXIT_SUCCESS);
 }
