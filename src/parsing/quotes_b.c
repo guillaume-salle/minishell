@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:24:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/14 09:32:29 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:06:23 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_unique(char *str)
 	int	i;
 
 	if (!ft_strcmp(str, "\"\"") || !ft_strcmp(str, "\'\'"))
-		return (printf("Error with a single quote\n"), 1);
+		return (1);
 	else if (!ft_strcmp(str, "\"") || !ft_strcmp(str, "\'"))
 		return (printf("Error with a single quote\n"), 0);
 	tab = create_quote_rep(str);
