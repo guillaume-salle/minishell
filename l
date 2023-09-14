@@ -1,0 +1,11 @@
+err.txt
+includes
+l
+libft
+Makefile
+Makefile_parsing
+minishell
+obj
+old_Libft
+src
+tests
