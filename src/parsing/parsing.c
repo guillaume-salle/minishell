@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:50 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:55:05 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/14 10:49:52 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,31 @@ t_partition	*parsing(char *line)
 	part = create_partition(partitions);
 	free_double_char(partitions);
 	return (part);
+}
+
+int	check_red(char *str)
+{
+	int	i;
+	int	c;
+	int	d;
+
+	i = 0;
+	c = 0;
+	d = 0;
+	while (str[i])
+	{
+		if (str[i] == '<')
+			d++;
+		else
+			d = 0;
+		if (str[i] == '>')
+			c++;
+		else
+			c = 0;
+		if (c > 2 || d > 2 || (str[i] == '>' && str[i + 1] == '<')
+			|| (str[i] == '<' && str[i + 1] == '>'))
+			return (printf("Error near '%c'\n", str[i]), 0);
+		i++;
+	}
+	return (1);
 }
