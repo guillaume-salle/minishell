@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 12:26:22 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 20:55:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 bool	is_builtin(char *cmd_name)
 {
+	if (!cmd_name)
+		return (false);
 	if (ft_strcmp(cmd_name, "cd") == 0)
 		return (true);
 	if (ft_strcmp(cmd_name, "echo") == 0)
@@ -33,11 +35,17 @@ bool	is_builtin(char *cmd_name)
 
 static bool	is_builtin_command_list(t_commande *cmd_list)
 {
-	t_commande	*current = cmd_list;
+	t_commande	*current;
+   
+	current = cmd_list;
 	while (current != NULL)
 	{
-		if (current->id == WORD) {
-			return (is_builtin(current->cmds_split[0]));
+		if (current->id == WORD) 
+		{
+			if (current->cmds_split)
+				return (is_builtin(current->cmds_split[0]));
+			else
+				return (false);
 		}
 		current = current->next;
 	}

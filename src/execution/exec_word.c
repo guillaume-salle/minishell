@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 12:20:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 20:56:21 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	exec_builtin(char *argv[], t_vars *vars)
 	while (argv[argc] != NULL)
 		argc++;
 	cmd_name = argv[0];
+	exit_status = 0;
 	if (ft_strcmp(cmd_name, "echo") == 0)
 		exit_status = echo(argc, argv, vars);
 	else if (ft_strcmp(cmd_name, "cd") == 0)
@@ -48,9 +49,11 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 	int		exit_status;
 	char	*pathname;
 
-	(void) forking; //???
 	argv = cmd->cmds_split;
-	cmd_name = argv[0];
+	if (argv != NULL)
+		cmd_name = argv[0];
+	else
+		cmd_name = cmd->cmd;
 	if (is_builtin(cmd_name))
 	{
 		exit_status = exec_builtin(argv, vars);
@@ -66,7 +69,6 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 			ft_putstr_fd(": command not found\n", 2);
 			if (forking)
 			{
-				printf("freeing in child\n"); //REMOVE
 				free_vars(vars);
 			}
 			return (127); //??

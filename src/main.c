@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 12:19:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 20:31:07 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,15 @@ void	afflistc(t_commande *var_env)
 		printf("\tcommande nulle\n");
 	while (var_env)
 	{
-		if (var_env->cmd != NULL)
+		if (var_env->cmd != NULL && ft_strcmp(var_env->cmd, "") != 0)
 			printf("\t\tCMD : %s\n", var_env->cmd);
-
-		if (!ft_strcmp(var_env->cmd, ""))
-			printf("\t\t juste caractere nul\n");
+		if (ft_strcmp(var_env->cmd, "") == 0) {
+			printf("\t\tCMD : juste caractere nul\n");
+			printf("\t\tCMD_ARGS[0] : %s\n", var_env->cmds_split[0]);
+		}
 		if (var_env->cmd == NULL)
 			printf("\t\tCMD : NULL\n");
+
 		printf("\t\tID : %d\n", var_env->id);
 		var_env = var_env->next;
 	}
