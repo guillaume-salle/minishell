@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 12:58:21 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 13:01:00 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	last_character(char *str)
 		i++;
 	}
 	if (str[c] == '>' || str[c] == '<' || str[c] == '|')
-		return (printf("minishell : syntax error near unexpected token `newline'\n"), 1);
+		return (printf("minishell: syntax error near unexpected token `newline'\n"), 1);
 	return (0);
 }
 
