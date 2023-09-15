@@ -1,0 +1,9 @@
+includes
+libft
+Makefile
+minishell
+obj
+par
+q
+src
+tests

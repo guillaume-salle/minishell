@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   list_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/14 12:29:03 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:48:09 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_parsing.h"
 
-t_commande	*create_lstcmd(char *str)
+t_commande	*create_lstcmd(char *str, t_vars *var_env)
 {
 	char		**div;
 	int			i;
@@ -28,8 +28,8 @@ t_commande	*create_lstcmd(char *str)
 	if (!tab)
 		return (free_double_char(div), NULL);
 	create_type_table(div, tab);
-	c = ft_lst_newcmd(create_word(div, tab), 0);
-	fill_lstcmd(div, tab, c);
+	c = ft_lst_newcmd(create_word(div, tab, var_env), 0);
+	fill_lstcmd(div, tab, c, var_env);
 	return (free(div), free(tab), c);
 }
 
@@ -48,7 +48,7 @@ t_commande	*ft_lst_newcmd(char *cmd, int id)
 	return (c);
 }
 
-char	*create_word(char **str, int *tab)
+char	*create_word(char **str, int *tab, t_vars *var_env)
 {
 	int		i;
 	char	*word;
@@ -60,7 +60,7 @@ char	*create_word(char **str, int *tab)
 	{
 		if (tab[i] == 0)
 		{
-			buff = supp_quotes(str[i]);
+			buff = supp_quotes(str[i], var_env);
 			word = ft_strjoin(word, buff);
 			free(buff);
 			word = ft_strjoin(word, " ");

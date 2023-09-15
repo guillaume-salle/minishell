@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:23:07 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/11 01:10:19 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 21:02:55 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_parsing.h"
 
-t_partition	*ft_lstnew_partition(char *part)
+t_partition	*ft_lstnew_partition(char *part, t_vars *var_env)
 {
 	t_partition	*liste;
 	t_commande	*c;
 
 	liste = malloc(sizeof(t_list));
-	c = create_lstcmd(part);
+	c = create_lstcmd(part, var_env);
 	if (!liste || !c)
 		return (NULL);
 	liste->cmds = c;

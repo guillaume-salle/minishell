@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:59:08 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 13:34:54 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:48:22 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	kind_of_quote(char *str, int j)
 {
 	int	*tab;
+	int ret;
 
 	tab = create_quote_rep(str);
 	if (tab[j] == 0)
@@ -22,7 +23,7 @@ int	kind_of_quote(char *str, int j)
 		while (j < ft_strlen(str))
 		{
 			if (tab[j] == 2 || tab[j] == 3)
-				return (tab[j]);
+				return (ret = tab[j], free(tab), ret);
 			j++;
 		}
 	}

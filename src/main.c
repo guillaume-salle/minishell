@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 11:26:13 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 21:05:20 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char *argv[], char *envp[])
 			continue ;
 		}
 		vars.line = first_transformation(vars.line, &vars);
-		vars.parse_result = parsing(vars.line);
+		vars.parse_result = parsing(vars.line, &vars);
 		afflist(vars.parse_result);
 		if (vars.parse_result != NULL)
 			exec_partition_list(vars.parse_result, &vars);

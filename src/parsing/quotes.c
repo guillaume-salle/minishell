@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 13:01:00 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 21:06:54 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	check_pips(char *str)
 	while (str[i])
 	{
 		if (str[i] == '|' && turn == 1)
-			return (printf("Error near \'|\'\n"), 0);
-		else if (str[i] == '|' && turn == 0)
+			return (printf("minishell: syntax error near unexpected token `|'\n"), 0);
+		else if ((str[i] == '|' || str[i] == '>' || str[i] == '<') && turn == 0)
 			turn = 1;
 		else if (str[i] != ' ')
 			turn = 0;
@@ -90,7 +90,6 @@ void	clean_del(char **str)
 char	*first_transformation(char *commande, t_vars *var_env)
 {
 	char	*new;
-	char	**vars;
 
 	new = NULL;
 	if (ft_strcmp(commande, "") == 0)
@@ -99,10 +98,6 @@ char	*first_transformation(char *commande, t_vars *var_env)
 		|| !check_pips(commande) || last_character(commande))
 		return (my_putenv("?", "1", var_env), free(commande), NULL);
 	new = add_spaces(commande);
-	vars = stock_variables(new);
-	new = illuminate_variables(new, var_env->envp_list, vars);
-	if (vars)
-		free_double_char(vars);
 	if (last_character(new))
 		return (my_putenv("?", "1", var_env), free(new), NULL);
 	return (my_putenv("?", "0", var_env), splitable(new), new);

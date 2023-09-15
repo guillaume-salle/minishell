@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 10:38:48 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 21:21:41 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@
 
 t_list			*initialized_env(char **env);
 void			free_double_char(char	**str);
-t_partition		*ft_lstnew_partition(char *cmd);
+t_partition		*ft_lstnew_partition(char *cmd, t_vars *var_env);
 void			ft_lstadd_back_partition(t_partition **lst, t_partition *new);
 t_partition		*ft_lstlast_partition(t_partition *lst);
-t_partition		*create_partition(char **partitions);
-t_partition		*parsing(char *line);
-t_commande		*create_lstcmd(char *str);
+t_partition		*create_partition(char **partitions, t_vars *var_env);
+t_partition		*parsing(char *line, t_vars *var_env);
+t_commande		*create_lstcmd(char *str, t_vars *var_env);
 t_commande		*ft_lst_newcmd(char *cmd, int id);
 void			ft_lstadd_backcmd(t_commande **lst, t_commande *new);
 t_commande		*ft_lstlastcmd(t_commande *lst);
-char			*create_word(char **str, int *tab);
+char			*create_word(char **str, int *tab, t_vars *var_env);
 int				*create_type_table(char **div, int *tab);
 int				check_unique(char *str);
 char			*first_transformation(char *commande, t_vars *var_env);
 int				*create_quote_rep(char *str);
 char			*add_spaces(char *str);
-char			*supp_quotes(char *str);
+char			*supp_quotes(char *str, t_vars *var_env);
 void			clean_del(char **str);
 char			**stock_variables(char *str);
 char			*illuminate_variables(char *str, t_list *var_env, char **vars);
@@ -53,7 +53,7 @@ char			*add_final(char *str, int *tab, int size, int *quotes);
 int				*create_add_space(int *tab, int position, int size);
 void			fill_quote_tab(int *cases, int *switch_ab, int a, int b);
 int				*init_var_createquote(int *a, int *b, int *i, char *str);
-void			fill_lstcmd(char **div, int *tab, t_commande *c);
+void			fill_lstcmd(char **div, int *tab, t_commande *c, t_vars *var_env);
 void			init_vars_count(int *i, int *res, int *len_var);
 void			add_var_len(char *var, t_list *var_env, int *res);
 void			init_var_illum(int *i, int *c, int *j);
