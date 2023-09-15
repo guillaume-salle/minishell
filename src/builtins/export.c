@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 19:37:19 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 13:15:25 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 bool	is_valid_variable_name(const char *name)
 {
+	int i;
+
+	i = 0;
 	if (!name || !*name)
 	{
-		return (false);
+		return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
 	}
-	if (!ft_isalpha(*name) && *name != '_')
+	while (name[i])
 	{
-		return (false);
-	}
-	while (*++name)
-	{
-		if (!ft_isalnum(*name) && *name != '_')
+		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
-			return (false);
+			return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
 		}
+		i++;
 	}
 	return (true);
 }
@@ -39,10 +39,10 @@ static int	import_variable(const char *arg, t_vars *vars)
 	char	*value;
 	int		result;
 
-	equals_sign = ft_strchr(arg, '=');
-	if (!equals_sign || equals_sign == arg)
-		return (0);
+	equals_sign = ft_strchr(arg, '='); // free ?
 	key = ft_strndup(arg, equals_sign - arg);
+	if (!is_valid_variable_name(key) || !equals_sign || equals_sign == arg)
+		return (free(key), 0);
 	value = ft_strdup3(equals_sign + 1);
 	if (!key || !value)
 	{
