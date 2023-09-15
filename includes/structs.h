@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 11:26:36 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:48:38 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct s_vars
 	char				**envp;
 	t_partition			*parse_result;
 	char				*line;
+	int					last_pid;
+	int					last_exit_status;
 }						t_vars;
 
 
