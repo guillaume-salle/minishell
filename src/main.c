@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 12:19:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/14 12:34:26 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	afflistc(t_commande *var_env)
 	{
 		if (var_env->cmd != NULL)
 			printf("\t\tCMD : %s\n", var_env->cmd);
-
 		if (!ft_strcmp(var_env->cmd, ""))
 			printf("\t\t juste caractere nul\n");
 		if (var_env->cmd == NULL)
@@ -67,7 +66,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!handle_history(vars.line))
 		{
 			free(vars.line);
-			continue;
+			continue ;
 		}
 		vars.line = first_transformation(vars.line, vars.envp_list);
 		vars.parse_result = parsing(vars.line);
