@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 09:51:15 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:26:13 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	afflistc(t_commande *var_env)
 		}
 		if (var_env->cmd == NULL)
 			printf("\t\tCMD : NULL\n");
-
 		printf("\t\tID : %d\n", var_env->id);
 		var_env = var_env->next;
 	}
@@ -71,7 +70,7 @@ int	main(int argc, char *argv[], char *envp[])
 			free(vars.line);
 			continue ;
 		}
-		vars.line = first_transformation(vars.line, vars.envp_list);
+		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line);
 		afflist(vars.parse_result);
 		exec_partition_list(vars.parse_result, &vars);
