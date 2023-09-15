@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 12:23:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 20:36:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,12 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 			last_fd = pipefd[0];
 		}
 		exist_children = true;
-		printf("exist_children = true\n");
 		head = head->next;
 	}
 	if (exist_children && !is_last_command_builtin)
-	{
-		printf("wait for children and last exist status\n");
 		last_exit_status = wait_for_children(vars);
-	}
 	else if (exist_children)
-	{
-		printf("wait for children\n");
 		wait_for_children(vars);
-	}
-	printf("after wait, last exit status = %d\n", last_exit_status);
 	char *status_str = ft_itoa(last_exit_status);
 	if (status_str == NULL)
 		display_error_and_exit("Memory allocation failed", vars);
