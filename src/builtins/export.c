@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 13:31:19 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 18:37:53 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,35 @@
 
 bool	is_valid_variable_name(const char *name)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	if (!name || !*name)
+	if (!*name)
 	{
-		return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
+		return (false);
 	}
 	if (!ft_isalpha(name[i]) && name[i] != '_')
 	{
-		return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
+		return (false);
 	}
 	while (name[i])
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
-			return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
+			return (false);
 		}
 		i++;
 	}
 	return (true);
+}
+
+static void	free_exit_norm(char *key, char *value, t_vars *vars)
+{
+	if (key != NULL)
+		free(key);
+	if (value != NULL)
+		free(value);
+	display_error_and_exit("malloc", vars);
 }
 
 static int	import_variable(const char *arg, t_vars *vars)
@@ -43,44 +52,51 @@ static int	import_variable(const char *arg, t_vars *vars)
 	char	*value;
 	int		result;
 
-	equals_sign = ft_strchr(arg, '='); // free ?
-	key = ft_strndup(arg, equals_sign - arg);
-	if (!is_valid_variable_name(key) || !equals_sign || equals_sign == arg)
-		return (free(key), 0);
-	value = ft_strdup3(equals_sign + 1);
-	if (!key || !value)
+	equals_sign = ft_strchr(arg, '=');
+	if (equals_sign == NULL)
 	{
-		ft_putstr_fd("Memory allocation failed\n", STDERR_FILENO);
-		free(key);
-		free(value);
-		return (-1);
+		key = ft_strdup3(arg);
+		value = ft_strdup3("");
 	}
+	else
+	{
+		key = ft_strndup(arg, equals_sign - arg);
+		value = ft_strdup3(equals_sign + 1);
+	}
+	if (key == NULL || value == NULL)
+		free_exit_norm(key, value, vars);
 	if (!is_valid_variable_name(key))
-		return (free(key), free(value), 0);
+		return (free(key), free(value), 1);
 	result = my_putenv(key, value, vars);
-	free(key);
-	free(value);
-	return (result);
+	return (free(key), free(value), result);
 }
 
+// Returns 1 if at least one arg is invalid, else returns 0
+// If no args, print env with prefix
 int	export(int argc, char **argv, t_vars *vars)
 {
 	int	i;
 	int	result;
+	int	ret;
 
-	if (argc < 2)
+	if (argc == 1)
 	{
-		ft_putstr_fd("Usage: export KEY1=VALUE1 KEY2=VALUE2 ...\n",
-			STDERR_FILENO);
-		return (-1);
+		print_env("declare -x ", vars->envp_list);
+		return (0);
 	}
+	ret = 0;
 	i = 1;
 	while (i < argc)
 	{
 		result = import_variable(argv[i], vars);
-		if (result != 0)
-			return (result);
+		if (result == 1)
+		{
+			ret = 1;
+			ft_putstr_fd("bash: export: `", STDERR_FILENO);
+			ft_putstr_fd(argv[i], STDERR_FILENO);
+			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+		}
 		i++;
 	}
-	return (0);
+	return (ret);
 }
