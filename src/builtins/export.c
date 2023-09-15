@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 13:15:25 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 13:27:28 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ bool	is_valid_variable_name(const char *name)
 
 	i = 0;
 	if (!name || !*name)
+	{
+		return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
+	}
+	if (!ft_isalpha(name[i]) && name[i] != '_')
 	{
 		return (printf("minishell: export: `%s': not a valid identifier\n", name), false);
 	}
@@ -39,7 +43,7 @@ static int	import_variable(const char *arg, t_vars *vars)
 	char	*value;
 	int		result;
 
-	equals_sign = ft_strchr(arg, '='); // free ?
+	equals_sign = ft_strchr(arg, '=');
 	key = ft_strndup(arg, equals_sign - arg);
 	if (!is_valid_variable_name(key) || !equals_sign || equals_sign == arg)
 		return (free(key), 0);
