@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 20:31:07 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 09:51:15 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!handle_history(vars.line))
 		{
 			free(vars.line);
-			continue;
+			continue ;
 		}
 		vars.line = first_transformation(vars.line, vars.envp_list);
 		vars.parse_result = parsing(vars.line);
