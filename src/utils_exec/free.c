@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 11:28:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:03:09 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	free_vars(t_vars *vars)
 
 void	display_error_and_exit(char *str, t_vars *vars)
 {
+	printf("in display_error_and_exit"); //DELETE
 	perror(str);
 	free_vars(vars);
 	exit(errno);

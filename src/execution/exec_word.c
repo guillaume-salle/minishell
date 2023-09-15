@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 20:56:21 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:40:04 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 		pathname = find_command_path(cmd_name, vars);
 		if (pathname == NULL)
 		{
-			ft_putstr_fd(argv[0], 2);
+			ft_putstr_fd(cmd_name, 2);
 			ft_putstr_fd(": command not found\n", 2);
 			if (forking)
 			{

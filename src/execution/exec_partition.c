@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 20:55:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:44:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 	int		last_fd;
 	int		last_exit_status;
 	bool	is_last_command_builtin;
+	bool	exist_children;
 
 
 //	Handle heredocs first
@@ -79,6 +80,7 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 	last_fd = 0;
 	last_exit_status = 0;
 	is_last_command_builtin = false;
+	exist_children = false;
 	while (head)
 	{
 		if (is_builtin_command_list(head->cmds))
@@ -115,12 +117,16 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 				close(last_fd);
 			last_fd = pipefd[0];
 		}
+		exist_children = true;
 		head = head->next;
 	}
-	if (!is_last_command_builtin)
+	if (exist_children && !is_last_command_builtin)
 		last_exit_status = wait_for_children(vars);
-	else
+	else if (exist_children)
+	{
+		printf("wait for children\n");
 		wait_for_children(vars);
+	}
 	char *status_str = ft_itoa(last_exit_status);
 	if (status_str == NULL)
 		display_error_and_exit("Memory allocation failed", vars);
