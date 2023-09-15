@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:50 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 11:30:43 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:53:51 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,21 @@ int	check_red(char *str)
 {
 	int	i;
 	int	c;
-	int	d;
 
 	i = 0;
 	c = 0;
-	d = 0;
 	while (str[i])
 	{
-		if (str[i] == '<')
-			d++;
-		else
-			d = 0;
-		if (str[i] == '>')
+		if (str[i] == '>' || str[i] == '<')
 			c++;
 		else
 			c = 0;
-		if (c > 2 || d > 2 || (str[i] == '>' && str[i + 1] == '<')
-			|| (str[i] == '<' && str[i + 1] == '>'))
-			return (printf("Error near '%c'\n", str[i]), 0);
+		if ( (str[i] == '>' && str[i + 1] == '<') || (str[i] == '<' && str[i + 1] == '>'))
+			return (printf("minishell: syntax error near unexpected token `%c'\n", str[i]), 0);
+		if (c == 3 && str[i + 1] != str[i])
+			return (printf("minishell: syntax error near unexpected token `%c'\n", str[i]), 0);
+		else if(c > 3)
+			return (printf("minishell: syntax error near unexpected token `%c%c'\n", str[i], str[i]), 0);
 		i++;
 	}
 	return (1);

@@ -1,0 +1,10 @@
+err.txt
+includes
+l
+libft
+Makefile
+minishell
+obj
+par
+src
+tests
