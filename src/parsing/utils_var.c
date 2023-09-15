@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:16:29 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 12:35:42 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 13:34:54 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	variable(char *str, int *i, char **new)
 	c = 1;
 	if (!str[*i + c])
 		return ;
-	if (!ft_isalnum(str[*i + c]) && (str[*i + c] != '_') && str[*i + c] != '\"')
+	if (!ft_isalpha(str[*i + c]) && (str[*i + c] != '_') && str[*i + c] != '\"')
 	{
 		*new = join_char(*new, str[*i + c]);
 		*new = ft_strjoin(*new, " ");
