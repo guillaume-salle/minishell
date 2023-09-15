@@ -6,19 +6,19 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 12:18:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:48:28 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 #include "minishell_parsing.h"
 
-int	g_sigint_received;
+int	g_sigint;
 
-void	afflistc(t_commande *var_env)
+static void	afflistc(t_commande *var_env)
 {
 	if (var_env == NULL)
-		printf("\tcommande nulle\n");
+		printf("\tcommande nulle\n"); 
 	while (var_env)
 	{
 		if (ft_strcmp(var_env->cmd, "") != 0)
@@ -35,7 +35,7 @@ void	afflistc(t_commande *var_env)
 	}
 }
 
-void	afflist(t_partition *var_env)
+static void	afflist(t_partition *var_env)
 {
 	printf("--- PRINTING PARSING ---\n");
 	if (var_env == NULL)
@@ -48,6 +48,16 @@ void	afflist(t_partition *var_env)
 		var_env = var_env->next;
 	}
 	printf("--- END PARSING ---\n");
+}
+
+static void	reset_vars_zero(t_vars *vars)
+{	
+	free_partition(vars->parse_result);
+	vars->parse_result = NULL;
+	vars->last_pid = 0;
+	vars->last_exit_status= 0;
+	free(vars->line);
+	vars->line = NULL;
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -78,10 +88,7 @@ int	main(int argc, char *argv[], char *envp[])
 		afflist(vars.parse_result);
 		if (vars.parse_result != NULL)
 			exec_partition_list(vars.parse_result, &vars);
-		free_partition(vars.parse_result);
-		vars.parse_result = NULL;
-		free(vars.line);
-		vars.line = NULL;
+		reset_vars_zero(&vars);
 	}
 	return ((void)argc, (void)argv, EXIT_SUCCESS);
 }
