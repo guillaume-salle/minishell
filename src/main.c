@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 12:14:54 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:18:17 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	main(int argc, char *argv[], char *envp[])
 	init_envp_list(envp, &(vars.envp_list));
 	while (1)
 	{
-		if (my_getenv("?", vars) == NULL)
-			my_getenv("?", "0", &vars);
+		if (my_getenv("?", &vars) == NULL)
+			my_putenv("?", "0", &vars);
 		vars.line = readline("myshell> ");
 		if (vars.line == NULL)
 		{
