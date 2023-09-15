@@ -6,11 +6,12 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/14 11:53:18 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 10:37:35 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_parsing.h"
+#include "minishell_exec.h"
 
 int	check_pips(char *str)
 {
@@ -86,7 +87,7 @@ void	clean_del(char **str)
 	}
 }
 
-char	*first_transformation(char *commande, t_list *var_env)
+char	*first_transformation(char *commande, t_vars *var_env)
 {
 	char	*new;
 	char	**vars;
@@ -96,13 +97,13 @@ char	*first_transformation(char *commande, t_list *var_env)
 		return (free(commande), NULL);
 	if (last_character(commande) || !check_unique(commande)
 		|| !check_pips(commande) || !check_red(commande))
-		return (free(commande), NULL);
+		return (my_putenv("?", "1", var_env), free(commande), NULL);
 	new = add_spaces(commande);
 	vars = stock_variables(new);
-	new = illuminate_variables(new, var_env, vars);
+	new = illuminate_variables(new, var_env->envp_list, vars);
 	if (vars)
 		free_double_char(vars);
 	if (last_character(new))
-		return (free(new), NULL);
+		return (my_putenv("?", "1", var_env), free(new), NULL);
 	return (splitable(new), new);
 }

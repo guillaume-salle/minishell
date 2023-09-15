@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 11:02:30 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 11:26:13 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	afflistc(t_commande *var_env)
 			printf("\t\tCMDS_SPLIT : NULL");
 		else
 			printf("\t\tCMD_ARGS[0] : %s\n", var_env->cmds_split[0]);
-
 		printf("\t\tID : %d\n", var_env->id);
 		var_env = var_env->next;
 	}
@@ -72,7 +71,7 @@ int	main(int argc, char *argv[], char *envp[])
 			free(vars.line);
 			continue ;
 		}
-		vars.line = first_transformation(vars.line, vars.envp_list);
+		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line);
 		afflist(vars.parse_result);
 		if (vars.parse_result != NULL)
