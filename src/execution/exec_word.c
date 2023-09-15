@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 11:40:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:18:50 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 			{
 				free_vars(vars);
 			}
-			return (127); //??
+			printf("on est la\n");
+			exit(127);
 		}
 		execve(pathname, argv, vars->envp);
 		free(pathname);
