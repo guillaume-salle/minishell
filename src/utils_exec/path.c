@@ -5,8 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 14:52:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/13 23:36:10 by gusalle          ###   ########.fr       */
+/*   Created: 2023/08/30 14:52:54 by gusalle           #+#    #+#             */ /*   Updated: 2023/09/15 11:29:27 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +48,8 @@ char	*find_command_path(const char *command, t_vars *vars)
 	struct stat	st;
 	int			i;
 
+	if (command == NULL)
+		return (NULL);
 	if (is_absolute_path(command))
 	{
 		full_path = ft_strdup3(command);
@@ -59,10 +60,7 @@ char	*find_command_path(const char *command, t_vars *vars)
 	path_var = my_getenv("PATH", vars);
 	if (path_var == NULL)
 		return (NULL);
-	//if path_var is only ':' ??
 	dirs = ft_split(path_var, ':');
-	if (dirs == NULL)
-		display_error_and_exit("ft_split", vars);
 	i = 0;
 	while (dirs[i] != NULL)
 	{

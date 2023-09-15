@@ -21,14 +21,15 @@ void	afflistc(t_commande *var_env)
 		printf("\tcommande nulle\n");
 	while (var_env)
 	{
-		if (var_env->cmd != NULL && ft_strcmp(var_env->cmd, "") != 0)
+		if (ft_strcmp(var_env->cmd, "") != 0)
 			printf("\t\tCMD : %s\n", var_env->cmd);
-		if (ft_strcmp(var_env->cmd, "") == 0) {
+		else
 			printf("\t\tCMD : juste caractere nul\n");
+
+		if (var_env->cmds_split == NULL)
+			printf("\t\tCMDS_SPLIT : NULL");
+		else
 			printf("\t\tCMD_ARGS[0] : %s\n", var_env->cmds_split[0]);
-		}
-		if (var_env->cmd == NULL)
-			printf("\t\tCMD : NULL\n");
 		printf("\t\tID : %d\n", var_env->id);
 		var_env = var_env->next;
 	}
@@ -73,7 +74,8 @@ int	main(int argc, char *argv[], char *envp[])
 		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line);
 		afflist(vars.parse_result);
-		exec_partition_list(vars.parse_result, &vars);
+		if (vars.parse_result != NULL)
+			exec_partition_list(vars.parse_result, &vars);
 		free_partition(vars.parse_result);
 		vars.parse_result = NULL;
 		free(vars.line);
