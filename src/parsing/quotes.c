@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 10:37:35 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 12:58:21 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	check_pips(char *str)
 	return (1);
 }
 
-char	last_character(char *str)
+int	last_character(char *str)
 {
 	int	c;
 	int	i;
@@ -47,8 +47,8 @@ char	last_character(char *str)
 		i++;
 	}
 	if (str[c] == '>' || str[c] == '<' || str[c] == '|')
-		return (printf("Error near \'%c\'\n", str[c]), str[c]);
-	return ('\0');
+		return (printf("minishell : syntax error near unexpected token `newline'\n"), 1);
+	return (0);
 }
 
 void	splitable(char *str)
@@ -95,8 +95,8 @@ char	*first_transformation(char *commande, t_vars *var_env)
 	new = NULL;
 	if (ft_strcmp(commande, "") == 0)
 		return (free(commande), NULL);
-	if (last_character(commande) || !check_unique(commande)
-		|| !check_pips(commande) || !check_red(commande))
+	if (!check_red(commande)|| !check_unique(commande)
+		|| !check_pips(commande) || last_character(commande))
 		return (my_putenv("?", "1", var_env), free(commande), NULL);
 	new = add_spaces(commande);
 	vars = stock_variables(new);
@@ -105,5 +105,5 @@ char	*first_transformation(char *commande, t_vars *var_env)
 		free_double_char(vars);
 	if (last_character(new))
 		return (my_putenv("?", "1", var_env), free(new), NULL);
-	return (splitable(new), new);
+	return (my_putenv("?", "0", var_env), splitable(new), new);
 }
