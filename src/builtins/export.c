@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 13:27:28 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 13:31:19 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	import_variable(const char *arg, t_vars *vars)
 	char	*value;
 	int		result;
 
-	equals_sign = ft_strchr(arg, '=');
+	equals_sign = ft_strchr(arg, '='); // free ?
 	key = ft_strndup(arg, equals_sign - arg);
 	if (!is_valid_variable_name(key) || !equals_sign || equals_sign == arg)
 		return (free(key), 0);
