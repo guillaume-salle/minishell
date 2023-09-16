@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:50 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 21:06:14 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/16 14:41:12 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,16 @@ int	check_red(char *str)
 			c++;
 		else
 			c = 0;
-		if ( (str[i] == '>' && str[i + 1] == '<') || (str[i] == '<' && str[i + 1] == '>'))
-			return (printf("minishell: syntax error near unexpected token `%c'\n", str[i]), 0);
-		if (c == 3 && str[i + 1] != str[i])
-			return (printf("minishell: syntax error near unexpected token `%c'\n", str[i]), 0);
+		if ( (str[i] == '>' && str[i + 1] == '<') || (str[i] == '<' && str[i + 1] == '>')
+			|| (c == 3 && str[i] != str[i + 1]))
+			return (ft_putstr_fd("minishell: syntax error near unexpected token `", 2),
+				ft_putchar_fd(str[i], 2), ft_putstr_fd("'\n", 2), 0);
 		else if(c > 3)
-			return (printf("minishell: syntax error near unexpected token `%c%c'\n", str[i], str[i]), 0);
+		{
+			ft_putstr_fd("minishell: syntax error near unexpected token `", STDERR_FILENO);
+			ft_putchar_fd(str[i], STDERR_FILENO);
+			return (ft_putchar_fd(str[i], 2), ft_putstr_fd("'\n", 2), 0);
+		}
 		i++;
 	}
 	return (1);
