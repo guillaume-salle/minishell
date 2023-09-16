@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/16 15:26:50 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:04:56 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_commande	*ft_lst_newcmd(char *without_exp, char *cmd, int id)
 	c->id = id;
 	c->cmds_split = ft_split(cmd, ' ');
 	clean_del(c->cmds_split);
-	c->without_exp = ft_strdup3(without_exp);
+	c->without_exp = without_exp;
 	c->heredoc = NULL;
 	c->next = NULL;
 	return (c);

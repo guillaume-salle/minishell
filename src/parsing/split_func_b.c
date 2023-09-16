@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:26:10 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/16 15:05:19 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:04:24 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,26 @@
 
 void	fill_lstcmd(char **div, int *tab, t_commande *c, t_vars *var_env)
 {
-	int	i;
+	int		i;
+	char	*without_exp;
 
 	i = 0;
 	while (div[i])
 	{
+		without_exp = ft_strdup3(div[i]);
 		if (tab[i] == 1)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(div[i], supp_quotes(div[i], var_env), 1));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(without_exp, supp_quotes(div[i], var_env), 1));
 		else if (tab[i] == 2)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(div[i], supp_quotes(div[i], var_env), 2));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(without_exp, supp_quotes(div[i], var_env), 2));
 		else if (tab[i] == 3)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(div[i], supp_quotes(div[i], var_env), 3));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(without_exp, supp_quotes(div[i], var_env), 3));
 		else if (tab[i] == 4)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(div[i], supp_quotes(div[i], var_env), 4));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(without_exp, supp_quotes(div[i], var_env), 4));
 		else if (tab[i] == 5)
+		{
+			free(without_exp);
 			free(div[i]);
+		}
 		i++;
 	}
 }
