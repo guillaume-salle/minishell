@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:02:34 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 16:07:31 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:37:57 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,11 @@ int	handle_redirection(t_commande *cmd, t_vars *vars) {
         case R_DIR: // >
             fd = open(cmd->cmds_split[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
             if (fd == -1)
-				display_error_and_exit("open", vars);
+			{
+				ft_putstr_fd("minishell: ", STDERR_FILENO);
+				perror(cmd->cmds_split[0]);
+				return (-1);
+			}
             if (dup2(fd, STDOUT_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
             close(fd);
@@ -94,7 +98,11 @@ int	handle_redirection(t_commande *cmd, t_vars *vars) {
         case L_DIR: // <
             fd = open(cmd->cmds_split[0], O_RDONLY);
             if (fd == -1)
-				display_error_and_exit("open", vars);
+			{
+				ft_putstr_fd("minishell: ", STDERR_FILENO);
+				perror(cmd->cmds_split[0]);
+				return (-1);
+			}
             if (dup2(fd, STDIN_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
             close(fd);
@@ -103,7 +111,11 @@ int	handle_redirection(t_commande *cmd, t_vars *vars) {
         case RD_DIR: // >>
             fd = open(cmd->cmds_split[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
             if (fd == -1)
-				display_error_and_exit("open", vars);
+			{
+				ft_putstr_fd("minishell: ", STDERR_FILENO);
+				perror(cmd->cmds_split[0]);
+				return (-1);
+			}
             if (dup2(fd, STDOUT_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
             close(fd);

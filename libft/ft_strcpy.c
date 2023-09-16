@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup3.c                                       :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 11:16:51 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 18:22:07 by gusalle          ###   ########.fr       */
+/*   Created: 2023/09/16 19:06:03 by gusalle           #+#    #+#             */
+/*   Updated: 2023/09/16 19:06:30 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup3(const char *s)
+char	*ft_strcpy(char *dest, const char *src)
 {
-	char	*cpy;
+	char	*original_dest;
 
-	if (s == NULL)
-		return (NULL);
-	cpy = malloc((ft_strlen(s) + 1) * sizeof(*cpy));
-	if (cpy == NULL)
-		return (NULL);
-	ft_strlcpy(cpy, s, ft_strlen(s) + 1);
-	return (cpy);
+	original_dest = dest;
+	while (*src != '\0')
+	{
+		*dest = *src;
+		dest++;
+		src++;
+	}
+	*dest = '\0';
+	return (original_dest);
 }

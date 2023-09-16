@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 16:07:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:34:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int			add_node(t_list **head, const char *name, const char *content);
 bool		is_valid_variable_name(const char *name);
 char		*find_command_path(const char *command, t_vars *vars);
 void		update_envp(t_vars *vars);
-void		print_env(const char *prefix, t_list *head);
+void		print_env(t_list *head);
+void		print_env_export(t_list *head);
 
 // MAIN
 void		setup_signal_handlers_main(void);

@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 18:37:53 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:35:11 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	free_exit_norm(char *key, char *value, t_vars *vars)
 	display_error_and_exit("malloc", vars);
 }
 
-static int	import_variable(const char *arg, t_vars *vars)
+static int	export_variable(const char *arg, t_vars *vars)
 {
 	char	*equals_sign;
 	char	*key;
@@ -56,14 +56,14 @@ static int	import_variable(const char *arg, t_vars *vars)
 	if (equals_sign == NULL)
 	{
 		key = ft_strdup3(arg);
-		value = ft_strdup3("");
+		value = NULL;
 	}
 	else
 	{
 		key = ft_strndup(arg, equals_sign - arg);
 		value = ft_strdup3(equals_sign + 1);
 	}
-	if (key == NULL || value == NULL)
+	if (key == NULL || (equals_sign != NULL && value == NULL))
 		free_exit_norm(key, value, vars);
 	if (!is_valid_variable_name(key))
 		return (free(key), free(value), 1);
@@ -81,14 +81,14 @@ int	export(int argc, char **argv, t_vars *vars)
 
 	if (argc == 1)
 	{
-		print_env("declare -x ", vars->envp_list);
+		print_env_export(vars->envp_list);
 		return (0);
 	}
 	ret = 0;
 	i = 1;
 	while (i < argc)
 	{
-		result = import_variable(argv[i], vars);
+		result = export_variable(argv[i], vars);
 		if (result == 1)
 		{
 			ret = 1;

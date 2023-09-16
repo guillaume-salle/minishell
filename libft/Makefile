@@ -6,7 +6,7 @@
 #    By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 16:45:59 by kyacini           #+#    #+#              #
-#    Updated: 2023/09/06 16:54:30 by gusalle          ###   ########.fr        #
+#    Updated: 2023/09/16 19:07:25 by gusalle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRC +=	ft_strdup3.c \
 		ft_strnlen.c \
 		ft_isspace.c \
 		ft_str_isspace.c\
-		ft_free_split.c
+		ft_free_split.c\
+		ft_strcpy.c
 
 NAME = libft.a
 

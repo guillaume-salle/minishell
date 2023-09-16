@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 14:10:51 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 19:26:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static void	afflistc(t_commande *var_env)
 	while (var_env)
 	{
 		if (ft_strcmp(var_env->cmd, "") != 0)
-			printf("\t\tCMD : %s\n", var_env->cmd);
-		else
+			printf("\t\tCMD : %s\n", var_env->cmd); else
 			printf("\t\tCMD : juste caractere nul\n");
 
 		if (var_env->cmds_split == NULL)
@@ -79,6 +78,68 @@ int	main(int argc, char *argv[], char *envp[])
 			free_vars(&vars);
 			exit(EXIT_SUCCESS);
 		}
+
+		int quote_open = 0;
+	    char quote_char = '\0';
+	    int pipe_open = 0;
+	
+	    while (1) {
+	        char *p = vars.line + ft_strlen(vars.line) - 1;
+	
+	        if (*p == '|') {
+	            pipe_open = 1;
+	        }
+	
+	        for (p = vars.line; *p; ++p) {
+	            if (*p == '\'' || *p == '\"') {
+	                if (quote_open && quote_char == *p) {
+	                    quote_open = 0;
+	                } else if (!quote_open) {
+	                    quote_open = 1;
+	                    quote_char = *p;
+	                }
+	            }
+	        }
+	
+	        if (!quote_open && !pipe_open) {
+	            break;
+	        }
+	
+	        char *next_line = readline("> ");
+	        if (next_line) {
+	            char *new_line = malloc(ft_strlen(vars.line) + ft_strlen(next_line) + 2);
+	            if (new_line) {
+	                strcpy(new_line, vars.line);
+	                strcat(new_line, "\n");
+	                strcat(new_line, next_line);
+	                free(vars.line);
+	                free(next_line);
+	                vars.line = new_line;
+	
+	                if (pipe_open && next_line[0] != '|') {
+	                    pipe_open = 0;
+	                }
+	
+	                for (p = next_line; *p; ++p) {
+	                    if (*p == quote_char) {
+	                        quote_open = !quote_open;
+	                    }
+	                }
+	            } else {
+					free(next_line);
+					display_error_and_exit("malloc", &vars);
+	            }
+	        } else { //EOF while expecting more
+				if (quote_open)
+					ft_putstr_fd("bash: unexpected EOF while looking for matching `''",
+							STDERR_FILENO);
+				ft_putstr_fd("minishell: syntax error: unexpected end of file",
+						STDERR_FILENO);
+				free(vars.line);
+				continue ; //??
+	        }
+	    }
+
 		if (!handle_history(vars.line))
 		{
 			free(vars.line);
@@ -86,7 +147,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line, &vars);
-		afflist(vars.parse_result);
+//		afflist(vars.parse_result);
 		if (vars.parse_result != NULL)
 			exec_partition_list(vars.parse_result, &vars);
 		reset_vars_zero(&vars);

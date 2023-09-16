@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 15:12:29 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/16 17:38:29 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	free_vars(t_vars *vars)
 
 void	display_error_and_exit(char *str, t_vars *vars)
 {
-	printf("in display_error_and_exit"); //DELETE
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	perror(str);
 	free_vars(vars);
 	exit(errno);
