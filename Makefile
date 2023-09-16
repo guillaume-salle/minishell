@@ -17,6 +17,7 @@ SRCS		= main.c	\
 			  builtins/pwd.c	\
 			  builtins/export.c	\
 			  builtins/unset.c	\
+			  builtins/exit.c	\
 			  execution/exec_command_list.c	\
 			  execution/exec_partition.c	\
 			  execution/exec_word.c	\

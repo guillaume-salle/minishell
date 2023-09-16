@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 00:59:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:32:14 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,29 +34,26 @@ bool	is_builtin(char *cmd_name)
 }
 
 // Checks if this simple command (i.e. no pipe) is a builtin
-static bool	is_builtin_command_list(t_commande *cmd_list)
+static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 {
 	t_commande	*current;
+	char		*cmd_name;
    
 	current = cmd_list;
 	while (current != NULL)
 	{
-		if (current->id == WORD) 
+		if (current->id == WORD && current->cmds_split) 
 		{
-			if (current->cmds_split)
-				return (is_builtin(current->cmds_split[0]));
-			else
+			cmd_name = current->cmds_split[0];
+			if (is_builtin(cmd_name) &&
+					(ft_strcmp(cmd_name, "exit") != 0 || !exist_pipe))
 				return (false);
+			else
+				return (true);
 		}
 		current = current->next;
 	}
 	return (false);
-}
-
-static int	wait_norm(int *wait_pid, int *status)
-{
-	*wait_pid = wait(status);
-	return (*wait_pid);
 }
 
 static void	wait_for_children(t_vars *vars)
@@ -64,7 +61,8 @@ static void	wait_for_children(t_vars *vars)
 	int		status;
 	pid_t	wait_pid;
 
-	while (wait_norm(&wait_pid, &status) > 0) 
+	wait_pid = wait(&status);
+	while (wait_pid > 0) 
 	{
 		if (WIFEXITED(status) && wait_pid > 0 && wait_pid == vars->last_pid)
 			vars->last_exit_status= WEXITSTATUS(status);
@@ -74,21 +72,22 @@ static void	wait_for_children(t_vars *vars)
 			{
 				if (g_sigint == 0)
 				{
-					ft_putstr_fd("Quit (core dumped)\n", 2);
+					ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
 					g_sigint = 1;
 				}
 			}
 			else if (__WCOREDUMP(status))
 			{
-				ft_putstr_fd("minishell: process ", 2);
-				ft_putnbr_fd(wait_pid, 2);
-				ft_putstr_fd(" terminated by a signal (", 2);
-				ft_putnbr_fd(WTERMSIG(status), 2);
-				ft_putstr_fd(")\n", 2);
+				ft_putstr_fd("minishell: process ", STDERR_FILENO);
+				ft_putnbr_fd(wait_pid, STDERR_FILENO);
+				ft_putstr_fd(" terminated by a signal (", STDERR_FILENO);
+				ft_putnbr_fd(WTERMSIG(status), STDERR_FILENO);
+				ft_putstr_fd(")\n", STDERR_FILENO);
 			}
 			if (vars->last_pid != 0 && wait_pid == vars->last_pid)
 				vars->last_exit_status = 128 + WTERMSIG(status);
 		}
+		wait_pid = wait(&status);
 	}
 	if (wait_pid < 0 && errno != ECHILD)
 		display_error_and_exit("wait", vars);
@@ -101,14 +100,14 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 	int		last_fd;
 	bool	exist_children;
 
-
-//	Handle heredocs first
 	handle_heredocs(head, vars);
-	last_fd = 0;
+	if (head && head->next)
+		vars->exist_pipe = true;
 	exist_children = false;
+	last_fd = 0;
 	while (head)
 	{
-		if (is_builtin_command_list(head->cmds))
+		if (is_forking_command_list(head->cmds, vars->exist_pipe) == false)
 		{
 			vars->last_exit_status = exec_command_list(head->cmds, vars, 0);
 			vars->last_pid = 0;

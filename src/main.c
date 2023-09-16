@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 22:48:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:10:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	reset_vars_zero(t_vars *vars)
 	vars->last_exit_status= 0;
 	free(vars->line);
 	vars->line = NULL;
+	vars->exist_pipe = false;
 }
 
 int	main(int argc, char *argv[], char *envp[])
