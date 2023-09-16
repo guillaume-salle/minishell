@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_parsing.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 21:21:41 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/16 15:06:19 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_partition		*ft_lstlast_partition(t_partition *lst);
 t_partition		*create_partition(char **partitions, t_vars *var_env);
 t_partition		*parsing(char *line, t_vars *var_env);
 t_commande		*create_lstcmd(char *str, t_vars *var_env);
-t_commande		*ft_lst_newcmd(char *cmd, int id);
+t_commande		*ft_lst_newcmd(char *without_exp, char *cmd, int id);
 void			ft_lstadd_backcmd(t_commande **lst, t_commande *new);
 t_commande		*ft_lstlastcmd(t_commande *lst);
 char			*create_word(char **str, int *tab, t_vars *var_env);

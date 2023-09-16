@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 11:03:09 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 15:12:29 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ static void	free_commande(t_commande *head)
 		{
 			free(head->heredoc);
 			head->heredoc = NULL;
+		}
+		if (head->without_exp)
+		{
+			free(head->without_exp);
+			head->without_exp = NULL;
 		}
 		next = head->next;
 		free(head);

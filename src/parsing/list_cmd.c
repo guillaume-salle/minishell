@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/16 12:08:30 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/16 15:26:50 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ t_commande	*create_lstcmd(char *str, t_vars *var_env)
 	if (!tab)
 		return (free_double_char(div), NULL);
 	create_type_table(div, tab);
-	c = ft_lst_newcmd(create_word(div, tab, var_env), 0);
+	c = ft_lst_newcmd(NULL, create_word(div, tab, var_env), 0);
 	fill_lstcmd(div, tab, c, var_env);
 	return (free(div), free(tab), c);
 }
 
-t_commande	*ft_lst_newcmd(char *cmd, int id)
+t_commande	*ft_lst_newcmd(char *without_exp, char *cmd, int id)
 {
 	t_commande	*c;
 
@@ -43,6 +43,7 @@ t_commande	*ft_lst_newcmd(char *cmd, int id)
 	c->id = id;
 	c->cmds_split = ft_split(cmd, ' ');
 	clean_del(c->cmds_split);
+	c->without_exp = ft_strdup3(without_exp);
 	c->heredoc = NULL;
 	c->next = NULL;
 	return (c);

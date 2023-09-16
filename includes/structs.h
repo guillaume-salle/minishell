@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 22:48:38 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 15:08:04 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_commande{
 	char				**cmds_split;
 	int					id;
 	char				*heredoc;
+	char 				*without_exp;
 	struct s_commande	*next;
 }	t_commande;
 
