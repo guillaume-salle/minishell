@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 22:48:09 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/16 12:08:30 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_commande	*create_lstcmd(char *str, t_vars *var_env)
 
 	i = 0;
 	div = ft_split(str, ' ');
-	clean_del(div);
 	while (div[i])
 		i++;
 	tab = malloc(i * sizeof(int));
@@ -43,6 +42,7 @@ t_commande	*ft_lst_newcmd(char *cmd, int id)
 	c->cmd = cmd;
 	c->id = id;
 	c->cmds_split = ft_split(cmd, ' ');
+	clean_del(c->cmds_split);
 	c->heredoc = NULL;
 	c->next = NULL;
 	return (c);

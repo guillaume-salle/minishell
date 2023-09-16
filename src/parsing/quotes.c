@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 21:06:54 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/16 13:45:45 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_pips(char *str)
 	while (str[i])
 	{
 		if (str[i] == '|' && turn == 1)
-			return (printf("minishell: syntax error near unexpected token `|'\n"), 0);
+			return (ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO), 0);
 		else if ((str[i] == '|' || str[i] == '>' || str[i] == '<') && turn == 0)
 			turn = 1;
 		else if (str[i] != ' ')
@@ -47,7 +47,7 @@ int	last_character(char *str)
 		i++;
 	}
 	if (str[c] == '>' || str[c] == '<' || str[c] == '|')
-		return (printf("minishell: syntax error near unexpected token `newline'\n"), 1);
+		return (ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO), 1);
 	return (0);
 }
 
@@ -100,5 +100,5 @@ char	*first_transformation(char *commande, t_vars *var_env)
 	new = add_spaces(commande);
 	if (last_character(new))
 		return (my_putenv("?", "1", var_env), free(new), NULL);
-	return (my_putenv("?", "0", var_env), splitable(new), new);
+	return (splitable(new), new);
 }

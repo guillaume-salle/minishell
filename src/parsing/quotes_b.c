@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes_b.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:24:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 22:24:29 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/16 14:31:18 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_unique(char *str)
 	int	i;
 
 	if (!ft_strcmp(str, "\"") || !ft_strcmp(str, "\'"))
-		return (printf("Error with a single quote\n"), 0);
+		return (ft_putstr_fd("Error with a single quote\n", STDERR_FILENO), 0);
 	tab = create_quote_rep(str);
 	i = 0;
 	while (i < ft_strlen(str))
@@ -27,12 +27,12 @@ int	check_unique(char *str)
 		{
 			if (i != 0 && tab[i + 1] != 0 && tab[i - 1] != 0
 				&& tab[i] != tab[i + 1] && tab[i] != tab[i - 1])
-				return (printf("Error with a single quote\n"), free(tab), 0);
+				return (ft_putstr_fd("Error with a single quote\n", STDERR_FILENO), free(tab), 0);
 		}
 		i++;
 	}
 	if (tab[i - 1] == 0)
-		return (printf("Error with a single quote\n"), free(tab), 0);
+		return (ft_putstr_fd("Error with a single quote\n", STDERR_FILENO), free(tab), 0);
 	free(tab);
 	return (1);
 }
@@ -63,7 +63,6 @@ char	*supp_quotes(char *str, t_vars *var_env)
 	c = 0;
 	vars = stock_variables(str);
 	str = illuminate_variables(str, var_env->envp_list, vars);
-	printf("%s\n", str);
 	if (vars)
 		free_double_char(vars);
 	if (!have_quotes(str))
