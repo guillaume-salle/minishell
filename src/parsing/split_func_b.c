@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   split_func_b.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
+/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:26:10 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/13 19:11:07 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:49:09 by skhali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_parsing.h"
 
-void	fill_lstcmd(char **div, int *tab, t_commande *c)
+void	fill_lstcmd(char **div, int *tab, t_commande *c, t_vars *var_env)
 {
 	int	i;
 
@@ -20,13 +20,13 @@ void	fill_lstcmd(char **div, int *tab, t_commande *c)
 	while (div[i])
 	{
 		if (tab[i] == 1)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i]), 1));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i], var_env), 1));
 		else if (tab[i] == 2)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i]), 2));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i], var_env), 2));
 		else if (tab[i] == 3)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i]), 3));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i], var_env), 3));
 		else if (tab[i] == 4)
-			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i]), 4));
+			ft_lstadd_backcmd(&c, ft_lst_newcmd(supp_quotes(div[i], var_env), 4));
 		else if (tab[i] == 5)
 			free(div[i]);
 		i++;
