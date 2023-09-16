@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 22:46:09 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 13:59:43 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int			cd(int argc, char *argv[], t_vars *vars);
 int			pwd(int argc, char *argv[], t_vars *vars);
 int			export(int argc, char *argv[], t_vars *vars);
 int			unset(int argc, char *argv[], t_vars *vars);
+int			my_exit(int argc, char *argv[], t_vars *vars);
 
 // UTILS
 void		init_envp_list(char *envp[], t_list **head);

@@ -38,8 +38,9 @@ typedef struct s_vars
 {
 	t_list				*envp_list;
 	char				**envp;
-	t_partition			*parse_result;
 	char				*line;
+	t_partition			*parse_result;
+	bool				exist_pipe;
 	int					last_pid;
 	int					last_exit_status;
 }						t_vars;
