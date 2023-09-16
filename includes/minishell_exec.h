@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 18:05:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/15 22:46:09 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
 
-extern int	g_sigint_received;
+extern int	g_sigint;
 
 // BUILTINS
 int			echo(int argc, char *argv[], t_vars *vars);

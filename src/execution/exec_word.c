@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 11:40:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 00:33:09 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 			if (forking)
 			{
 				free_vars(vars);
+			//	close_fd(vars); ??
 			}
-			return (127); //??
+			exit(127);
 		}
 		execve(pathname, argv, vars->envp);
 		free(pathname);
-	//	close_fd(vars); ??
 		display_error_and_exit("execve", vars);
 		return (-1);
 	}

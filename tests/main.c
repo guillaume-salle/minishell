@@ -1,6 +1,7 @@
 #include "tests.h"
 
 t_vars g_vars;
+int	g_sigint;
 
 int main(int argc, char *argv[], char *envp[]) {
 	
