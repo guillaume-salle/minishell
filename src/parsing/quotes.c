@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 21:06:54 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/16 12:25:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,5 @@ char	*first_transformation(char *commande, t_vars *var_env)
 	new = add_spaces(commande);
 	if (last_character(new))
 		return (my_putenv("?", "1", var_env), free(new), NULL);
-	return (my_putenv("?", "0", var_env), splitable(new), new);
+	return (splitable(new), new);
 }

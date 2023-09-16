@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/15 22:48:38 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 14:02:44 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ typedef struct s_vars
 {
 	t_list				*envp_list;
 	char				**envp;
-	t_partition			*parse_result;
 	char				*line;
+	t_partition			*parse_result;
+	bool				exist_pipe;
 	int					last_pid;
 	int					last_exit_status;
 }						t_vars;
