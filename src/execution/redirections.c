@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:02:34 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/11 09:27:02 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:07:31 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,18 @@ void handle_heredocs(t_partition *head, t_vars *vars) {
     }
 }
 
-void handle_redirection(t_commande *cmd, t_vars *vars) {
+int	handle_redirection(t_commande *cmd, t_vars *vars) {
     int fd;
 	int pipefd[2];
 
+	if(ft_strcmp(cmd->cmd, "") == 0 &&
+			(cmd->id == R_DIR || cmd->id == RD_DIR || cmd->id == L_DIR))
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->without_exp, STDERR_FILENO);
+		ft_putstr_fd(": ambiguous redirect\n", STDERR_FILENO);
+		return (-1);
+	}
     switch (cmd->id) {
         case R_DIR: // >
             fd = open(cmd->cmds_split[0], O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -81,7 +89,7 @@ void handle_redirection(t_commande *cmd, t_vars *vars) {
             if (dup2(fd, STDOUT_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
             close(fd);
-            break;
+			return (0);
 
         case L_DIR: // <
             fd = open(cmd->cmds_split[0], O_RDONLY);
@@ -90,7 +98,7 @@ void handle_redirection(t_commande *cmd, t_vars *vars) {
             if (dup2(fd, STDIN_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
             close(fd);
-            break;
+			return (0);
 
         case RD_DIR: // >>
             fd = open(cmd->cmds_split[0], O_WRONLY | O_CREAT | O_APPEND, 0644);
@@ -99,7 +107,7 @@ void handle_redirection(t_commande *cmd, t_vars *vars) {
             if (dup2(fd, STDOUT_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
             close(fd);
-            break;
+			return (0);
 
 		case LD_DIR: // <<
 			if (pipe(pipefd) == -1)
@@ -109,9 +117,10 @@ void handle_redirection(t_commande *cmd, t_vars *vars) {
 			if (dup2(pipefd[0], STDIN_FILENO) == -1)
 				display_error_and_exit("dup2", vars);
 			close(pipefd[0]);
-			break;
+			return (0);
 
         default:
 			display_error_and_exit("Invalid redirection type", vars);
+			return (-1);
     }
 }

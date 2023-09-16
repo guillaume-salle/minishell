@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/10 22:27:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 16:12:50 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,32 @@
 
 // The return value exit_status is used only for builtins, when not forking,
 // otherwise exec_word will call execve and the process will exit.
-int exec_command_list(t_commande *cmd_list, t_vars *vars, bool forking)
+int	exec_command_list(t_commande *cmd_list, t_vars *vars, bool forking)
 {
-    t_commande *current = cmd_list;
+	t_commande	*current;
 	int			exit_status;
 
-    // Handle all redirections
-    while (current != NULL) {
-        if (current->id != WORD) {
-            handle_redirection(current, vars);
-        }
-        current = current->next;
-    }
-
-    // Find and execute the WORD command
-    current = cmd_list;
-    while (current != NULL) {
-        if (current->id == WORD) {
+	current = cmd_list;
+	// Handle all redirections
+	while (current != NULL)
+	{
+		if (current->id != WORD)
+		{
+			if (handle_redirection(current, vars) == -1)
+				return (1);
+		}
+		current = current->next;
+	}
+	// Find and execute the WORD command
+	current = cmd_list;
+	while (current != NULL)
+	{
+		if (current->id == WORD)
+		{
 			exit_status = exec_word(current, vars, forking);
-            break;
-        }
-        current = current->next;
-    }
+			break ;
+		}
+		current = current->next;
+	}
 	return (exit_status);
 }
