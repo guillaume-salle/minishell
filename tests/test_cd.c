@@ -30,7 +30,7 @@ START_TEST (test_cd_change_to_invalid_directory)
     }
 
     ck_assert_int_ne(result, 0);
-    ck_assert_str_eq(buffer, "cd: No such file or directory\n");
+    ck_assert_str_eq(buffer, "cd: /nonexistentdirectory: No such file or directory\n");
 }
 END_TEST
 

@@ -75,7 +75,7 @@ START_TEST (test_exec_builtin_cd_2) {
 	char* test_strings[] = {"cd", new_dir, NULL};
 	cmd.cmds_split = test_strings;
 	cmd.id = WORD;
-	char* expected_output = "cd: No such file or directory\n";
+	char* expected_output = "cd: /nonexistentdirectory: No such file or directory\n";
 
 	run_test_cmd(&cmd, expected_output, &g_vars, STDERR_FILENO);
 }

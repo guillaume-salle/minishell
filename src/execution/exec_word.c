@@ -1,12 +1,11 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
+/*                                                                            */ /*                                                        :::      ::::::::   */
 /*   exec_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 11:49:18 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:02:34 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +70,21 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 	char	**argv;
 
 	argv = cmd->cmds_split;
-	if (argv != NULL)
+	if (argv != NULL && argv[0] != NULL)
 		cmd_name = argv[0];
 	else
 		cmd_name = cmd->cmd;
+	if (ft_strcmp(cmd_name, "") == 0)
+	{
+		exit_status = 0;
+		if (forking)
+		{
+			free_vars(vars);
+			exit(exit_status);
+		}
+		else
+			return (exit_status);
+	}
 	if (forking == false)
 	{
 		exit_status = exec_builtin(argv, vars);

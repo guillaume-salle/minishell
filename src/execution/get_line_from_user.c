@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 12:24:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 15:32:41 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,18 @@ static bool	is_pipe_open(char *line)
 
 static void	readline_null_free_exit(t_vars *vars)
 {
+	char	*argv[2];
+
 	rl_clear_history();
-	free_vars(vars);
-	exit(EXIT_SUCCESS);
+	argv[0] = "exit";
+	argv[1] = "2";
+	my_exit(2, argv, vars);
 }
 
 static void	readline_null_expecting_more(t_vars *vars)
 {
 	char	quote_char;
+	char	*argv[2];
 
 	if (is_quote_open(vars->line, &quote_char))
 	{
@@ -80,11 +84,18 @@ static void	readline_null_expecting_more(t_vars *vars)
 				matching `", STDERR_FILENO);
 		ft_putchar_fd(quote_char, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
+		my_putenv("?", "2", vars);
+		free(vars->line);
+		vars->line = NULL;
 	}
-	ft_putstr_fd("minishell: syntax error: unexpected end of file\n",
-		STDERR_FILENO);
-	free(vars->line);
-	vars->line = NULL;
+	else if (is_pipe_open(vars->line))
+	{
+		ft_putstr_fd("minishell: syntax error: unexpected end of file\n",
+			STDERR_FILENO);
+		argv[0] = "exit";
+		argv[1] = "2";
+		my_exit(2, argv, vars);
+	}
 }
 
 void	get_line_from_user(t_vars *vars)
@@ -96,7 +107,10 @@ void	get_line_from_user(t_vars *vars)
 	{
 		vars->new_line = readline("> ");
 		if (vars->new_line == NULL)
+		{
 			readline_null_expecting_more(vars);
+			return ;
+		}
 		vars->temp_line = malloc(ft_strlen(vars->line)
 				+ ft_strlen(vars->new_line) + 2);
 		if (vars->temp_line == NULL)
