@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/16 16:04:56 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 14:16:21 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_commande	*create_lstcmd(char *str, t_vars *var_env)
 		return (free_double_char(div), NULL);
 	create_type_table(div, tab);
 	c = ft_lst_newcmd(NULL, create_word(div, tab, var_env), 0);
-	fill_lstcmd(div, tab, c, var_env);
+	fill_lstcmd(div, tab, &c, var_env);
 	return (free(div), free(tab), c);
 }
 
@@ -56,12 +56,13 @@ char	*create_word(char **str, int *tab, t_vars *var_env)
 	char	*buff;
 
 	word = NULL;
+	buff = NULL;
 	i = 0;
 	while (str[i])
 	{
 		if (tab[i] == 0)
 		{
-			buff = supp_quotes(str[i], var_env);
+			buff = supp_quotes(str[i], var_env, 0);
 			word = ft_strjoin(word, buff);
 			free(buff);
 			word = ft_strjoin(word, " ");
