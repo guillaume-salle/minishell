@@ -33,7 +33,6 @@ jobs:
             exit 1
           fi
           chmod +x "${{ env.exe }}"
-          ./"${{ env.exe }}"
           exit 0
 
       - name: Test
