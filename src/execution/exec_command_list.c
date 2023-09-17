@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 10:19:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:03:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	exec_command_list(t_commande *cmd_list, t_vars *vars, bool forking)
 	t_commande	*current;
 	int			exit_status;
 
+	exit_status = 0;
 	current = cmd_list;
 	while (current != NULL)
 	{

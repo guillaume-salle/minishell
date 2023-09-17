@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 12:57:44 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 15:45:41 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,8 @@ int			exec_command_list(t_commande *head, t_vars *vars, bool forking);
 int			handle_redirection(t_commande *cmd, t_vars *vars);
 int			exec_word(t_commande *cmd, t_vars *vars, bool forking);
 void		wait_for_children(t_vars *vars);
+
+// PRINT PARSING
+void	afflist(t_partition *var_env);
 
 #endif

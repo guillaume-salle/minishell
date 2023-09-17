@@ -70,7 +70,7 @@ START_TEST(test_echo_7)
 START_TEST(test_echo_8)
 {
 	char* test_strings[] = {"echo", "-", NULL};
-	char* expected_output = "\n";
+	char* expected_output = "-\n";
 	run_test_echo(test_strings, expected_output);
 } END_TEST
 
@@ -91,7 +91,7 @@ START_TEST(test_echo_10)
 START_TEST(test_echo_11)
 {
 	char* test_strings[] = {"echo", "-", "Hello,", "World!", NULL};
-	char* expected_output = "Hello, World!\n";
+	char* expected_output = "- Hello, World!\n";
 	run_test_echo(test_strings, expected_output);
 } END_TEST
 

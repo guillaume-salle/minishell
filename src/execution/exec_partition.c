@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 13:07:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:02:50 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 	return (false);
 }
 
-static void	exec_partition(t_partition *head, t_vars *vars)
-{
-}
+//static void	exec_partition(t_partition *head, t_vars *vars)
+//{
+//}
 
 void	exec_partition_list(t_partition *head, t_vars *vars)
 {

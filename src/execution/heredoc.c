@@ -6,11 +6,12 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 12:42:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 15:42:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
+#include "minishell_parsing.h"
 
 // Prints warning if EOF before delimiter is found
 static void	end_of_file_heredoc(t_commande *current_command)
@@ -68,6 +69,11 @@ static void	handle_this_heredoc(t_commande *current_command, t_vars *vars)
 	
 	// Store the heredoc data in your data structure
 	current_command->heredoc = heredoc_data;
+
+	char **variables = stock_variables(current_command->heredoc);
+	current_command->heredoc = illuminate_variables(current_command->heredoc, vars->envp_list, variables);
+	ft_free_split(variables);
+
 }
 
 void	handle_all_heredocs(t_partition *head, t_vars *vars)
