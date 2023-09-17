@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:15:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 17:33:11 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 18:22:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	add_node(t_list **head, const char *name, const char *content)
 		return (-1);
 	}
 	new_node->content = ft_strdup3(content);
-	if (new_node->content == NULL)
+	if (content != NULL && new_node->content == NULL)
 	{
 		free(new_node->name);
 		free(new_node);
@@ -89,7 +89,7 @@ int	my_putenv(const char *key, const char *value, t_vars *vars)
 {
 	t_list	*current;
 
-	if (key == NULL || value == NULL)
+	if (key == NULL)
 		return (-1);
 	current = vars->envp_list;
 	while (current)
@@ -98,7 +98,7 @@ int	my_putenv(const char *key, const char *value, t_vars *vars)
 		{
 			free(current->content);
 			current->content = ft_strdup3(value);
-			if (!current->content)
+			if (value != NULL && current->content == NULL)
 				return (-1);
 			return (0);
 		}

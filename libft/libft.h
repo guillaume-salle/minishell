@@ -6,7 +6,7 @@
 /*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 16:59:58 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 19:01:37 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/16 19:07:10 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ size_t				ft_strnlen(const char *s, size_t n);
 bool				ft_isspace(int c);
 bool				ft_str_isspace(const char *str);
 void				ft_free_split(char **tab);
+char				*ft_strcpy(char *dest, const char *src);
 
 #endif

@@ -6,24 +6,24 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 16:22:53 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 15:46:30 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 12:52:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-static int	is_option(char *str, char *options)
+static bool	is_option(char *str, char *options)
 {
 	int	i;
 	int	len;
 
-	if (str[0] != '-')
-		return (0);
+	if (str[0] != '-' || str[1] == '\0')
+		return (false);
 	i = 1;
 	while (str[i])
 	{
 		if (!ft_strchr(ECHO_OPTIONS, str[i]))
-			return (0);
+			return (false);
 		i++;
 	}
 	i = 1;
@@ -37,7 +37,7 @@ static int	is_option(char *str, char *options)
 		}
 		i++;
 	}
-	return (1);
+	return (true);
 }
 
 int	echo(int argc, char **argv, t_vars *vars)

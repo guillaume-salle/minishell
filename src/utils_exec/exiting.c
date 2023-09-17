@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup3.c                                       :+:      :+:    :+:   */
+/*   exiting.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 11:16:51 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 18:22:07 by gusalle          ###   ########.fr       */
+/*   Created: 2023/09/17 09:47:09 by gusalle           #+#    #+#             */
+/*   Updated: 2023/09/17 09:47:35 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell_exec.h"
 
-char	*ft_strdup3(const char *s)
+void	display_error_and_exit(char *str, t_vars *vars)
 {
-	char	*cpy;
-
-	if (s == NULL)
-		return (NULL);
-	cpy = malloc((ft_strlen(s) + 1) * sizeof(*cpy));
-	if (cpy == NULL)
-		return (NULL);
-	ft_strlcpy(cpy, s, ft_strlen(s) + 1);
-	return (cpy);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	perror(str);
+	free_vars(vars);
+	exit(errno);
 }

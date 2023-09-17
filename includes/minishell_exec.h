@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 16:07:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 12:57:44 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int			add_node(t_list **head, const char *name, const char *content);
 bool		is_valid_variable_name(const char *name);
 char		*find_command_path(const char *command, t_vars *vars);
 void		update_envp(t_vars *vars);
-void		print_env(const char *prefix, t_list *head);
+void		print_env(t_list *head);
+void		print_env_export(t_list *head);
 
 // MAIN
 void		setup_signal_handlers_main(void);
@@ -63,11 +64,13 @@ void		free_vars(t_vars *vars);
 void		display_error_and_exit(char *str, t_vars *vars);
 
 // EXECUTION
+void		get_line_from_user(t_vars *vars);
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);
-void		handle_heredocs(t_partition *head, t_vars *vars);
+void		handle_all_heredocs(t_partition *head, t_vars *vars);
 int			exec_command_list(t_commande *head, t_vars *vars, bool forking);
 int			handle_redirection(t_commande *cmd, t_vars *vars);
 int			exec_word(t_commande *cmd, t_vars *vars, bool forking);
+void		wait_for_children(t_vars *vars);
 
 #endif
