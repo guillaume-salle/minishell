@@ -1,11 +1,12 @@
 /* ************************************************************************** */
-/*                                                                            */ /*                                                        :::      ::::::::   */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
 /*   exec_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 16:02:34 by gusalle          ###   ########.fr       */
+/*   Created: 2023/09/17 17:44:41 by gusalle           #+#    #+#             */
+/*   Updated: 2023/09/17 21:12:34 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +59,20 @@ static void	exec_non_builtin(char *cmd_name, char **argv, t_vars *vars)
 }
 
 //TODO
-void	close_fd(t_vars *vars)
+//static void	close_fd_forking(t_vars *vars)
+//{
+//	(void) vars;
+//}
+
+// always forking in this function is called
+// Call close fd ??
+static int	exec_empty_cmd(t_vars *vars)
 {
-	(void) vars;
+	free_vars(vars);
+	exit(EXIT_SUCCESS);
 }
 
+// CALL CLOSE FD ??
 int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 {
 	char	*cmd_name;
@@ -74,22 +84,10 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 		cmd_name = argv[0];
 	else
 		cmd_name = cmd->cmd;
-	if (ft_strcmp(cmd_name, "") == 0)
-	{
-		exit_status = 0;
-		if (forking)
-		{
-			free_vars(vars);
-			exit(exit_status);
-		}
-		else
-			return (exit_status);
-	}
 	if (forking == false)
-	{
-		exit_status = exec_builtin(argv, vars);
-		return (exit_status);
-	}
+		return (exec_builtin(argv, vars));
+	else if (ft_strcmp(cmd_name, "") == 0)
+		exec_empty_cmd(vars);
 	else if (forking == true && ft_strcmp(cmd_name, "exit") == 0)
 	{
 		exit_status = exec_builtin(argv, vars);
@@ -97,8 +95,6 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 		exit(exit_status);
 	}
 	else
-	{
 		exec_non_builtin(cmd_name, argv, vars);
-		exit(EXIT_FAILURE);
-	}
+	return (EXIT_FAILURE);
 }

@@ -5,13 +5,15 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
-			  utils_exec/utils_env.c	\
 			  utils_exec/free.c	\
 			  utils_exec/exiting.c	\
-			  utils_exec/signal_handlers.c	\
+			  utils_exec/signals_main.c	\
 			  utils_exec/handle_history.c	\
 			  utils_exec/path.c	\
 			  utils_exec/envp.c	\
+			  utils_exec/envp2.c	\
+			  utils_exec/is_builtin.c	\
+			  utils_exec/safe.c	\
 			  builtins/echo.c	\
 			  builtins/env.c	\
 			  builtins/cd.c	\
