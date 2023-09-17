@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 16:02:50 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:37:08 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 		}
 		current = current->next;
 	}
-	return (false);
+	return (true);
 }
 
 //static void	exec_partition(t_partition *head, t_vars *vars)
