@@ -6,16 +6,15 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 18:53:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 10:17:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
 //in an element of the env linked list, there is supposed to be a name
-//but not necessary a content (ie can be NULL), if there was a command like:
-//export hello
-
+//but not necessary a content (ie content can be NULL),
+//if there was a command like: export hello
 void	print_env_export(t_list *head)
 {
 	t_list	*current;
@@ -46,7 +45,7 @@ void	print_env(t_list *head)
 		if (current->content == NULL)
 		{
 			current = current->next;
-			continue;
+			continue ;
 		}
 		ft_putstr_fd(current->name, STDOUT_FILENO);
 		ft_putstr_fd("=", STDOUT_FILENO);

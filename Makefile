@@ -7,6 +7,7 @@ INC_DIR		= includes
 SRCS		= main.c	\
 			  utils_exec/utils_env.c	\
 			  utils_exec/free.c	\
+			  utils_exec/exiting.c	\
 			  utils_exec/signal_handlers.c	\
 			  utils_exec/handle_history.c	\
 			  utils_exec/path.c	\
@@ -18,10 +19,13 @@ SRCS		= main.c	\
 			  builtins/export.c	\
 			  builtins/unset.c	\
 			  builtins/exit.c	\
+			  execution/get_line_from_user.c	\
 			  execution/exec_command_list.c	\
 			  execution/exec_partition.c	\
 			  execution/exec_word.c	\
-			  execution/redirections.c
+			  execution/redirections.c	\
+			  execution/heredoc.c	\
+			  execution/wait_for_children.c
 
 SRCS		+= parsing/add_spaces.c \
 			   parsing/list_cmd.c \

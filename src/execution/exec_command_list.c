@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 16:12:50 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 10:19:13 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	exec_command_list(t_commande *cmd_list, t_vars *vars, bool forking)
 	int			exit_status;
 
 	current = cmd_list;
-	// Handle all redirections
 	while (current != NULL)
 	{
 		if (current->id != WORD)
@@ -30,7 +29,6 @@ int	exec_command_list(t_commande *cmd_list, t_vars *vars, bool forking)
 		}
 		current = current->next;
 	}
-	// Find and execute the WORD command
 	current = cmd_list;
 	while (current != NULL)
 	{

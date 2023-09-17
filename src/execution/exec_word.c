@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 20:14:10 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 13:59:24 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 11:49:18 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,55 @@ static int	exec_builtin(char *argv[], t_vars *vars)
 	return (exit_status);
 }
 
+static void	exec_non_builtin(char *cmd_name, char **argv, t_vars *vars)
+{
+	char	*pathname;
+
+	update_envp(vars);
+	pathname = find_command_path(cmd_name, vars);
+	if (pathname == NULL)
+	{
+		ft_putstr_fd(cmd_name, 2);
+		ft_putstr_fd(": command not found\n", 2);
+		free_vars(vars);
+		exit(127);
+	}
+	execve(pathname, argv, vars->envp);
+	free(pathname);
+	display_error_and_exit("execve", vars);
+}
+
+//TODO
+void	close_fd(t_vars *vars)
+{
+	(void) vars;
+}
+
 int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 {
 	char	*cmd_name;
-	char	**argv;
 	int		exit_status;
-	char	*pathname;
+	char	**argv;
 
 	argv = cmd->cmds_split;
 	if (argv != NULL)
 		cmd_name = argv[0];
 	else
 		cmd_name = cmd->cmd;
-	if (is_builtin(cmd_name))
+	if (forking == false)
 	{
 		exit_status = exec_builtin(argv, vars);
 		return (exit_status);
 	}
+	else if (forking == true && ft_strcmp(cmd_name, "exit") == 0)
+	{
+		exit_status = exec_builtin(argv, vars);
+		free_vars(vars);
+		exit(exit_status);
+	}
 	else
 	{
-		update_envp(vars);
-		pathname = find_command_path(cmd_name, vars);
-		if (pathname == NULL)
-		{
-			ft_putstr_fd(cmd_name, 2);
-			ft_putstr_fd(": command not found\n", 2);
-			if (forking)
-			{
-				free_vars(vars);
-			//	close_fd(vars); ??
-			}
-			exit(127);
-		}
-		execve(pathname, argv, vars->envp);
-		free(pathname);
-		display_error_and_exit("execve", vars);
-		return (-1);
+		exec_non_builtin(cmd_name, argv, vars);
+		exit(EXIT_FAILURE);
 	}
 }

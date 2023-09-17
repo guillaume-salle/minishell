@@ -6,11 +6,20 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 17:38:29 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 09:47:33 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
+
+void	free_and_set_null(void *pointer)
+{
+	if (pointer != NULL)
+	{
+		free(pointer);
+		pointer = NULL;
+	}
+}
 
 static void	free_commande(t_commande *head)
 {
@@ -20,31 +29,19 @@ static void	free_commande(t_commande *head)
 	while (head)
 	{
 		if (head->cmd)
-		{
-			free(head->cmd);
-			head->cmd = NULL;
-		}
+			free_and_set_null(head->cmd);
 		if (head->cmds_split)
 		{
-			i = 0;
-			while (head->cmds_split[i] != NULL)
-			{
+			i = -1;
+			while (head->cmds_split[++i] != NULL)
 				free(head->cmds_split[i]);
-				i++;
-			}
 			free(head->cmds_split);
 			head->cmds_split = NULL;
 		}
 		if (head->heredoc)
-		{
-			free(head->heredoc);
-			head->heredoc = NULL;
-		}
+			free_and_set_null(head->heredoc);
 		if (head->without_exp)
-		{
-			free(head->without_exp);
-			head->without_exp = NULL;
-		}
+			free_and_set_null(head->without_exp);
 		next = head->next;
 		free(head);
 		head = next;
@@ -110,12 +107,4 @@ void	free_vars(t_vars *vars)
 		free(vars->line);
 		vars->line = NULL;
 	}
-}
-
-void	display_error_and_exit(char *str, t_vars *vars)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	perror(str);
-	free_vars(vars);
-	exit(errno);
 }
