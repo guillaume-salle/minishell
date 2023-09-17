@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:24:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/16 14:31:18 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/17 13:19:50 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	have_quotes(char *str)
 	return (0);
 }
 
-char	*supp_quotes(char *str, t_vars *var_env)
+char	*supp_quotes(char *str, t_vars *var_env, int id)
 {
 	char	*new;
 	int		i;
@@ -62,7 +62,8 @@ char	*supp_quotes(char *str, t_vars *var_env)
 	i = 0;
 	c = 0;
 	vars = stock_variables(str);
-	str = illuminate_variables(str, var_env->envp_list, vars);
+	if (id != 4)
+		str = illuminate_variables(str, var_env->envp_list, vars);
 	if (vars)
 		free_double_char(vars);
 	if (!have_quotes(str))
