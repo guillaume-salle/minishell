@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 15:32:41 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 00:43:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	is_quote_open(char *line, char *quote_char)
 			}
 		}
 	}
-	if (is_quote_open)
+	if (is_quote_open && quote_char != NULL)
 		*quote_char = current_quote_char;
 	return (is_quote_open);
 }
@@ -80,8 +80,8 @@ static void	readline_null_expecting_more(t_vars *vars)
 
 	if (is_quote_open(vars->line, &quote_char))
 	{
-		ft_putstr_fd("minishell: unexpected EOF while looking for \
-				matching `", STDERR_FILENO);
+		ft_putstr_fd("minishell: unexpected EOF while looking for matching `",
+			STDERR_FILENO);
 		ft_putchar_fd(quote_char, STDERR_FILENO);
 		ft_putstr_fd("'\n", STDERR_FILENO);
 		my_putenv("?", "2", vars);
@@ -101,25 +101,27 @@ static void	readline_null_expecting_more(t_vars *vars)
 void	get_line_from_user(t_vars *vars)
 {
 	vars->line = readline("minishell> ");
+	if (g_signal_received != 0)
+		signal_in_readline(vars);
 	if (vars->line == NULL)
 		readline_null_free_exit(vars);
 	while (is_pipe_open(vars->line) || is_quote_open(vars->line, NULL))
 	{
-		vars->new_line = readline("> ");
-		if (vars->new_line == NULL)
-		{
-			readline_null_expecting_more(vars);
-			return ;
-		}
-		vars->temp_line = malloc(ft_strlen(vars->line)
-				+ ft_strlen(vars->new_line) + 2);
+		vars->old_line = vars->line;
+		vars->line = readline("> ");
+		if ((g_signal_received != 0) && signal_readline_pipe_open(vars) == true)
+			continue ;
+		if (vars->line == NULL)
+			return (readline_null_expecting_more(vars));
+		vars->temp_line = malloc(ft_strlen(vars->old_line)
+				+ ft_strlen(vars->line) + 2);
 		if (vars->temp_line == NULL)
 			display_error_and_exit("malloc", vars);
-		ft_strcpy(vars->temp_line, vars->line);
+		ft_strcpy(vars->temp_line, vars->old_line);
 		ft_strcat(vars->temp_line, "\n");
-		ft_strcat(vars->temp_line, vars->new_line);
+		ft_strcat(vars->temp_line, vars->line);
+		free(vars->old_line);
 		free(vars->line);
-		free(vars->new_line);
 		vars->line = vars->temp_line;
 	}
 }

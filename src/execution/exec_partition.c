@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 20:23:43 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/18 18:13:16 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,10 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 	int		last_fd;
 
 	if (handle_all_heredocs(head, vars) == -1)
+	{
+		printf("on arrete le handle all heredoc\n"); //DELETE
 		return ;
+	}
 	if (head && head->next)
 		vars->exist_pipe = true;
 	last_fd = 0;

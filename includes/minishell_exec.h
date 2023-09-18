@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 20:23:58 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 00:47:14 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,19 @@ bool		handle_history(char *line);
 void		refresh_readline_sigint();
 void		setup_signal_handlers_main(void);
 void		set_default_handling_signals(void);
+void		signal_in_readline(t_vars *vars);
+bool		signal_readline_pipe_open(t_vars *vars);
+bool		signal_readline_heredoc(t_vars *vars);
 
 // FREE
 void		free_partition(t_partition *part);
 void		free_list2(t_list *head);
 void		free_vars(t_vars *vars);
 void		display_error_and_exit(char *str, t_vars *vars);
+void		free_and_nullify(char **pointer);
 
 // EXECUTION
+void		reset_vars_zero(t_vars *vars);
 void		get_line_from_user(t_vars *vars);
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);

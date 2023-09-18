@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals_main.c                                     :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:50:48 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 20:23:25 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/18 19:00:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-void	refresh_readline_sigint(void)
-{
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
-
 // Handle Ctrl-C
 static void	sigint_handler_main(int signo)
 {
 	g_signal_received = signo;
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 	write(STDOUT_FILENO, "\n", 1);
 }
 
