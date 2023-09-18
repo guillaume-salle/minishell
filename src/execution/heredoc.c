@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 21:11:58 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 00:49:05 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,13 @@ static int	get_data(t_commande *cmd, size_t *total_length, char **heredoc_data,
 	char	*line;
 
 	line = readline("> ");
-	if (g_signal_received == SIGINT)
+	if (g_signal_received == SIGINT
+		&& printf("signal recu  dans readline, on est dans le if\n")
+		&& signal_readline_heredoc(vars) == true)
 	{
-		my_putenv("?", "130", vars);
-		if (line != NULL)
-			free(line);
 		if (*heredoc_data != NULL)
 			free(*heredoc_data);
-		refresh_readline_sigint();
-		g_signal_received = 0;
+		printf("get data return -1\n"); // DELETE
 		return (-1);
 	}
 	if (line == NULL)
@@ -78,6 +76,7 @@ static int	handle_this_heredoc(t_commande *cmd, t_vars *vars)
 	int		ret;
 	char	**variables;
 
+	printf("handling a heredoc\n"); // DELETE
 	total_length = 0;
 	heredoc_data = NULL;
 	while (true)

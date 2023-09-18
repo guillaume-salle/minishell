@@ -7,7 +7,6 @@ INC_DIR		= includes
 SRCS		= main.c	\
 			  utils_exec/free.c	\
 			  utils_exec/exiting.c	\
-			  utils_exec/signals_main.c	\
 			  utils_exec/handle_history.c	\
 			  utils_exec/path.c	\
 			  utils_exec/envp.c	\
@@ -21,6 +20,8 @@ SRCS		= main.c	\
 			  builtins/export.c	\
 			  builtins/unset.c	\
 			  builtins/exit.c	\
+			  execution/signals.c	\
+			  execution/signal_in_readline.c	\
 			  execution/get_line_from_user.c	\
 			  execution/exec_command_list.c	\
 			  execution/exec_partition.c	\
