@@ -41,6 +41,7 @@ SRCS		+= parsing/add_spaces.c \
 			   parsing/utils_var.c \
 			   parsing/split_func.c \
 			   parsing/split_func_b.c \
+			   parsing/print_errors.c \
 
 
 OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.o))

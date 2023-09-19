@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 14:08:06 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/17 19:25:59 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,16 @@ char			*add_final(char *str, int *tab, int size, int *quotes);
 int				*create_add_space(int *tab, int position, int size);
 void			fill_quote_tab(int *cases, int *switch_ab, int a, int b);
 int				*init_var_createquote(int *a, int *b, int *i, char *str);
-void			fill_lstcmd(char **div, int *tab, t_commande **c, t_vars *var_env);
+void			fill_lstcmd(char **div, int *tab, t_commande **c, t_vars *v);
 void			init_vars_count(int *i, int *res, int *len_var);
 void			add_var_len(char *var, t_list *var_env, int *res);
 void			init_var_illum(int *i, int *c, int *j);
 void			affect_casu_char(char *new, char str, int *j);
 int				check_red(char *str);
+void			print_err_token(void);
+void			print_err_newline(void);
+void			print_err_pipe(void);
+void			print_err_single(void);
+void			print_another_err(char *s, int i);
 
 #endif
