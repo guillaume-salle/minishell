@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:50:48 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/18 19:00:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:50:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 static void	sigint_handler_main(int signo)
 {
 	g_signal_received = signo;
+	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
-	write(STDOUT_FILENO, "\n", 1);
 }
 
 // Handle Ctrl-\.

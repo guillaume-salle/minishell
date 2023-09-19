@@ -6,7 +6,7 @@
 #    By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 16:45:59 by kyacini           #+#    #+#              #
-#    Updated: 2023/09/19 19:24:25 by kyacini          ###   ########.fr        #
+#    Updated: 2023/09/19 22:00:23 by gusalle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ OBJS = ${SRC:.c=.o}
 all	:	${NAME}
 
 %.o : %.c
-	gcc -o $@ -c $< -Wall -Werror -Wextra
+	cc -o $@ -c $< -Wall -Werror -Wextra
 
 libft.a	:	${OBJS}
 	ar rc ${NAME} ${OBJS}

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 19:32:27 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:56:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@
 //		return (false);
 //	return (true);
 //}
+
 bool	get_line_from_user(t_vars *vars)
 {
-	if (vars->line == NULL)
-		vars->line = readline("minishell> ");
+	vars->line = readline("minishell> ");
 	if (g_signal_received != 0)
 		signal_in_readline(vars);
 	if (vars->line == NULL)
