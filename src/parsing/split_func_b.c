@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:26:10 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 18:39:39 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:13:38 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	add_var_len(char *var, t_list *var_env, int *res)
 void	init_var_illum(int *i, int *c, int *j)
 {
 	*j = 0;
-	*i = 0;
+	*i = -1;
 	*c = 0;
 }
 

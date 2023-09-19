@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 15:16:29 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 13:34:54 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:20:00 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ char	*join_char(char *s1, char c)
 	return (new_chain);
 }
 
+int	boolean_test(char c)
+{
+	return (c != '\"' && c != (char)177 && c != '=');
+}
+
 void	variable(char *str, int *i, char **new)
 {
 	int	c;
@@ -80,7 +85,8 @@ void	variable(char *str, int *i, char **new)
 	c = 1;
 	if (!str[*i + c])
 		return ;
-	if (!ft_isalpha(str[*i + c]) && (str[*i + c] != '_') && str[*i + c] != '\"')
+	if (!ft_isalpha(str[*i + c]) && (str[*i + c] != '_')
+		&& boolean_test(str[*i + c]))
 	{
 		*new = join_char(*new, str[*i + c]);
 		*new = ft_strjoin(*new, " ");

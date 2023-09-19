@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:59:08 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 17:25:36 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:19:51 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*illuminate_variables(char *str, t_list *var_env, char **vars)
 	while (++i < ft_strlen(str) + count_char(vars, var_env))
 	{
 		if (str[j] == '$' && kind_of_quote(str, j) != 2 && vars[c]
-			&& str[j + 1] != '\"')
+			&& boolean_test(j + 1))
 		{
 			replace_content(vars[c], var_env, new, &i);
 			j += ft_strlen(vars[c]) + 1;
