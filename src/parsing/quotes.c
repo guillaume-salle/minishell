@@ -46,7 +46,7 @@ int	last_character(char *str)
 			c = i;
 		i++;
 	}
-	if (str[c] == '>' || str[c] == '<')
+	if (str[c] == '>' || str[c] == '<' || str[c] == '|')
 		return (print_err_newline(), 1);
 	return (0);
 }
