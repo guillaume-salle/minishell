@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 13:54:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:13:49 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,6 @@ static bool	is_pipe_open(char *line)
 	return (false);
 }
 
-static void	readline_null_free_exit(t_vars *vars)
-{
-	char	*argv[2];
-
-	rl_clear_history();
-	argv[0] = "exit";
-	argv[1] = "2";
-	my_exit(0, argv, vars);
-}
-
 static void	readline_null_expecting_more(t_vars *vars)
 {
 	char	quote_char;
@@ -98,20 +88,17 @@ static void	readline_null_expecting_more(t_vars *vars)
 	}
 }
 
-void	get_line_from_user(t_vars *vars)
+static bool	get_line_from_user_2(t_vars *vars)
 {
-	if (vars->line != NULL)
-		vars->line = readline("minishell> ");
-	if (g_signal_received != 0)
-		signal_in_readline(vars);
-	if (vars->line == NULL)
-		readline_null_free_exit(vars);
 	while (is_pipe_open(vars->line) || is_quote_open(vars->line, NULL))
 	{
 		vars->old_line = vars->line;
 		vars->line = readline("> ");
-		if ((g_signal_received != 0) && signal_readline_pipe_open(vars) == true)
+		if ((g_signal_received != 0) && signal_in_readline(vars) == true)
+		{
+			free(vars->old_line);
 			continue ;
+		}
 		if (vars->line == NULL)
 			return (readline_null_expecting_more(vars), false);
 		vars->temp_line = malloc(ft_strlen(vars->old_line)
@@ -125,5 +112,18 @@ void	get_line_from_user(t_vars *vars)
 		free(vars->line);
 		vars->line = vars->temp_line;
 	}
+	return (true);
+}
+
+bool	get_line_from_user(t_vars *vars)
+{
+	if (vars->line == NULL)
+		vars->line = readline("minishell> ");
+	if (g_signal_received != 0)
+		signal_in_readline(vars);
+	if (vars->line == NULL)
+		readline_null_free_exit(vars);
+	if (get_line_from_user_2(vars) == false)
+		return (false);
 	return (true);
 }
