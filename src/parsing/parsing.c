@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:50 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 19:32:19 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:59:56 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,42 @@ t_partition	*create_partition(char **partitions, t_vars *var_env)
 	return (part);
 }
 
+void	splitable_pipe(char *str)
+{
+	int	i;
+	int	*tab;
+
+	i = 0;
+	tab = create_quote_rep(str);
+	while (str[i])
+	{
+		if (str[i] == '|' && tab[i] == 0)
+			str[i] = (char) 29;
+		i++;
+	}
+	free(tab);
+}
+
+void	clean_del_pipe(char **str)
+{
+	int	i;
+	int	c;
+
+	i = 0;
+	c = 0;
+	while (str[i])
+	{
+		while (str[i][c])
+		{
+			if (str[i][c] == (char) 29)
+				str[i][c] = '|';
+			c++;
+		}
+		c = 0;
+		i++;
+	}
+}
+
 t_partition	*parsing(char *line, t_vars *var_env)
 {
 	char		**partitions;
@@ -35,7 +71,9 @@ t_partition	*parsing(char *line, t_vars *var_env)
 
 	if (!line || !ft_strcmp(line, ""))
 		return (NULL);
+	splitable_pipe(line);
 	partitions = ft_split(line, '|');
+	clean_del_pipe(partitions);
 	part = create_partition(partitions, var_env);
 	free_double_char(partitions);
 	return (part);

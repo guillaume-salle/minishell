@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 19:12:18 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:32:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line, &vars);
-		afflist(vars.parse_result);
 		if (vars.parse_result != NULL)
 			exec_partition_list(vars.parse_result, &vars);
 		free_and_nullify(&vars.line);

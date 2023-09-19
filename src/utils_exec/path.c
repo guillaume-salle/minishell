@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 10:42:46 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 20:36:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ static char	*find_relative_path(const char *command, t_vars *vars)
 	while (dirs[i] != NULL)
 	{
 		full_path = make_full_path(dirs[i], command, vars);
-		if (stat(full_path, &st) == 0 && (st.st_mode & S_IXUSR))
+		if (stat(full_path, &st) == -1)
+			display_error_and_exit("stat", vars);
+		else if (S_ISDIR(st.st_mode))
+			path_is_a_directory(full_path, vars);
+		else if (st.st_mode & S_IXUSR)
 			return (ft_free_split(dirs), full_path);
 		free(full_path);
 		i++;
