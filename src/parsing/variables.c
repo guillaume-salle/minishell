@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skhali <skhali@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:59:08 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/15 22:48:22 by skhali           ###   ########.fr       */
+/*   Updated: 2023/09/17 17:25:36 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	kind_of_quote(char *str, int j)
 {
 	int	*tab;
-	int ret;
+	int	ret;
 
 	tab = create_quote_rep(str);
 	if (tab[j] == 0)
@@ -108,9 +108,10 @@ char	*illuminate_variables(char *str, t_list *var_env, char **vars)
 	if (!new)
 		return (NULL);
 	new[ft_strlen(str) + count_char(vars, var_env)] = '\0';
-	while (i < ft_strlen(str) + count_char(vars, var_env))
+	while (++i < ft_strlen(str) + count_char(vars, var_env))
 	{
-		if (str[j] == '$' && kind_of_quote(str, j) != 2 && vars[c] && str[j + 1] != '\"')
+		if (str[j] == '$' && kind_of_quote(str, j) != 2 && vars[c]
+			&& str[j + 1] != '\"')
 		{
 			replace_content(vars[c], var_env, new, &i);
 			j += ft_strlen(vars[c]) + 1;
@@ -118,7 +119,6 @@ char	*illuminate_variables(char *str, t_list *var_env, char **vars)
 		}
 		else
 			affect_casu_char(&new[i], str[j], &j);
-		i++;
 	}
 	return (free(str), new);
 }

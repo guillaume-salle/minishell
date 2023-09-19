@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 13:29:49 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/17 17:19:26 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_pips(char *str)
 	while (str[i])
 	{
 		if (str[i] == '|' && turn == 1)
-			return (ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", STDERR_FILENO), 0);
+			return (print_err_pipe(), 0);
 		else if ((str[i] == '|' || str[i] == '>' || str[i] == '<') && turn == 0)
 			turn = 1;
 		else if (str[i] != ' ')
@@ -46,8 +46,8 @@ int	last_character(char *str)
 			c = i;
 		i++;
 	}
-	if (str[c] == '>' || str[c] == '<' || str[c] == '|')
-		return (ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", STDERR_FILENO), 1);
+	if (str[c] == '>' || str[c] == '<')
+		return (print_err_newline(), 1);
 	return (0);
 }
 
@@ -94,7 +94,7 @@ char	*first_transformation(char *commande, t_vars *var_env)
 	new = NULL;
 	if (ft_strcmp(commande, "") == 0)
 		return (free(commande), NULL);
-	if (!check_red(commande)|| !check_unique(commande)
+	if (!check_red(commande) || !check_unique(commande)
 		|| !check_pips(commande) || last_character(commande))
 		return (my_putenv("?", "1", var_env), free(commande), NULL);
 	new = add_spaces(commande);

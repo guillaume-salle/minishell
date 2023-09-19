@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 16:22:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 14:16:21 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/17 16:39:22 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ t_commande	*ft_lst_newcmd(char *without_exp, char *cmd, int id)
 {
 	t_commande	*c;
 
+	if (!cmd)
+		return (NULL);
 	c = malloc(sizeof(t_commande));
-	if (!c || !cmd)
+	if (!c)
 		return (NULL);
 	c->cmd = cmd;
 	c->id = id;
