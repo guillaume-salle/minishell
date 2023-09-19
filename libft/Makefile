@@ -6,7 +6,7 @@
 #    By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 16:45:59 by kyacini           #+#    #+#              #
-#    Updated: 2023/09/16 19:07:25 by gusalle          ###   ########.fr        #
+#    Updated: 2023/09/19 19:24:25 by kyacini          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,16 +46,13 @@ SRC = ft_memset.c \
 		ft_strcmp.c \
 		ft_strrejoin.c \
 		ft_strcat.c	\
-
-
-BONUS = ft_lstnew.c \
+		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
 		ft_lstadd_back.c \
 		ft_lstdelone.c \
 		ft_lstclear.c \
-
 
 SRC +=	ft_strdup3.c \
 		ft_strjoin_table.c \
@@ -70,8 +67,6 @@ NAME = libft.a
 
 OBJS = ${SRC:.c=.o}
 
-OBJS_BONUS = ${BONUS:.c=.o}
-
 all	:	${NAME}
 
 %.o : %.c
@@ -80,8 +75,6 @@ all	:	${NAME}
 libft.a	:	${OBJS}
 	ar rc ${NAME} ${OBJS}
 
-bonus	:	${OBJS} ${OBJS_BONUS}
-	ar rc ${NAME} ${OBJS} ${OBJS_BONUS}
 clean	:
 	rm -rf *.o
 
