@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 20:01:29 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 10:17:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:52:01 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	print_env_export(t_list *head)
 	current = head;
 	while (current != NULL)
 	{
+		if (ft_strcmp(current->name, "?") == 0)
+		{
+			current = current->next;
+			continue ;
+		}
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(current->name, STDOUT_FILENO);
 		if (current->content)
@@ -35,6 +40,7 @@ void	print_env_export(t_list *head)
 	}
 }
 
+//Don't print $?
 void	print_env(t_list *head)
 {
 	t_list	*current;
@@ -42,7 +48,7 @@ void	print_env(t_list *head)
 	current = head;
 	while (current != NULL)
 	{
-		if (current->content == NULL)
+		if (current->content == NULL || ft_strcmp(current->name, "?") == 0)
 		{
 			current = current->next;
 			continue ;
