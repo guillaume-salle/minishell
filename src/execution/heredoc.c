@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 00:49:05 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 18:36:06 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,47 +23,54 @@ static void	end_of_file_heredoc(t_commande *cmd)
 	ft_putstr_fd("')\n", STDERR_FILENO);
 }
 
-static void	realloc_and_append(char *line, size_t *total_length,
+static void	realloc_and_append(char *saved_line, size_t *total_length,
 		char **heredoc_data, t_vars *vars)
 {
 	size_t	new_length;
 	char	*new_heredoc_data;
 
-	new_length = *total_length + ft_strlen(line) + 1;
+	new_length = *total_length + ft_strlen(vars->line) + 1;
 	new_heredoc_data = realloc(*heredoc_data, new_length + 1);
+	new_heredoc_data = malloc(new_length + 1);
 	if (new_heredoc_data == NULL)
 	{
-		free(line);
+		free(saved_line);
 		free(*heredoc_data);
 		display_error_and_exit("Memory allocation failed", vars);
 	}
+	ft_strcpy(new_heredoc_data, *heredoc_data);
+	ft_strcat(new_heredoc_data, saved_line);
+	ft_strcat(new_heredoc_data, "\n");
 	*heredoc_data = new_heredoc_data;
-	ft_strcpy(*heredoc_data + *total_length, line);
-	ft_strcat(*heredoc_data, "\n");
 	*total_length = new_length;
-	free(line);
+	free(*heredoc_data);
+	free(saved_line);
 }
 
 static int	get_data(t_commande *cmd, size_t *total_length, char **heredoc_data,
 		t_vars *vars)
 {
-	char	*line;
+	char	*saved_line;
+	bool	stop;
 
-	line = readline("> ");
-	if (g_signal_received == SIGINT
-		&& printf("signal recu  dans readline, on est dans le if\n")
-		&& signal_readline_heredoc(vars) == true)
+	stop = false;
+	saved_line = vars->line;
+	vars->line = readline("> ");
+	if (g_signal_received != 0)
 	{
-		if (*heredoc_data != NULL)
-			free(*heredoc_data);
-		printf("get data return -1\n"); // DELETE
-		return (-1);
+		stop = signal_in_readline(vars);
+		if (stop == true)
+		{
+			if (saved_line != NULL)
+				free(saved_line);
+			return (-1);
+		}
 	}
-	if (line == NULL)
+	if (vars->line == NULL)
 		return (end_of_file_heredoc(cmd), 1);
-	if (ft_strcmp(line, cmd->cmds_split[0]) == 0)
-		return (free(line), 1);
-	realloc_and_append(line, total_length, heredoc_data, vars);
+	if (ft_strcmp(vars->line, cmd->cmds_split[0]) == 0)
+		return (free(vars->line), 1);
+	realloc_and_append(saved_line, total_length, heredoc_data, vars);
 	return (0);
 }
 
@@ -76,7 +83,6 @@ static int	handle_this_heredoc(t_commande *cmd, t_vars *vars)
 	int		ret;
 	char	**variables;
 
-	printf("handling a heredoc\n"); // DELETE
 	total_length = 0;
 	heredoc_data = NULL;
 	while (true)
