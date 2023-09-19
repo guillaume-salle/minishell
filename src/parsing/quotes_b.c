@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:24:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 13:19:50 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/17 17:28:38 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	check_unique(char *str)
 	int	i;
 
 	if (!ft_strcmp(str, "\"") || !ft_strcmp(str, "\'"))
-		return (ft_putstr_fd("Error with a single quote\n", STDERR_FILENO), 0);
+		return (print_err_single(), 0);
 	tab = create_quote_rep(str);
 	i = 0;
 	while (i < ft_strlen(str))
@@ -27,12 +27,12 @@ int	check_unique(char *str)
 		{
 			if (i != 0 && tab[i + 1] != 0 && tab[i - 1] != 0
 				&& tab[i] != tab[i + 1] && tab[i] != tab[i - 1])
-				return (ft_putstr_fd("Error with a single quote\n", STDERR_FILENO), free(tab), 0);
+				return (print_err_single(), free(tab), 0);
 		}
 		i++;
 	}
 	if (tab[i - 1] == 0)
-		return (ft_putstr_fd("Error with a single quote\n", STDERR_FILENO), free(tab), 0);
+		return (print_err_single(), free(tab), 0);
 	free(tab);
 	return (1);
 }
@@ -57,26 +57,25 @@ char	*supp_quotes(char *str, t_vars *var_env, int id)
 	int		i;
 	int		c;
 	int		*quotes;
-	char 	**vars;
+	char	**vars;
 
-	i = 0;
+	i = -1;
 	c = 0;
 	vars = stock_variables(str);
 	if (id != 4)
 		str = illuminate_variables(str, var_env->envp_list, vars);
-	if (vars)
-		free_double_char(vars);
+	free_double_char(vars);
 	if (!have_quotes(str))
 		return (ft_strdup(str));
 	quotes = create_quote_rep(str);
-	while (i < ft_strlen(str))
+	while (++i < ft_strlen(str))
 	{
 		if (quotes[i] == 2 || quotes[i] == 3)
 			c++;
-		i++;
 	}
 	new = malloc(ft_strlen(str) - c + 1);
 	if (!new)
 		return (free(quotes), free(str), NULL);
-	return (new[ft_strlen(str) - c] = '\0', fill_tab(str, quotes, new), free(quotes), free(str), new);
+	return (new[ft_strlen(str) - c] = '\0', fill_tab(str, quotes, new),
+		free(quotes), free(str), new);
 }

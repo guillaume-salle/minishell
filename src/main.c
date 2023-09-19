@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 15:46:07 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 17:22:42 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(int argc, char *argv[], char *envp[])
 		}
 		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line, &vars);
-		 afflist(vars.parse_result);
+		afflist(vars.parse_result);
 		if (vars.parse_result != NULL)
 			exec_partition_list(vars.parse_result, &vars);
 		reset_vars_zero(&vars);
@@ -63,9 +63,9 @@ static void	afflistc(t_commande *var_env)
 	while (var_env)
 	{
 		if (ft_strcmp(var_env->cmd, "") != 0)
-			printf("\t\tCMD : %s\n", var_env->cmd); else
+			printf("\t\tCMD : %s\n", var_env->cmd);
+		else
 			printf("\t\tCMD : juste caractere nul\n");
-
 		if (var_env->cmds_split == NULL)
 			printf("\t\tCMDS_SPLIT : NULL");
 		else

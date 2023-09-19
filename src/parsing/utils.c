@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:19:45 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/06 15:55:39 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/17 17:28:28 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,13 @@ t_list	*initialized_env(char **env)
 	return (res);
 }
 
-void	free_double_char(char	**str)
+void	free_double_char(char **str)
 {
 	int	i;
 
 	i = -1;
+	if (!str)
+		return ;
 	while (str[++i])
 		free(str[i]);
 	free(str);
