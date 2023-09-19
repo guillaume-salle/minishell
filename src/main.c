@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 19:32:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:52:28 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	main(int argc, char *argv[], char *envp[])
 		reset_vars_zero(&vars);
 		if (my_getenv("?", &vars) == NULL)
 			my_putenv("?", "0", &vars);
-		if (get_line_from_user(&vars) == false)
-			continue ;
+		get_line_from_user(&vars);
 		if (!check_spaces_append_history(vars.line))
 		{
 			free_and_nullify(&vars.line);

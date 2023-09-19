@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 20:36:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 21:57:19 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	is_absolute_path(const char *command)
 	return (false);
 }
 
-static char	*make_full_path(const char *path, const char *command, t_vars *vars)
+char	*make_full_path(const char *path, const char *command, t_vars *vars)
 {
 	char	*full_path;
 	size_t	len;
@@ -41,21 +41,34 @@ static char	*make_full_path(const char *path, const char *command, t_vars *vars)
 
 static char	*find_absolute_path(const char *command, t_vars *vars)
 {
-	char	*full_path;
+	char		*full_path;
+	struct stat	st;
 
 	full_path = ft_strdup3(command);
 	if (full_path == NULL)
 		display_error_and_exit("ft_strdup3", vars);
+	if (stat(full_path, &st) == 0)
+	{
+		if (S_ISDIR(st.st_mode) == 1)
+		{
+			ft_putstr_fd("minishell: ", STDERR_FILENO);
+			ft_putstr_fd(full_path, STDERR_FILENO);
+			ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
+			free(full_path);
+			exit(126);
+		}
+		else if (st.st_mode & S_IXUSR)
+			return (full_path);
+	}
 	return (full_path);
 }
 
 static char	*find_relative_path(const char *command, t_vars *vars)
 {
-	char		*full_path;
-	char		*path_var;
-	char		**dirs;
-	struct stat	st;
-	int			i;
+	char	*full_path;
+	char	*path_var;
+	char	**dirs;
+	int		i;
 
 	path_var = my_getenv("PATH", vars);
 	if (path_var == NULL)
@@ -64,14 +77,8 @@ static char	*find_relative_path(const char *command, t_vars *vars)
 	i = 0;
 	while (dirs[i] != NULL)
 	{
-		full_path = make_full_path(dirs[i], command, vars);
-		if (stat(full_path, &st) == -1)
-			display_error_and_exit("stat", vars);
-		else if (S_ISDIR(st.st_mode))
-			path_is_a_directory(full_path, vars);
-		else if (st.st_mode & S_IXUSR)
+		if (check_this_path(dirs[i], command, &full_path, vars) == true)
 			return (ft_free_split(dirs), full_path);
-		free(full_path);
 		i++;
 	}
 	ft_free_split(dirs);
