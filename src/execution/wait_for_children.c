@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 12:56:31 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 13:03:11 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/17 20:32:30 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static void	case_terminated_by_signal(int status, pid_t wait_pid, t_vars *vars)
 {
 	if (WTERMSIG(status) == 3)
 	{
-		if (g_sigint == 0)
+		if (g_signal_received == 0)
 		{
 			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-			g_sigint = 1;
+			g_signal_received = 1;
 		}
 	}
 	else if (__WCOREDUMP(status))
@@ -47,6 +47,11 @@ void	wait_for_children(t_vars *vars)
 		else if (WIFSIGNALED(status))
 			case_terminated_by_signal(status, wait_pid, vars);
 		wait_pid = wait(&status);
+	}
+	if (wait_pid < 0 && errno == EINTR)
+	{
+		my_putenv("?", "130", vars);
+		return ;
 	}
 	if (wait_pid < 0 && errno != ECHILD)
 		display_error_and_exit("wait", vars);

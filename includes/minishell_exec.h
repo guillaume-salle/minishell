@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 15:45:41 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 00:47:14 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
 
-extern int	g_sigint;
+extern volatile sig_atomic_t	g_signal_received;
 
 // BUILTINS
 int			echo(int argc, char *argv[], t_vars *vars);
@@ -52,28 +52,41 @@ char		*find_command_path(const char *command, t_vars *vars);
 void		update_envp(t_vars *vars);
 void		print_env(t_list *head);
 void		print_env_export(t_list *head);
-
-// MAIN
-void		setup_signal_handlers_main(void);
 bool		handle_history(char *line);
+
+// SIGNALS
+void		refresh_readline_sigint();
+void		setup_signal_handlers_main(void);
+void		set_default_handling_signals(void);
+void		signal_in_readline(t_vars *vars);
+bool		signal_readline_pipe_open(t_vars *vars);
+bool		signal_readline_heredoc(t_vars *vars);
 
 // FREE
 void		free_partition(t_partition *part);
 void		free_list2(t_list *head);
 void		free_vars(t_vars *vars);
 void		display_error_and_exit(char *str, t_vars *vars);
+void		free_and_nullify(char **pointer);
 
 // EXECUTION
+void		reset_vars_zero(t_vars *vars);
 void		get_line_from_user(t_vars *vars);
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);
-void		handle_all_heredocs(t_partition *head, t_vars *vars);
+int			handle_all_heredocs(t_partition *head, t_vars *vars);
 int			exec_command_list(t_commande *head, t_vars *vars, bool forking);
 int			handle_redirection(t_commande *cmd, t_vars *vars);
 int			exec_word(t_commande *cmd, t_vars *vars, bool forking);
 void		wait_for_children(t_vars *vars);
 
+// SAFE
+int			safe_dup(int oldfd, t_vars *vars);
+int			safe_dup2(int oldfd, int newfd, t_vars *vars);
+int			safe_close(int fd, t_vars *vars);
+int			safe_pipe(int pipefd[2], t_vars *vars);
+
 // PRINT PARSING
-void	afflist(t_partition *var_env);
+void		afflist(t_partition *var_env);
 
 #endif

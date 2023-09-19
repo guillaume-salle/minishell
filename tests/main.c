@@ -1,7 +1,7 @@
 #include "tests.h"
 
 t_vars g_vars;
-int	g_sigint;
+volatile sig_atomic_t	g_signal_received = 0;
 
 int main(int argc, char *argv[], char *envp[]) {
 	

@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 13:06:16 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/18 22:58:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ typedef struct s_vars
 	t_list				*envp_list;
 	char				**envp;
 	char				*line;
-	char				*new_line;
+	char				*old_line;
 	char				*temp_line;
 	t_partition			*parse_result;
 	bool				exist_pipe;
 	bool				exist_children;
 	int					last_pid;
 	int					last_exit_status;
+	int					save_stdin;
+	int					save_stdout;
 }						t_vars;
 
 #endif
