@@ -6,13 +6,13 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:00:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/14 11:55:44 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 13:46:47 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-bool	handle_history(char *line)
+bool	check_spaces_append_history(char *line)
 {
 	if (!ft_str_isspace(line))
 	{

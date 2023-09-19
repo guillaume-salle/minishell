@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 17:22:42 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:06:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,23 @@ int	main(int argc, char *argv[], char *envp[])
 		reset_vars_zero(&vars);
 		if (my_getenv("?", &vars) == NULL)
 			my_putenv("?", "0", &vars);
-		get_line_from_user(&vars);
-		if ((vars.line) == NULL)
+		if (get_line_from_user(&vars) == false)
 			continue ;
-		if (!handle_history(vars.line))
+		if (!check_spaces_append_history(vars.line))
 		{
-			free(vars.line);
+			free_and_nullify(&vars.line);
 			continue ;
 		}
 		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line, &vars);
 		if (vars.parse_result != NULL)
 			exec_partition_list(vars.parse_result, &vars);
+		free_and_nullify(&vars.line);
 	}
 	return ((void)argc, (void)argv, EXIT_SUCCESS);
 }
 
-//static void	afflistc(t_commande *var_env)
+// static void	afflistc(t_commande *var_env)
 //{
 //	if (var_env == NULL)
 //		printf("\tcommande nulle\n");
@@ -64,7 +64,7 @@ int	main(int argc, char *argv[], char *envp[])
 //	}
 //}
 //
-//void	afflist(t_partition *var_env)
+// void	afflist(t_partition *var_env)
 //{
 //	printf("--- PRINTING PARSING ---\n");
 //	if (var_env == NULL)

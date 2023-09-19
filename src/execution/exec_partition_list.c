@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_partition.c                                   :+:      :+:    :+:   */
+/*   exec_partition_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/18 18:13:16 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:12:07 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-// Checks if this simple command (i.e. no pipe) is a builtin
+// Checks if this simple command (i.e. no pipe) is a builtin.
+// fork for exit if there is a pipe
 static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 {
 	t_commande	*current;
@@ -35,8 +36,38 @@ static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 	return (true);
 }
 
-static void	exec_partition_non_forking(t_partition *head, int *last_fd,
-		t_vars *vars)
+// Don't fork for builtin
+static void	fork_before_exec(t_partition *head, int saved_stdin,
+		int saved_stdout, t_vars *vars)
+{
+	int		exit_status;
+	pid_t	pid;
+
+	if (is_forking_command_list(head->cmds, vars->exist_pipe))
+	{
+		pid = fork();
+		if (pid < 0)
+			display_error_and_exit("fork", vars);
+		else if (pid == 0)
+		{
+			set_default_handling_signals();
+			safe_close(saved_stdin, vars);
+			safe_close(saved_stdout, vars);
+			exit_status = exec_command_list(head->cmds, vars, 1);
+			free_vars(vars);
+			exit(exit_status);
+		}
+		vars->last_pid = pid;
+		vars->exist_children = true;
+	}
+	else
+	{
+		vars->last_exit_status = exec_command_list(head->cmds, vars, 0);
+		vars->last_pid = 0;
+	}
+}
+
+static void	exec_one_partition(t_partition *head, int *last_fd, t_vars *vars)
 {
 	int	saved_stdin;
 	int	saved_stdout;
@@ -44,65 +75,24 @@ static void	exec_partition_non_forking(t_partition *head, int *last_fd,
 
 	saved_stdin = safe_dup(STDIN_FILENO, vars);
 	saved_stdout = safe_dup(STDOUT_FILENO, vars);
-	if (*last_fd)
+	if (*last_fd != 0)
 	{
 		safe_dup2(*last_fd, STDIN_FILENO, vars);
 		safe_close(*last_fd, vars);
 		*last_fd = 0;
 	}
-	if (head->next)
+	if (head->next != NULL)
 	{
 		safe_pipe(pipefd, vars);
 		safe_dup2(pipefd[1], STDOUT_FILENO, vars);
 		safe_close(pipefd[1], vars);
 		*last_fd = pipefd[0];
 	}
-	vars->last_exit_status = exec_command_list(head->cmds, vars, 0);
-	vars->last_pid = 0;
+	fork_before_exec(head, saved_stdin, saved_stdout, vars);
 	safe_dup2(saved_stdin, STDIN_FILENO, vars);
 	safe_dup2(saved_stdout, STDOUT_FILENO, vars);
 	safe_close(saved_stdin, vars);
 	safe_close(saved_stdout, vars);
-}
-
-static void	child_routine(t_partition *head, int *last_fd,
-		int pipefd[2], t_vars *vars)
-{
-	int	exit_status;
-
-	set_default_handling_signals();
-	if (*last_fd)
-	{
-		safe_dup2(*last_fd, STDIN_FILENO, vars);
-		safe_close(*last_fd, vars);
-	}
-	if (head->next)
-		safe_dup2(pipefd[1], STDOUT_FILENO, vars);
-	safe_close(pipefd[0], vars);
-	safe_close(pipefd[1], vars);
-	exit_status = exec_command_list(head->cmds, vars, 1);
-	free_vars(vars);
-	exit(exit_status);
-}
-
-static void	exec_partition_forking(t_partition *head, int *last_fd,
-		t_vars *vars)
-{
-	int		pipefd[2];
-	pid_t	pid;
-
-	safe_pipe(pipefd, vars);
-	pid = fork();
-	if (pid < 0)
-		display_error_and_exit("fork", vars);
-	else if (pid == 0)
-		child_routine(head, last_fd, pipefd, vars);
-	safe_close(pipefd[1], vars);
-	if (*last_fd)
-		safe_close(*last_fd, vars);
-	*last_fd = pipefd[0];
-	vars->last_pid = pid;
-	vars->exist_children = true;
 }
 
 void	exec_partition_list(t_partition *head, t_vars *vars)
@@ -111,19 +101,13 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 	int		last_fd;
 
 	if (handle_all_heredocs(head, vars) == -1)
-	{
-		printf("on arrete le handle all heredoc\n"); //DELETE
 		return ;
-	}
 	if (head && head->next)
 		vars->exist_pipe = true;
 	last_fd = 0;
 	while (head)
 	{
-		if (is_forking_command_list(head->cmds, vars->exist_pipe) == false)
-			exec_partition_non_forking(head, &last_fd, vars);
-		else
-			exec_partition_forking(head, &last_fd, vars);
+		exec_one_partition(head, &last_fd, vars);
 		head = head->next;
 	}
 	if (vars->exist_children)
