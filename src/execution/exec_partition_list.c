@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_partition.c                                   :+:      :+:    :+:   */
+/*   exec_partition_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/18 18:13:16 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 13:30:42 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-// Checks if this simple command (i.e. no pipe) is a builtin
+// Checks if this simple command (i.e. no pipe) is a builtin.
+// fork for exit if there is a pipe
 static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 {
 	t_commande	*current;
@@ -44,13 +45,13 @@ static void	exec_partition_non_forking(t_partition *head, int *last_fd,
 
 	saved_stdin = safe_dup(STDIN_FILENO, vars);
 	saved_stdout = safe_dup(STDOUT_FILENO, vars);
-	if (*last_fd)
+	if (*last_fd != 0)
 	{
 		safe_dup2(*last_fd, STDIN_FILENO, vars);
 		safe_close(*last_fd, vars);
 		*last_fd = 0;
 	}
-	if (head->next)
+	if (head->next != NULL)
 	{
 		safe_pipe(pipefd, vars);
 		safe_dup2(pipefd[1], STDOUT_FILENO, vars);
@@ -65,21 +66,14 @@ static void	exec_partition_non_forking(t_partition *head, int *last_fd,
 	safe_close(saved_stdout, vars);
 }
 
-static void	child_routine(t_partition *head, int *last_fd,
-		int pipefd[2], t_vars *vars)
+static void	child_routine(t_partition *head, int saved_stdin,
+		int saved_stdout, t_vars *vars)
 {
 	int	exit_status;
 
 	set_default_handling_signals();
-	if (*last_fd)
-	{
-		safe_dup2(*last_fd, STDIN_FILENO, vars);
-		safe_close(*last_fd, vars);
-	}
-	if (head->next)
-		safe_dup2(pipefd[1], STDOUT_FILENO, vars);
-	safe_close(pipefd[0], vars);
-	safe_close(pipefd[1], vars);
+	safe_close(saved_stdin, vars);
+	safe_close(saved_stdout, vars);
 	exit_status = exec_command_list(head->cmds, vars, 1);
 	free_vars(vars);
 	exit(exit_status);
@@ -88,21 +82,37 @@ static void	child_routine(t_partition *head, int *last_fd,
 static void	exec_partition_forking(t_partition *head, int *last_fd,
 		t_vars *vars)
 {
+	int	saved_stdin;
+	int	saved_stdout;
 	int		pipefd[2];
 	pid_t	pid;
 
-	safe_pipe(pipefd, vars);
+	saved_stdin = safe_dup(STDIN_FILENO, vars);
+	saved_stdout = safe_dup(STDOUT_FILENO, vars);
+	if (*last_fd != 0)
+	{
+		safe_dup2(*last_fd, STDIN_FILENO, vars);
+		safe_close(*last_fd, vars);
+		*last_fd = 0;
+	}
+	if (head->next != NULL)
+	{
+		safe_pipe(pipefd, vars);
+		safe_dup2(pipefd[1], STDOUT_FILENO, vars);
+		safe_close(pipefd[1], vars);
+		*last_fd = pipefd[0];
+	}
 	pid = fork();
 	if (pid < 0)
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
-		child_routine(head, last_fd, pipefd, vars);
-	safe_close(pipefd[1], vars);
-	if (*last_fd)
-		safe_close(*last_fd, vars);
-	*last_fd = pipefd[0];
+		child_routine(head, saved_stdin, saved_stdout, vars);
 	vars->last_pid = pid;
 	vars->exist_children = true;
+	safe_dup2(saved_stdin, STDIN_FILENO, vars);
+	safe_dup2(saved_stdout, STDOUT_FILENO, vars);
+	safe_close(saved_stdin, vars);
+	safe_close(saved_stdout, vars);
 }
 
 void	exec_partition_list(t_partition *head, t_vars *vars)
@@ -111,10 +121,7 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 	int		last_fd;
 
 	if (handle_all_heredocs(head, vars) == -1)
-	{
-		printf("on arrete le handle all heredoc\n"); //DELETE
 		return ;
-	}
 	if (head && head->next)
 		vars->exist_pipe = true;
 	last_fd = 0;

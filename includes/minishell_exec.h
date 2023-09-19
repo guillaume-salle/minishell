@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 00:47:14 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 13:50:28 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char		*find_command_path(const char *command, t_vars *vars);
 void		update_envp(t_vars *vars);
 void		print_env(t_list *head);
 void		print_env_export(t_list *head);
-bool		handle_history(char *line);
+bool		check_spaces_append_history(char *line);
 
 // SIGNALS
 void		refresh_readline_sigint();
@@ -71,7 +71,7 @@ void		free_and_nullify(char **pointer);
 
 // EXECUTION
 void		reset_vars_zero(t_vars *vars);
-void		get_line_from_user(t_vars *vars);
+bool		get_line_from_user(t_vars *vars);
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);
 int			handle_all_heredocs(t_partition *head, t_vars *vars);

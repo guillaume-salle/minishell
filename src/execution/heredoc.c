@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 00:49:05 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 14:03:57 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ static void	realloc_and_append(char *line, size_t *total_length,
 static int	get_data(t_commande *cmd, size_t *total_length, char **heredoc_data,
 		t_vars *vars)
 {
-	char	*line;
-
-	line = readline("> ");
+	char	*save_line;
+//changed line to vars->line
+	save_line = vars->line;
+	vars->line = readline("> ");
 	if (g_signal_received == SIGINT
 		&& printf("signal recu  dans readline, on est dans le if\n")
 		&& signal_readline_heredoc(vars) == true)

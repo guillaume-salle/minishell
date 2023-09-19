@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 00:43:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 13:54:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	readline_null_free_exit(t_vars *vars)
 	rl_clear_history();
 	argv[0] = "exit";
 	argv[1] = "2";
-	my_exit(2, argv, vars);
+	my_exit(0, argv, vars);
 }
 
 static void	readline_null_expecting_more(t_vars *vars)
@@ -100,7 +100,8 @@ static void	readline_null_expecting_more(t_vars *vars)
 
 void	get_line_from_user(t_vars *vars)
 {
-	vars->line = readline("minishell> ");
+	if (vars->line != NULL)
+		vars->line = readline("minishell> ");
 	if (g_signal_received != 0)
 		signal_in_readline(vars);
 	if (vars->line == NULL)
@@ -112,7 +113,7 @@ void	get_line_from_user(t_vars *vars)
 		if ((g_signal_received != 0) && signal_readline_pipe_open(vars) == true)
 			continue ;
 		if (vars->line == NULL)
-			return (readline_null_expecting_more(vars));
+			return (readline_null_expecting_more(vars), false);
 		vars->temp_line = malloc(ft_strlen(vars->old_line)
 				+ ft_strlen(vars->line) + 2);
 		if (vars->temp_line == NULL)
@@ -124,4 +125,5 @@ void	get_line_from_user(t_vars *vars)
 		free(vars->line);
 		vars->line = vars->temp_line;
 	}
+	return (true);
 }

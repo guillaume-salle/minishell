@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 00:42:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 13:44:06 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ void	free_list2(t_list *head)
 	}
 }
 
+// do not reset line
 void	reset_vars_zero(t_vars *vars)
 {
-	if (vars->line != NULL)
-		free_and_nullify(&vars->line);
 	if (vars->old_line != NULL)
 		free_and_nullify(&vars->old_line);
 	if (vars->temp_line != NULL)
