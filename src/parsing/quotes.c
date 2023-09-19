@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 10:15:21 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/17 17:19:26 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 19:45:09 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	check_pips(char *str)
 	turn = 0;
 	while (str[i])
 	{
-		if (str[i] == '|' && turn == 1)
+		if (str[i] == '|' && turn == 1 && !kind_of_quote(str, i))
 			return (print_err_pipe(), 0);
 		else if ((str[i] == '|' || str[i] == '>' || str[i] == '<') && turn == 0)
 			turn = 1;

@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:48:47 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/19 19:19:04 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 20:28:00 by kyacini          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void			print_err_token(void);
 void			print_err_newline(void);
 void			print_err_pipe(void);
 void			print_err_single(void);
-void			print_another_err(char *s, int i);
 int				boolean_test(char c);
+int				kind_of_quote(char *str, int j);
 
 #endif
