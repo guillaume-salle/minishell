@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 18:28:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/19 20:31:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		update_envp(t_vars *vars);
 void		print_env(t_list *head);
 void		print_env_export(t_list *head);
 bool		check_spaces_append_history(char *line);
+void		path_is_a_directory(char *pathname, t_vars *vars);
 
 // SIGNALS
 void		refresh_readline_sigint();

@@ -13,6 +13,7 @@ SRCS		= main.c	\
 			  utils_exec/envp2.c	\
 			  utils_exec/is_builtin.c	\
 			  utils_exec/safe.c	\
+			  utils_exec/utils.c	\
 			  builtins/echo.c	\
 			  builtins/env.c	\
 			  builtins/cd.c	\

@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 14:26:10 by kyacini           #+#    #+#             */
-/*   Updated: 2023/09/19 19:13:38 by kyacini          ###   ########.fr       */
+/*   Updated: 2023/09/19 20:38:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ void	add_var_len(char *var, t_list *var_env, int *res)
 	while (var_env)
 	{
 		if (!ft_strcmp(var, var_env->name))
-				*res = *res + ft_strlen(var_env->content);
-			var_env = var_env->next;
+			*res = *res + ft_strlen(var_env->content);
+		var_env = var_env->next;
 	}
 }
 
