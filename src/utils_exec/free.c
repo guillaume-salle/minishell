@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 18:24:37 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 09:42:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	free_list2(t_list *head)
 	}
 }
 
-// do not reset line
+// Do not reset line and envp
 void	reset_vars_zero(t_vars *vars)
 {
 	if (vars->old_line != NULL)
@@ -101,5 +101,4 @@ void	reset_vars_zero(t_vars *vars)
 	vars->exist_children = false;
 	vars->last_pid = 0;
 	vars->last_exit_status = 0;
-	g_signal_received = 0;
 }

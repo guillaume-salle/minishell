@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:27:46 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 21:36:57 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:35:29 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ bool	check_this_path(const char *path_base, const char *path_end,
 	}
 	free(*full_path);
 	return (false);
+}
+
+void	permission_denied(char *full_path, t_vars *vars)
+{	
+	if (errno == EACCES)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(full_path, STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		free(full_path);
+		free_vars(vars);
+		exit(126);
+	}
 }

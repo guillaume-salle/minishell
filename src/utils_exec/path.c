@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 22:17:17 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/20 23:34:28 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,8 @@ static char	*find_absolute_path(const char *command, t_vars *vars)
 			free(full_path);
 			exit(126);
 		}
-        else if (access(full_path, X_OK) == -1)
-        {
-            if (errno == EACCES)
-            {
-                ft_putstr_fd("minishell: ", STDERR_FILENO);
-                ft_putstr_fd(full_path, STDERR_FILENO);
-                ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-                free(full_path);
-                exit(126);
-            }
-        }
+		else if (access(full_path, X_OK) == -1)
+			permission_denied(full_path, vars);
 		else if (st.st_mode & S_IXUSR)
 			return (full_path);
 	}

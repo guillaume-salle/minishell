@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 21:52:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 11:29:52 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,23 @@ int	main(int argc, char *argv[], char *envp[])
 	t_vars	vars;
 
 	ft_memset(&vars, 0, sizeof(t_vars));
-	setup_signal_handlers_main();
 	init_envp_list(envp, &(vars.envp_list));
+	vars.saved_stdin = safe_dup(STDIN_FILENO, &vars);
 	while (1)
 	{
 		reset_vars_zero(&vars);
 		if (my_getenv("?", &vars) == NULL)
 			my_putenv("?", "0", &vars);
-		get_line_from_user(&vars);
-		if (!check_spaces_append_history(vars.line))
-		{
-			free_and_nullify(&vars.line);
+		if (get_line_from_user(&vars) == -1)
 			continue ;
-		}
 		vars.line = first_transformation(vars.line, &vars);
 		vars.parse_result = parsing(vars.line, &vars);
-		if (vars.parse_result != NULL)
-			exec_partition_list(vars.parse_result, &vars);
+		if (vars.parse_result == NULL)
+			continue ;
+		exec_partition_list(vars.parse_result, &vars);
 		free_and_nullify(&vars.line);
 	}
-	return ((void)argc, (void)argv, EXIT_SUCCESS);
+	return ((void)argc, (void)argv, EXIT_FAILURE);
 }
 
 // static void	afflistc(t_commande *var_env)

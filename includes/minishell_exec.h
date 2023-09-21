@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 21:39:01 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 11:47:11 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ bool		check_this_path(const char *path_base, const char *path_end,
 				char **full_path, t_vars *vars);
 char		*make_full_path(const char *path, const char *command,
 				t_vars *vars);
+void		permission_denied(char *full_path, t_vars *vars);
 
 // SIGNALS
 void		refresh_readline_sigint(void);
-void		setup_signal_handlers_main(void);
+void		setup_signal_handlers_prompt(void);
+void		setup_signal_handlers_heredoc(void);
 void		set_default_handling_signals(void);
 bool		signal_in_readline(t_vars *vars);
 
@@ -75,7 +77,7 @@ void		readline_null_free_exit(t_vars *vars);
 
 // EXECUTION
 void		reset_vars_zero(t_vars *vars);
-bool		get_line_from_user(t_vars *vars);
+int			get_line_from_user(t_vars *vars);
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);
 int			handle_all_heredocs(t_partition *head, t_vars *vars);
