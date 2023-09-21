@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 18:42:32 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 19:49:36 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 
 	if (handle_all_heredocs(head, vars) == -1)
 		return ;
+	setup_signal_handlers_parent();
 	if ((head != NULL && head->next != NULL) || (head->next == NULL
 			&& is_builtin_command(head->cmds) == false))
 		vars->forking = true;

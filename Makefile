@@ -22,6 +22,7 @@ SRCS		= main.c	\
 			  builtins/unset.c	\
 			  builtins/exit.c	\
 			  execution/signals.c	\
+			  execution/signal_parent.c	\
 			  execution/signals_heredoc.c	\
 			  execution/get_line_from_user.c	\
 			  execution/exec_command_list.c	\

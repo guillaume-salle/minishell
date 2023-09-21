@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 18:43:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 19:51:43 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,14 @@ char		*make_full_path(const char *path, const char *command,
 				t_vars *vars);
 void		permission_denied(char *full_path, t_vars *vars);
 bool		is_builtin_command(t_commande *cmd_list);
+void		setup_signal_handlers_parent(void);
 
 // SIGNALS
 void		refresh_readline_sigint(void);
 void		setup_signal_handlers_prompt(void);
 void		setup_signal_handlers_heredoc(void);
 void		set_default_handling_signals(void);
-bool		signal_in_readline(t_vars *vars);
+bool		signal_received(t_vars *vars);
 
 // FREE
 void		free_partition(t_partition *part);
