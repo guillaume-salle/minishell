@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 19:52:31 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 20:24:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static int	get_heredoc_data(t_commande *cmd, t_vars *vars)
 	bool	stop;
 
 	stop = false;
+	free(vars->line);
 	vars->line = NULL;
 	vars->line = readline("> ");
 	if (vars->line == NULL && g_signal_received != 0)
