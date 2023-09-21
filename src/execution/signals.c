@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 18:50:48 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 11:02:36 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 19:51:18 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	set_default_handling_signals(void)
 	}
 }
 
-bool	signal_in_readline(t_vars *vars)
+bool	signal_received(t_vars *vars)
 {
 	char	*str;
 	bool	stop;

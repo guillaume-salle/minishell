@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 11:36:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 19:52:31 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	get_heredoc_data(t_commande *cmd, t_vars *vars)
 	vars->line = readline("> ");
 	if (vars->line == NULL && g_signal_received != 0)
 	{
-		stop = signal_in_readline(vars);
+		stop = signal_received(vars);
 		if (stop == true)
 		{
 			safe_dup2(vars->saved_stdin, STDIN_FILENO, vars);
