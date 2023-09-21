@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 17:44:13 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 18:42:32 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Checks if this simple command (i.e. no pipe) is a builtin.
 // fork for exit if there is a pipe
-static bool	is_builtin_command(t_commande *cmd_list)
+bool	is_builtin_command(t_commande *cmd_list)
 {
 	t_commande	*current;
 	char		*cmd_name;
