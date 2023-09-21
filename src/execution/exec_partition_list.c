@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 11:00:19 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 17:44:13 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Checks if this simple command (i.e. no pipe) is a builtin.
 // fork for exit if there is a pipe
-static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
+static bool	is_builtin_command(t_commande *cmd_list)
 {
 	t_commande	*current;
 	char		*cmd_name;
@@ -22,18 +22,17 @@ static bool	is_forking_command_list(t_commande *cmd_list, bool exist_pipe)
 	current = cmd_list;
 	while (current != NULL)
 	{
-		if (current->id == WORD && current->cmds_split)
+		if (current->id == WORD && current->cmds_split != NULL)
 		{
 			cmd_name = current->cmds_split[0];
-			if (is_builtin(cmd_name) && (ft_strcmp(cmd_name, "exit") != 0
-					|| !exist_pipe))
-				return (false);
-			else
+			if (is_builtin(cmd_name))
 				return (true);
+			else
+				return (false);
 		}
 		current = current->next;
 	}
-	return (true);
+	return (false);
 }
 
 // Don't fork for builtin
@@ -43,7 +42,7 @@ static void	fork_before_exec(t_partition *head, int saved_stdin,
 	int		exit_status;
 	pid_t	pid;
 
-	if (is_forking_command_list(head->cmds, vars->exist_pipe))
+	if (vars->forking)
 	{
 		pid = fork();
 		if (pid < 0)
@@ -102,8 +101,11 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 
 	if (handle_all_heredocs(head, vars) == -1)
 		return ;
-	if (head && head->next)
-		vars->exist_pipe = true;
+	if ((head != NULL && head->next != NULL) || (head->next == NULL
+			&& is_builtin_command(head->cmds) == false))
+		vars->forking = true;
+	else
+		vars->forking = false;
 	last_fd = 0;
 	while (head)
 	{

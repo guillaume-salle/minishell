@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:28:38 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 19:42:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 17:42:30 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ int	my_exit(int argc, char *argv[], t_vars *vars)
 	int	exit_status;
 
 	exit_status = 0;
-	if (isatty(STDIN_FILENO) && !(vars->exist_pipe))
+	if (isatty(STDIN_FILENO) && !(vars->forking))
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (argc > 2)
 	{
-		ft_putstr_fd("bash: exit: too many arguments\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: exit: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
 	else if (argc == 2 && str_isnum(argv[1]) == false)
 	{
-		ft_putstr_fd("bash: exit: ", STDERR_FILENO);
+		ft_putstr_fd("minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(argv[1], STDERR_FILENO);
 		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		exit_status = 2;

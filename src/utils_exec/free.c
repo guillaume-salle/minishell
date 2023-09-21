@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 09:42:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 17:34:01 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	reset_vars_zero(t_vars *vars)
 		free_partition(vars->parse_result);
 		vars->parse_result = NULL;
 	}
-	vars->exist_pipe = false;
+	vars->forking = false;
 	vars->exist_children = false;
 	vars->last_pid = 0;
 	vars->last_exit_status = 0;
