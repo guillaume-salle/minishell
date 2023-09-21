@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 17:44:41 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 18:45:49 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/21 18:55:50 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 	{
 		exit_status = exec_builtin(argv, vars);
 		free_vars(vars);
+		close(STDIN_FILENO);
 		exit(exit_status);
 	}
 	else if (is_builtin_command(cmd) == true && forking == false)
