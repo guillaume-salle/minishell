@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 20:10:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/23 20:43:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/23 20:47:16 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,12 @@ void	exec_partition_with_pipe(t_partition *head, t_vars *vars)
 	head = head->next;
 	while (head != NULL && head->next != NULL)
 	{
-		printf("in here \n");
 		safe_pipe(second_pipe, vars);
 		exec_middle_partition_pipe(head, first_pipe[0], second_pipe[1], vars);
 		safe_close(first_pipe[0], vars);
 		safe_close(second_pipe[1], vars);
+		first_pipe[0] = second_pipe[0];
+		first_pipe[1] = second_pipe[1];
 		head = head->next;
 	}
 	exec_last_partition_pipe(head, second_pipe[0], vars);
