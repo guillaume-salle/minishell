@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:41:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 19:57:30 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/22 08:05:24 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	sigint_handler_parent(int signo)
 {
 	g_signal_received = signo;
-	ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 void	setup_signal_handlers_parent(void)
