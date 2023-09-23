@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 19:51:43 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/23 20:12:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int			get_line_from_user(t_vars *vars);
 void		exec_partition_list(t_partition *head, t_vars *vars);
 bool		is_builtin(char *cmd_name);
 int			handle_all_heredocs(t_partition *head, t_vars *vars);
+void		exec_partition_with_pipe(t_partition *head, t_vars *vars);
 int			exec_command_list(t_commande *head, t_vars *vars, bool forking);
 int			handle_redirection(t_commande *cmd, t_vars *vars);
 int			exec_word(t_commande *cmd, t_vars *vars, bool forking);

@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:37:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/22 00:37:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/23 16:54:43 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,13 @@ static int	handle_all_redirections(t_commande *cmd_list, t_vars *vars)
 	return (0);
 }
 
-// The return value exit_status is used only for builtins, when not forking,
-// otherwise exec_word will call execve and the process will exit.
+// The return value exit_status is used only for builtins, 
+// otherwise execve will exit
 int	exec_command_list(t_commande *cmd_list, t_vars *vars, bool forking)
 {
 	int			exit_status;
 	t_commande	*current;
 
-	exit_status = 0;
 	current = cmd_list;
 	if (handle_all_redirections(cmd_list, vars) == 1)
 		return (1);

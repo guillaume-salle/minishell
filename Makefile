@@ -25,8 +25,9 @@ SRCS		= main.c	\
 			  execution/signal_parent.c	\
 			  execution/signals_heredoc.c	\
 			  execution/get_line_from_user.c	\
-			  execution/exec_command_list.c	\
 			  execution/exec_partition_list.c	\
+			  execution/pipe.c	\
+			  execution/exec_command_list.c	\
 			  execution/exec_word.c	\
 			  execution/redirections.c	\
 			  execution/heredoc.c	\
