@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/23 20:12:02 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 09:16:13 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char		*make_full_path(const char *path, const char *command,
 void		permission_denied(char *full_path, t_vars *vars);
 bool		is_builtin_command(t_commande *cmd_list);
 void		setup_signal_handlers_parent(void);
+void		increment_shlvl(t_vars *vars);
+
 
 // SIGNALS
 void		refresh_readline_sigint(void);

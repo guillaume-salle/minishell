@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 08:00:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 09:17:07 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ void	readline_null_free_exit(t_vars *vars)
 	rl_clear_history();
 	argv[0] = "exit";
 	argv[1] = NULL;
-	printf("TA PUTE DE MERE\n");
 	my_exit(1, argv, vars);
 }
