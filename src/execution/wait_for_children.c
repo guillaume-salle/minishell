@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 12:56:31 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 19:56:46 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 16:15:31 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,19 @@
 
 static void	case_terminated_by_signal(int status, pid_t wait_pid, t_vars *vars)
 {
-	if (WTERMSIG(status) == 3)
+	int	signal_number;
+
+	signal_number = WTERMSIG(status);
+	if (wait_pid == vars->last_pid)
 	{
-		if (g_signal_received == 0)
-		{
+		vars->last_exit_status = 128 + signal_number;
+		if (signal_number == SIGINT)
+			return ;
+		if (__WCOREDUMP(status))
 			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-			g_signal_received = 1;
-		}
+		else
+			ft_putstr_fd("Terminated\n", STDERR_FILENO);
 	}
-	else if (__WCOREDUMP(status))
-	{
-		ft_putstr_fd("minishell: process ", STDERR_FILENO);
-		ft_putnbr_fd(wait_pid, STDERR_FILENO);
-		ft_putstr_fd(" terminated by a signal (", STDERR_FILENO);
-		ft_putnbr_fd(WTERMSIG(status), STDERR_FILENO);
-		ft_putstr_fd(")\n", STDERR_FILENO);
-	}
-	if (vars->last_pid != 0 && wait_pid == vars->last_pid)
-		vars->last_exit_status = 128 + WTERMSIG(status);
 }
 
 void	wait_for_children(t_vars *vars)

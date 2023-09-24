@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 17:34:01 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:28:41 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,6 @@ void	reset_vars_zero(t_vars *vars)
 	vars->exist_children = false;
 	vars->last_pid = 0;
 	vars->last_exit_status = 0;
+	if (my_getenv("?", vars) == NULL)
+		my_putenv("?", "0", vars);
 }

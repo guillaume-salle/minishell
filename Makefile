@@ -9,11 +9,11 @@ SRCS		= main.c	\
 			  utils_exec/exiting.c	\
 			  utils_exec/handle_history.c	\
 			  utils_exec/path.c	\
+			  utils_exec/path2.c	\
 			  utils_exec/envp.c	\
 			  utils_exec/envp2.c	\
 			  utils_exec/is_builtin.c	\
 			  utils_exec/safe.c	\
-			  utils_exec/utils.c	\
 			  builtins/echo.c	\
 			  builtins/env.c	\
 			  builtins/cd.c	\
@@ -21,16 +21,17 @@ SRCS		= main.c	\
 			  builtins/export.c	\
 			  builtins/unset.c	\
 			  builtins/exit.c	\
-			  execution/signals.c	\
+			  execution/signals_readline.c	\
 			  execution/signal_parent.c	\
-			  execution/signals_heredoc.c	\
 			  execution/get_line_from_user.c	\
-			  execution/exec_command_list.c	\
 			  execution/exec_partition_list.c	\
+			  execution/pipe.c	\
+			  execution/exec_command_list.c	\
 			  execution/exec_word.c	\
 			  execution/redirections.c	\
 			  execution/heredoc.c	\
-			  execution/wait_for_children.c
+			  execution/wait_for_children.c	\
+			  execution/termcap.c
 
 SRCS		+= parsing/add_spaces.c \
 			   parsing/list_cmd.c \

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 11:40:25 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 13:47:19 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,13 @@ void	display_error_and_exit(char *str, t_vars *vars)
 	exit(errno);
 }
 
-void	readline_null_free_exit(t_vars *vars)
+void	line_null_free_exit(t_vars *vars)
 {
 	char	*argv[2];
 
-	rl_clear_history();
+	if (isatty(STDIN_FILENO))
+		rl_clear_history();
 	argv[0] = "exit";
-	argv[1] = "2";
-	my_exit(0, argv, vars);
+	argv[1] = NULL;
+	my_exit(1, argv, vars);
 }

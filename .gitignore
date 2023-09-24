@@ -7,3 +7,5 @@ test.d
 .vscode
 libft/*.o
 libft/libft.a
+bigfile
+minishell_tester

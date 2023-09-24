@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_history.c                                   :+:      :+:    :+:   */
+/*   termcap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 21:00:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 11:52:18 by gusalle          ###   ########.fr       */
+/*   Created: 2023/09/24 17:05:27 by gusalle           #+#    #+#             */
+/*   Updated: 2023/09/24 17:34:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-bool	check_spaces_append_history(char *line)
+void	disable_ctrl_backslash(void)
 {
-	if (!ft_str_isspace(line))
+	struct termios	term;
+
+	if (isatty(STDIN_FILENO) == false)
+		return ;
+	if (tcgetattr(STDIN_FILENO, &term) == -1)
 	{
-		if (isatty(STDIN_FILENO))
-			add_history(line);
-		return (true);
+		perror("tcgetattr");
+		return ;
 	}
-	else
-		return (false);
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term) == -1)
+	{
+		perror("tcsetattr");
+		return ;
+	}
 }
