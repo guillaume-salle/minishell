@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:14:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 08:27:50 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 23:07:26 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,5 @@ void	increment_shlvl(t_vars *vars)
 	if (str == NULL)
 		display_error_and_exit("ft_itoa", vars);
 	my_putenv("SHLVL", str, vars);
+	free(str);
 }
