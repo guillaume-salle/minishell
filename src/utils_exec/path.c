@@ -6,37 +6,25 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/20 23:34:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 10:29:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-static bool	is_absolute_path(const char *command)
+static bool	is_relative_path(const char *path)
 {
-	struct stat	st;
+	int	i;
 
-	if (command[0] != '/')
+	if (path[0] != '.')
 		return (false);
-	if (stat(command, &st) == 0 && (st.st_mode & S_IXUSR))
+	i = 0;
+	while(path[i] == '.')
+		i++;
+	if (path[i] != '/')
+		return (false);
+	else
 		return (true);
-	return (false);
-}
-
-char	*make_full_path(const char *path, const char *command, t_vars *vars)
-{
-	char	*full_path;
-	size_t	len;
-
-	len = ft_strlen(path) + ft_strlen(command) + 2;
-	full_path = malloc(len);
-	if (full_path == NULL)
-		display_error_and_exit("malloc", vars);
-	full_path[0] = '\0';
-	ft_strlcat(full_path, path, len);
-	ft_strlcat(full_path, "/", len);
-	ft_strlcat(full_path, command, len);
-	return (full_path);
 }
 
 static char	*find_absolute_path(const char *command, t_vars *vars)
@@ -50,22 +38,39 @@ static char	*find_absolute_path(const char *command, t_vars *vars)
 	if (stat(full_path, &st) == 0)
 	{
 		if (S_ISDIR(st.st_mode) == 1)
-		{
-			ft_putstr_fd("minishell: ", STDERR_FILENO);
-			ft_putstr_fd(full_path, STDERR_FILENO);
-			ft_putstr_fd(": Is a directory\n", STDERR_FILENO);
-			free(full_path);
-			exit(126);
-		}
+			path_is_a_directory(full_path, vars);
 		else if (access(full_path, X_OK) == -1)
 			permission_denied(full_path, vars);
-		else if (st.st_mode & S_IXUSR)
+		else if ((st.st_mode & S_IXUSR) == 0)
+			permission_denied(full_path, vars);
+		else
 			return (full_path);
 	}
-	return (full_path);
+	else
+	{
+		perror(full_path);
+		free(full_path);
+		free_vars(vars);
+		exit(127);
+	}
+	return (NULL);
 }
 
-static char	*find_relative_path(const char *command, t_vars *vars)
+static bool	check_this_path(const char *full_path)
+{
+	struct stat	st;
+
+	if (stat(full_path, &st) == 0)
+	{
+		if (S_ISDIR(st.st_mode) == 1)
+			return (false);
+		else if (st.st_mode & S_IXUSR)
+			return (true);
+	}
+	return (false);
+}
+
+static char	*find_in_path_env(const char *command, t_vars *vars)
 {
 	char	*full_path;
 	char	*path_var;
@@ -79,8 +84,13 @@ static char	*find_relative_path(const char *command, t_vars *vars)
 	i = 0;
 	while (dirs[i] != NULL)
 	{
-		if (check_this_path(dirs[i], command, &full_path, vars) == true)
-			return (ft_free_split(dirs), full_path);
+		full_path = make_full_path(dirs[i], command, vars);
+		if (check_this_path(full_path) == true)
+		{
+			ft_free_split(dirs);
+			return (full_path);
+		}
+		free(full_path);
 		i++;
 	}
 	ft_free_split(dirs);
@@ -88,13 +98,23 @@ static char	*find_relative_path(const char *command, t_vars *vars)
 }
 
 // Finds command path wether 'command' is a relative or absolute path
-// Does not free command parameter and return a allocated full path
+// or a command in PATH environment variable
+// Does not free command parameter and return an allocated path
 char	*find_command_path(const char *command, t_vars *vars)
 {
+	char	*path;
+
 	if (command == NULL)
 		return (NULL);
-	if (is_absolute_path(command))
+	if (command[0] == '/')
 		return (find_absolute_path(command, vars));
+	else if (is_relative_path(command))
+	{
+		path = ft_strdup3(command);
+		if (path == NULL)
+			display_error_and_exit("ft_strdup", vars);
+		return (path);
+	}
 	else
-		return (find_relative_path(command, vars));
+		return (find_in_path_env(command, vars));
 }

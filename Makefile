@@ -9,11 +9,11 @@ SRCS		= main.c	\
 			  utils_exec/exiting.c	\
 			  utils_exec/handle_history.c	\
 			  utils_exec/path.c	\
+			  utils_exec/path2.c	\
 			  utils_exec/envp.c	\
 			  utils_exec/envp2.c	\
 			  utils_exec/is_builtin.c	\
 			  utils_exec/safe.c	\
-			  utils_exec/utils.c	\
 			  builtins/echo.c	\
 			  builtins/env.c	\
 			  builtins/cd.c	\
