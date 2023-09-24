@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 08:19:22 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 11:59:08 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,20 +130,31 @@
 
 int	get_line_from_user(t_vars *vars)
 {
-	if (g_signal_received != 0)
-		signal_received(vars);
-	setup_signal_handlers_prompt();
-	vars->line = readline("minishell> ");
-	if (g_signal_received != 0)
-		signal_received(vars);
-	if (vars->line == NULL)
+	char	*newline;
+
+	if (isatty(STDIN_FILENO))
 	{
-		readline_null_free_exit(vars);
+		setup_signal_handlers_prompt();
+		vars->line = readline("minishell> ");
 	}
+	else
+	{
+		vars->line = get_next_line(STDIN_FILENO);
+		if (vars->line != NULL)
+		{
+			newline = ft_strchr(vars->line, '\n');
+			if (newline)
+				*newline = '\0';
+		}
+	}
+	if (vars->line == NULL)
+		line_null_free_exit(vars);
 	if (!check_spaces_append_history(vars->line))
 	{
 		free_and_nullify(&vars->line);
 		return (-1);
 	}
+	if (g_signal_received != 0)
+		signal_received(vars);
 	return (0);
 }

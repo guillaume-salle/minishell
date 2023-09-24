@@ -6,7 +6,7 @@
 #    By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/03 16:45:59 by kyacini           #+#    #+#              #
-#    Updated: 2023/09/19 22:00:23 by gusalle          ###   ########.fr        #
+#    Updated: 2023/09/24 12:16:26 by gusalle          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,8 @@ SRC = ft_memset.c \
 		ft_lstadd_back.c \
 		ft_lstdelone.c \
 		ft_lstclear.c \
+		get_next_line.c	\
+		get_next_line_utils.c
 
 SRC +=	ft_strdup3.c \
 		ft_strjoin_table.c \

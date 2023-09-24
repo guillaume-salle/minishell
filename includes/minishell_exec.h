@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 10:25:38 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 12:18:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_EXEC_H
 
 # include "libft.h"
+# include "get_next_line.h"
 # include "structs.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -75,7 +76,7 @@ void		free_list2(t_list *head);
 void		free_vars(t_vars *vars);
 void		display_error_and_exit(char *str, t_vars *vars);
 void		free_and_nullify(char **pointer);
-void		readline_null_free_exit(t_vars *vars);
+void		line_null_free_exit(t_vars *vars);
 
 // EXECUTION
 void		reset_vars_zero(t_vars *vars);

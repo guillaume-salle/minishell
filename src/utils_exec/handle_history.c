@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 21:00:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/19 13:46:47 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 11:52:18 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ bool	check_spaces_append_history(char *line)
 {
 	if (!ft_str_isspace(line))
 	{
-		add_history(line);
+		if (isatty(STDIN_FILENO))
+			add_history(line);
 		return (true);
 	}
 	else
