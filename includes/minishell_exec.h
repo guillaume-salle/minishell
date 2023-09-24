@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 12:18:25 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:32:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <termios.h>
 
 # define ECHO_OPTIONS "n"
 # define OPTIONS_SIZE 128
@@ -54,21 +55,23 @@ void		print_env(t_list *head);
 void		print_env_export(t_list *head);
 bool		check_spaces_append_history(char *line);
 bool		is_builtin_command(t_commande *cmd_list);
-void		setup_signal_handlers_parent(void);
 void		increment_shlvl(t_vars *vars);
 
 // PATH
 char		*find_command_path(const char *command, t_vars *vars);
 void		path_is_a_directory(char *pathname, t_vars *vars);
 void		permission_denied(char *full_path, t_vars *vars);
-char		*make_full_path(const char *path, const char *command, t_vars *vars);
+char		*make_full_path(const char *path, const char *command,
+				t_vars *vars);
 
 // SIGNALS
-void		refresh_readline_sigint(void);
-void		setup_signal_handlers_prompt(void);
-void		setup_signal_handlers_heredoc(void);
-void		set_default_handling_signals(void);
+//void		refresh_readline_sigint(void);
+void		setup_signal_handlers_readline(t_vars *vars);
+void		setup_signal_handlers_default(t_vars *vars);
+void		setup_signal_handlers_parent(t_vars *vars);
 bool		signal_received(t_vars *vars);
+bool		stop_signal_readline(t_vars *vars);
+void		disable_ctrl_backslash(void);
 
 // FREE
 void		free_partition(t_partition *part);

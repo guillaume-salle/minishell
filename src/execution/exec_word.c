@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 17:44:41 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 10:37:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 12:38:16 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ static void	exec_non_builtin(char *cmd_name, char **argv, t_vars *vars)
 	pathname = find_command_path(cmd_name, vars);
 	if (pathname == NULL)
 	{
+		if (isatty(STDIN_FILENO) == false)
+		{
+			ft_putstr_fd("minishell: line ", STDERR_FILENO);
+			ft_putnbr_fd(vars->nb_line, STDERR_FILENO);
+			ft_putstr_fd(": ", STDERR_FILENO);
+		}
 		ft_putstr_fd(cmd_name, 2);
 		ft_putstr_fd(": command not found\n", 2);
 		free_vars(vars);

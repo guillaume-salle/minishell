@@ -21,9 +21,8 @@ SRCS		= main.c	\
 			  builtins/export.c	\
 			  builtins/unset.c	\
 			  builtins/exit.c	\
-			  execution/signals.c	\
+			  execution/signals_readline.c	\
 			  execution/signal_parent.c	\
-			  execution/signals_heredoc.c	\
 			  execution/get_line_from_user.c	\
 			  execution/exec_partition_list.c	\
 			  execution/pipe.c	\
@@ -31,7 +30,8 @@ SRCS		= main.c	\
 			  execution/exec_word.c	\
 			  execution/redirections.c	\
 			  execution/heredoc.c	\
-			  execution/wait_for_children.c
+			  execution/wait_for_children.c	\
+			  execution/termcap.c
 
 SRCS		+= parsing/add_spaces.c \
 			   parsing/list_cmd.c \
@@ -52,7 +52,7 @@ DEPS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.c=.d))
 SRCS	 	:= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
 CPPFLAGS	= -I$(INC_DIR) -MD -MP
-CFLAGS		= -Wall -Wextra -fPIE   #REMETTRE FLAG
+CFLAGS		= -Wall -Wextra -Werror -fPIE   #REMETTRE FLAG
 CC			= cc $(CPPFLAGS) $(CFLAGS)
 
 LIBFT_DIR	= libft

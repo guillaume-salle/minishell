@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 10:29:03 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:28:55 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static bool	is_relative_path(const char *path)
 	if (path[0] != '.')
 		return (false);
 	i = 0;
-	while(path[i] == '.')
+	while (path[i] == '.')
 		i++;
 	if (path[i] != '/')
 		return (false);

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 11:49:05 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 13:47:19 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_vars(t_vars *vars)
 		free_and_nullify(&vars->temp_line);
 	if (vars->old_line != NULL)
 		free_and_nullify(&vars->old_line);
-//	close(vars->saved_stdin);
+	close(vars->saved_stdin);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);

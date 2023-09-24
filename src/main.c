@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 11:59:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:28:45 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ int	main(int argc, char *argv[], char *envp[])
 	t_vars	vars;
 
 	ft_memset(&vars, 0, sizeof(t_vars));
+	disable_ctrl_backslash();
 	init_envp_list(envp, &(vars.envp_list));
 	increment_shlvl(&vars);
-//	vars.saved_stdin = safe_dup(STDIN_FILENO, &vars);
+	vars.saved_stdin = safe_dup(STDIN_FILENO, &vars);
 	while (1)
 	{
 		reset_vars_zero(&vars);
-		if (my_getenv("?", &vars) == NULL)
-			my_putenv("?", "0", &vars);
 		if (g_signal_received != 0)
+		{
+			ft_putstr_fd("\n", STDOUT_FILENO);
 			signal_received(&vars);
+		}
 		if (get_line_from_user(&vars) == -1)
 			continue ;
 		vars.line = first_transformation(vars.line, &vars);

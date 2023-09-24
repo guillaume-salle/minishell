@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/23 20:14:45 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:27:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	exec_partition_no_pipe(t_partition *head, t_vars *vars)
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
-		set_default_handling_signals();
+		setup_signal_handlers_default(vars);
 		exit_status = exec_command_list(head->cmds, vars, 1);
 		free_vars(vars);
 		exit(exit_status);
@@ -66,7 +66,7 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 		return ;
 	if (handle_all_heredocs(head, vars) == -1)
 		return ;
-	setup_signal_handlers_parent();
+	setup_signal_handlers_parent(vars);
 	if (head->next != NULL)
 		exec_partition_with_pipe(head, vars);
 	else

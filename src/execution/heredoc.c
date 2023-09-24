@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 02:12:14 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:23:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,13 @@ static void	realloc_and_append(t_commande *cmd, char *line, t_vars *vars)
 
 static int	get_heredoc_data(t_commande *cmd, t_vars *vars)
 {
-	bool	stop;
-
-	stop = false;
 	free(vars->line);
 	vars->line = NULL;
 	vars->line = readline("> ");
 	if (g_signal_received != 0)
 	{
-		stop = signal_received(vars);
-		if (stop == true)
-		{
-			safe_dup2(vars->saved_stdin, STDIN_FILENO, vars);
+		if (stop_signal_readline(vars) == true)
 			return (-1);
-		}
 	}
 	if (vars->line == NULL)
 		return (end_of_file_heredoc(cmd), 1);
@@ -104,7 +97,7 @@ int	handle_all_heredocs(t_partition *head, t_vars *vars)
 	t_partition	*current_partition;
 	t_commande	*current_command;
 
-	setup_signal_handlers_heredoc();
+	setup_signal_handlers_readline(vars);
 	current_partition = head;
 	while (current_partition != NULL)
 	{

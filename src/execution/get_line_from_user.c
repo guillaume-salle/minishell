@@ -6,14 +6,14 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 11:59:08 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 17:32:10 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
 // skip the escape quote
-//static bool	is_quote_open(char *line, char *quote_char)
+// static bool	is_quote_open(char *line, char *quote_char)
 //{
 //	bool	is_quote_open;
 //	char	current_quote_char;
@@ -42,7 +42,7 @@
 //	return (is_quote_open);
 //}
 //
-//static bool	is_pipe_open(char *line)
+// static bool	is_pipe_open(char *line)
 //{
 //	int	len;
 //	int	i;
@@ -63,7 +63,7 @@
 //	return (false);
 //}
 //
-//static void	readline_null_expecting_more(t_vars *vars)
+// static void	readline_null_expecting_more(t_vars *vars)
 //{
 //	char	quote_char;
 //	char	*argv[2];
@@ -88,7 +88,7 @@
 //	}
 //}
 //
-//static bool	get_line_from_user_2(t_vars *vars)
+// static bool	get_line_from_user_2(t_vars *vars)
 //{
 //	while (is_pipe_open(vars->line) || is_quote_open(vars->line, NULL))
 //	{
@@ -115,7 +115,7 @@
 //	return (true);
 //}
 //
-//bool	get_line_from_user(t_vars *vars)
+// bool	get_line_from_user(t_vars *vars)
 //{
 //	if (vars->line == NULL)
 //		vars->line = readline("minishell> ");
@@ -128,25 +128,36 @@
 //	return (true);
 //}
 
-int	get_line_from_user(t_vars *vars)
+static void	get_line_from_fd(t_vars *vars)
 {
 	char	*newline;
 
+	setup_signal_handlers_parent(vars);
+	vars->line = get_next_line(STDIN_FILENO);
+	vars->nb_line++;
+	if (vars->line != NULL)
+	{
+		newline = ft_strchr(vars->line, '\n');
+		if (newline)
+			*newline = '\0';
+	}
+}
+
+int	get_line_from_user(t_vars *vars)
+{
 	if (isatty(STDIN_FILENO))
 	{
-		setup_signal_handlers_prompt();
+		setup_signal_handlers_readline(vars);
 		vars->line = readline("minishell> ");
+		if (g_signal_received != 0)
+		{
+			if (stop_signal_readline(vars) == true)
+				return (-1);
+		}
+		setup_signal_handlers_parent(vars);
 	}
 	else
-	{
-		vars->line = get_next_line(STDIN_FILENO);
-		if (vars->line != NULL)
-		{
-			newline = ft_strchr(vars->line, '\n');
-			if (newline)
-				*newline = '\0';
-		}
-	}
+		get_line_from_fd(vars);
 	if (vars->line == NULL)
 		line_null_free_exit(vars);
 	if (!check_spaces_append_history(vars->line))
@@ -154,7 +165,5 @@ int	get_line_from_user(t_vars *vars)
 		free_and_nullify(&vars->line);
 		return (-1);
 	}
-	if (g_signal_received != 0)
-		signal_received(vars);
 	return (0);
 }

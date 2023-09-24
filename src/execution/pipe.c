@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 20:10:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 08:18:53 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 14:46:12 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,16 @@ static void	exec_first_partition_pipe(t_partition *head, int first_pipe[2],
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
-		set_default_handling_signals();
-//		safe_close(vars->saved_stdin, vars);
-		safe_close(first_pipe[0], vars);
-		safe_dup2(first_pipe[1], STDOUT_FILENO, vars);
+		close(vars->saved_stdin);
+		close(first_pipe[0]);
+		if (dup2(first_pipe[1], STDOUT_FILENO) == -1)
+		{
+			close(first_pipe[1]);
+			display_error_and_exit("dup2", vars);
+		}
 		safe_close(first_pipe[1], vars);
+		setup_signal_handlers_default(vars);
 		exit_status = exec_command_list(head->cmds, vars, 1);
-		close(STDOUT_FILENO);
 		free_vars(vars);
 		exit(exit_status);
 	}
@@ -38,6 +41,7 @@ static void	exec_first_partition_pipe(t_partition *head, int first_pipe[2],
 	vars->exist_children = true;
 }
 
+// Should have same checks on dup2, but norm
 static void	exec_middle_partition_pipe(t_partition *head, int first_pipe[2],
 		int second_pipe[2], t_vars *vars)
 {
@@ -49,16 +53,14 @@ static void	exec_middle_partition_pipe(t_partition *head, int first_pipe[2],
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
-		set_default_handling_signals();
-//		safe_close(vars->saved_stdin, vars);
-		safe_close(second_pipe[0], vars);
-		safe_dup2(first_pipe[0], STDIN_FILENO, vars);
-		safe_close(first_pipe[0], vars);
-		safe_dup2(second_pipe[1], STDOUT_FILENO, vars);
+		close(vars->saved_stdin);
+		close(second_pipe[0]);
+		dup2(first_pipe[0], STDIN_FILENO);
+		close(first_pipe[0]);
+		dup2(second_pipe[1], STDOUT_FILENO);
 		safe_close(second_pipe[1], vars);
+		setup_signal_handlers_default(vars);
 		exit_status = exec_command_list(head->cmds, vars, 1);
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
 		free_vars(vars);
 		exit(exit_status);
 	}
@@ -77,12 +79,15 @@ static void	exec_last_partition_pipe(t_partition *head, int first_pipe[2],
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
-		set_default_handling_signals();
-//		safe_close(vars->saved_stdin, vars);
-		safe_dup2(first_pipe[0], STDIN_FILENO, vars);
+		close(vars->saved_stdin);
+		if (dup2(first_pipe[0], STDIN_FILENO) == -1)
+		{
+			close(first_pipe[0]);
+			display_error_and_exit("dup2", vars);
+		}
 		safe_close(first_pipe[0], vars);
+		setup_signal_handlers_default(vars);
 		exit_status = exec_command_list(head->cmds, vars, 1);
-		close(STDIN_FILENO);
 		free_vars(vars);
 		exit(exit_status);
 	}
