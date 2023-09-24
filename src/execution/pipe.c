@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 20:10:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 00:28:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 08:18:53 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,13 @@ static void	exec_first_partition_pipe(t_partition *head, int first_pipe[2],
 	pid_t	pid;
 	int		exit_status;
 
-	printf("in exec first partition\n");
 	pid = fork();
 	if (pid < 0)
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
 		set_default_handling_signals();
-		safe_close(vars->saved_stdin, vars);
+//		safe_close(vars->saved_stdin, vars);
 		safe_close(first_pipe[0], vars);
 		safe_dup2(first_pipe[1], STDOUT_FILENO, vars);
 		safe_close(first_pipe[1], vars);
@@ -45,14 +44,13 @@ static void	exec_middle_partition_pipe(t_partition *head, int first_pipe[2],
 	pid_t	pid;
 	int		exit_status;
 
-	printf("in exec middle partition\n");
 	pid = fork();
 	if (pid < 0)
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
 		set_default_handling_signals();
-		safe_close(vars->saved_stdin, vars);
+//		safe_close(vars->saved_stdin, vars);
 		safe_close(second_pipe[0], vars);
 		safe_dup2(first_pipe[0], STDIN_FILENO, vars);
 		safe_close(first_pipe[0], vars);
@@ -74,14 +72,13 @@ static void	exec_last_partition_pipe(t_partition *head, int first_pipe[2],
 	pid_t	pid;
 	int		exit_status;
 
-	printf("in exec last partition\n");
 	pid = fork();
 	if (pid < 0)
 		display_error_and_exit("fork", vars);
 	else if (pid == 0)
 	{
 		set_default_handling_signals();
-		safe_close(vars->saved_stdin, vars);
+//		safe_close(vars->saved_stdin, vars);
 		safe_dup2(first_pipe[0], STDIN_FILENO, vars);
 		safe_close(first_pipe[0], vars);
 		exit_status = exec_command_list(head->cmds, vars, 1);
@@ -112,6 +109,5 @@ void	exec_partition_with_pipe(t_partition *head, t_vars *vars)
 		head = head->next;
 	}
 	exec_last_partition_pipe(head, first_pipe, vars);
-	safe_close(second_pipe[0], vars);
-	printf("at end of exec partition list\n");
+	safe_close(first_pipe[0], vars);
 }

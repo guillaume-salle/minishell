@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 17:26:14 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 11:44:10 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 02:10:37 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	sigint_handler_heredoc(int signo)
 {
 	g_signal_received = signo;
-	ft_putstr_fd("\n", STDOUT_FILENO);
 	close(STDIN_FILENO);
+	ft_putstr_fd("\n", STDOUT_FILENO);
 }
 
 static void	sigquit_handler_heredoc(int signo)

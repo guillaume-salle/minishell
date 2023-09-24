@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:09 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 00:08:24 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 08:00:10 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	free_vars(t_vars *vars)
 		free_and_nullify(&vars->temp_line);
 	if (vars->old_line != NULL)
 		free_and_nullify(&vars->old_line);
-	close(vars->saved_stdin);
+//	close(vars->saved_stdin);
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
 	close(STDERR_FILENO);
@@ -55,6 +55,7 @@ void	readline_null_free_exit(t_vars *vars)
 
 	rl_clear_history();
 	argv[0] = "exit";
-	argv[1] = "2";
-	my_exit(0, argv, vars);
+	argv[1] = NULL;
+	printf("TA PUTE DE MERE\n");
+	my_exit(1, argv, vars);
 }

@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:28:38 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 20:00:19 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 02:17:03 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	my_exit(int argc, char *argv[], t_vars *vars)
 	int	exit_status;
 
 	exit_status = 0;
-	if (isatty(STDIN_FILENO) && !(vars->forking))
+	if (isatty(STDIN_FILENO))
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (argc > 2)
 	{

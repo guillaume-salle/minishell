@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/21 11:29:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/24 08:00:02 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 	ft_memset(&vars, 0, sizeof(t_vars));
 	init_envp_list(envp, &(vars.envp_list));
-	vars.saved_stdin = safe_dup(STDIN_FILENO, &vars);
+//	vars.saved_stdin = safe_dup(STDIN_FILENO, &vars);
 	while (1)
 	{
 		reset_vars_zero(&vars);
