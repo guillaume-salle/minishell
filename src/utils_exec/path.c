@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 23:32:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/26 06:41:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static bool	is_relative_path(const char *path, t_vars *vars)
 		return (false);
 	if (path[1] == '\0')
 	{
-		ft_putstr_fd("minishell: .: filename argument required\n", STDERR_FILENO);
+		ft_putstr_fd("minishell: .: filename argument required\n",
+			STDERR_FILENO);
 		ft_putstr_fd(".: usage: . filename [arguments]\n", STDERR_FILENO);
 		free_vars(vars);
 		exit(2);

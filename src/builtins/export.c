@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 13:55:36 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/16 18:35:11 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/26 06:37:44 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool	is_valid_variable_name(const char *name)
 	int	i;
 
 	i = 0;
-	if (!*name)
+	if (name == NULL || *name == '\0')
 	{
 		return (false);
 	}
@@ -45,6 +45,13 @@ static void	free_exit_norm(char *key, char *value, t_vars *vars)
 	display_error_and_exit("malloc", vars);
 }
 
+static void	print_error_message(char *key)
+{
+	ft_putstr_fd("bash: export: `", STDERR_FILENO);
+	ft_putstr_fd(key, STDERR_FILENO);
+	ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
+}
+
 static int	export_variable(const char *arg, t_vars *vars)
 {
 	char	*equals_sign;
@@ -66,7 +73,7 @@ static int	export_variable(const char *arg, t_vars *vars)
 	if (key == NULL || (equals_sign != NULL && value == NULL))
 		free_exit_norm(key, value, vars);
 	if (!is_valid_variable_name(key))
-		return (free(key), free(value), 1);
+		return (print_error_message(key), free(key), free(value), 1);
 	result = my_putenv(key, value, vars);
 	return (free(key), free(value), result);
 }
@@ -89,13 +96,8 @@ int	export(int argc, char **argv, t_vars *vars)
 	while (i < argc)
 	{
 		result = export_variable(argv[i], vars);
-		if (result == 1)
-		{
-			ret = 1;
-			ft_putstr_fd("bash: export: `", STDERR_FILENO);
-			ft_putstr_fd(argv[i], STDERR_FILENO);
-			ft_putstr_fd("': not a valid identifier\n", STDERR_FILENO);
-		}
+		if (result != 0)
+			ret = result;
 		i++;
 	}
 	return (ret);
