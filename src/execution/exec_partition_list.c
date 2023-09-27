@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 17:27:51 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 20:50:04 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	exec_partition_list(t_partition *head, t_vars *vars)
 
 	if (head == NULL)
 		return ;
+	if (head->next != NULL)
+		vars->exist_pipe = true;
 	if (handle_all_heredocs(head, vars) == -1)
 		return ;
 	setup_signal_handlers_parent(vars);

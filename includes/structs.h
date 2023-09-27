@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 20:15:12 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 20:48:00 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_vars
 	t_partition			*parse_result;
 	bool				forking;
 	bool				exist_children;
+	bool				exist_pipe;
 	int					last_pid;
 	int					last_exit_status;
 	int					saved_stdin;

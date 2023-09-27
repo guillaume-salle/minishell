@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:28:38 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 19:14:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 20:47:46 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	my_exit(int argc, char *argv[], t_vars *vars)
 	int	exit_status;
 
 	exit_status = 0;
-	if (isatty(STDIN_FILENO))
+	if (isatty(STDIN_FILENO) && !(vars->exist_pipe))
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (argc > 2)
 	{
