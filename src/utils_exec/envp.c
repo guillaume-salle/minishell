@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:14:16 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 23:07:26 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 21:28:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	update_envp(t_vars *vars)
 	vars->envp = linked_list_to_envp(vars->envp_list, vars);
 }
 
+
 void	increment_shlvl(t_vars *vars)
 {
 	char	*str;
@@ -69,15 +70,23 @@ void	increment_shlvl(t_vars *vars)
 
 	str = my_getenv("SHLVL", vars);
 	if (str == NULL)
-	{
 		my_putenv("SHLVL", "1", vars);
-		return ;
+	else
+	{
+		shlvl = ft_atoi(str);
+		shlvl++;
+		str = ft_itoa(shlvl);
+		if (str == NULL)
+			display_error_and_exit("ft_itoa", vars);
+		my_putenv("SHLVL", str, vars);
+		free(str);
 	}
-	shlvl = ft_atoi(str);
-	shlvl++;
-	str = ft_itoa(shlvl);
-	if (str == NULL)
-		display_error_and_exit("ft_itoa", vars);
-	my_putenv("SHLVL", str, vars);
-	free(str);
+	str = getcwd(NULL, 0);
+	if (str != NULL)
+	{
+		my_putenv("PWD", str, vars);
+		free(str);
+	}
+	else
+		display_error_and_exit("getcwd", vars);
 }
