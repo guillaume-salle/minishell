@@ -20,6 +20,8 @@ int	check_pips(char *str)
 
 	i = 0;
 	turn = 0;
+	if (str[0] == '|')
+		return (print_err_pipe(), 0);
 	while (str[i])
 	{
 		if (str[i] == '|' && turn == 1 && !kind_of_quote(str, i))

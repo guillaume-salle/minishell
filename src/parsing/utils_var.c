@@ -75,7 +75,7 @@ char	*join_char(char *s1, char c)
 
 int	boolean_test(char c)
 {
-	return (c != '\"' && c != (char)177 && c != '=');
+	return (c != '\"' && c != (char)177 && c != '=' && c != ':');
 }
 
 void	variable(char *str, int *i, char **new)

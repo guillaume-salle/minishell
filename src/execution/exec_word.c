@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 17:44:41 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 12:38:16 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 20:16:56 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	exec_non_builtin(char *cmd_name, char **argv, t_vars *vars)
 	pathname = find_command_path(cmd_name, vars);
 	if (pathname == NULL)
 	{
-		if (isatty(STDIN_FILENO) == false)
+		if (vars->is_a_tty == false)
 		{
 			ft_putstr_fd("minishell: line ", STDERR_FILENO);
 			ft_putnbr_fd(vars->nb_line, STDERR_FILENO);
@@ -93,7 +93,7 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 	}
 	else if (is_builtin_command(cmd) == true && forking == false)
 		return (exec_builtin(argv, vars));
-	else if (ft_strcmp(cmd_name, "") == 0)
+	else if (ft_strcmp(cmd_name, ":") == 0 || ft_strcmp(cmd_name, "!") == 0)
 		exec_empty_cmd(vars);
 	else
 		exec_non_builtin(cmd_name, argv, vars);

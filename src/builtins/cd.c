@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 18:43:12 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 10:44:57 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 07:10:10 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,15 @@ static char	*check_args_cd(int argc, char *argv[], t_vars *vars)
 	{
 		dir = my_getenv("HOME", vars);
 		if (dir == NULL)
-		{
-			ft_putstr_fd("minishell: cd: HOME not set\n", STDERR_FILENO);
-			return (NULL);
-		}
+			return (ft_putstr_fd("minishell: cd: HOME not set\n",
+					STDERR_FILENO), NULL);
+	}
+	else if (argc == 2 && ft_strcmp(argv[1], "-") == 0)
+	{
+		dir = my_getenv("OLDPWD", vars);
+		if (dir == NULL)
+			return (ft_putstr_fd("minishell: cd: OLDPWD not set\n",
+					STDERR_FILENO), NULL);
 	}
 	else
 		dir = argv[1];

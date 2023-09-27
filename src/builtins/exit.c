@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 12:28:38 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 16:47:28 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:14:28 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	my_exit(int argc, char *argv[], t_vars *vars)
 {
 	int	exit_status;
 
+	exit_status = 0;
 	if (isatty(STDIN_FILENO))
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	if (argc > 2)
@@ -56,7 +57,7 @@ int	my_exit(int argc, char *argv[], t_vars *vars)
 	else if (argc == 2)
 		exit_status = ft_atoi(argv[1]);
 	else if (argc == 1)
-		exit_status = 0;
+		exit_status = ft_atoi(my_getenv("?", vars));
 	if (exit_status < 0)
 		exit_status = ft_atoi(my_getenv("?", vars));
 	exit_minishell(exit_status, vars);

@@ -6,19 +6,27 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 17:28:55 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/26 06:41:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-static bool	is_relative_path(const char *path)
+static bool	is_relative_path(const char *path, t_vars *vars)
 {
 	int	i;
 
 	if (path[0] != '.')
 		return (false);
-	i = 0;
+	if (path[1] == '\0')
+	{
+		ft_putstr_fd("minishell: .: filename argument required\n",
+			STDERR_FILENO);
+		ft_putstr_fd(".: usage: . filename [arguments]\n", STDERR_FILENO);
+		free_vars(vars);
+		exit(2);
+	}
+	i = 1;
 	while (path[i] == '.')
 		i++;
 	if (path[i] != '/')
@@ -108,7 +116,7 @@ char	*find_command_path(const char *command, t_vars *vars)
 		return (NULL);
 	if (command[0] == '/')
 		return (find_absolute_path(command, vars));
-	else if (is_relative_path(command))
+	else if (is_relative_path(command, vars))
 	{
 		path = ft_strdup3(command);
 		if (path == NULL)

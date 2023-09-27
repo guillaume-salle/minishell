@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_line_from_user.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/17 08:57:54 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 17:32:10 by gusalle          ###   ########.fr       */
+/*   Created: 2023/09/27 20:22:26 by gusalle           #+#    #+#             */
+/*   Updated: 2023/09/27 20:22:29 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,10 @@ int	get_line_from_user(t_vars *vars)
 {
 	if (isatty(STDIN_FILENO))
 	{
-		setup_signal_handlers_readline(vars);
+		setup_signal_handlers_prompt(vars);
 		vars->line = readline("minishell> ");
 		if (g_signal_received != 0)
-		{
-			if (stop_signal_readline(vars) == true)
-				return (-1);
-		}
+			signal_received(vars);
 		setup_signal_handlers_parent(vars);
 	}
 	else
