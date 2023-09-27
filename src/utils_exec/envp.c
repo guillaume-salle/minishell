@@ -62,7 +62,6 @@ void	update_envp(t_vars *vars)
 	vars->envp = linked_list_to_envp(vars->envp_list, vars);
 }
 
-
 void	increment_shlvl(t_vars *vars)
 {
 	char	*str;
