@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 17:28:45 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 07:42:24 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		reset_vars_zero(&vars);
 		if (g_signal_received != 0)
-		{
-			ft_putstr_fd("\n", STDOUT_FILENO);
 			signal_received(&vars);
-		}
 		if (get_line_from_user(&vars) == -1)
 			continue ;
 		vars.line = first_transformation(vars.line, &vars);
