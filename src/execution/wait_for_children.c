@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 12:56:31 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 06:51:29 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:15:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	case_terminated_by_signal(int status, pid_t wait_pid, t_vars *vars)
 	int	signal_number;
 
 	signal_number = WTERMSIG(status);
-	ft_putstr_fd("\n", STDOUT_FILENO);
 	if (wait_pid == vars->last_pid)
 	{
 		vars->last_exit_status = 128 + signal_number;
