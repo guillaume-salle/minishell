@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 07:42:24 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 20:16:15 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 	t_vars	vars;
 
 	ft_memset(&vars, 0, sizeof(t_vars));
+	vars.is_a_tty = isatty(STDIN_FILENO);
 	disable_ctrl_backslash();
 	init_envp_list(envp, &(vars.envp_list));
 	increment_shlvl(&vars);

@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 11:55:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/24 17:23:59 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:41:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	get_heredoc_data(t_commande *cmd, t_vars *vars)
 	vars->line = readline("> ");
 	if (g_signal_received != 0)
 	{
-		if (stop_signal_readline(vars) == true)
+		if (stop_signal_heredoc(vars) == true)
 			return (-1);
 	}
 	if (vars->line == NULL)
@@ -97,7 +97,7 @@ int	handle_all_heredocs(t_partition *head, t_vars *vars)
 	t_partition	*current_partition;
 	t_commande	*current_command;
 
-	setup_signal_handlers_readline(vars);
+	setup_signal_handlers_heredoc(vars);
 	current_partition = head;
 	while (current_partition != NULL)
 	{

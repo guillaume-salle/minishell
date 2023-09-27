@@ -21,8 +21,8 @@ SRCS		= main.c	\
 			  builtins/export.c	\
 			  builtins/unset.c	\
 			  builtins/exit.c	\
-			  execution/signals_readline.c	\
-			  execution/signal_parent.c	\
+			  execution/signals.c	\
+			  execution/signals_2.c	\
 			  execution/get_line_from_user.c	\
 			  execution/exec_partition_list.c	\
 			  execution/pipe.c	\

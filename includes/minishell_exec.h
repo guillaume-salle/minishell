@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/26 06:42:34 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/27 19:41:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ char		*make_full_path(const char *path, const char *command,
 
 // SIGNALS
 //void		refresh_readline_sigint(void);
-void		setup_signal_handlers_readline(t_vars *vars);
+void		setup_signal_handlers_prompt(t_vars *vars);
+void		setup_signal_handlers_heredoc(t_vars *vars);
 void		setup_signal_handlers_default(t_vars *vars);
 void		setup_signal_handlers_parent(t_vars *vars);
 bool		signal_received(t_vars *vars);
-bool		stop_signal_readline(t_vars *vars);
+bool		stop_signal_heredoc(t_vars *vars);
 void		disable_ctrl_backslash(void);
 
 // FREE
