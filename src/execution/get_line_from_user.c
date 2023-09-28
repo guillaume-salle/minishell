@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:22:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 20:22:29 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 08:44:39 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,8 @@ static void	get_line_from_fd(t_vars *vars)
 
 int	get_line_from_user(t_vars *vars)
 {
-	if (isatty(STDIN_FILENO))
+//	if (isatty(STDIN_FILENO))
+	if (true)
 	{
 		setup_signal_handlers_prompt(vars);
 		vars->line = readline("minishell> ");
