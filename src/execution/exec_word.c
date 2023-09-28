@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 17:44:41 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 20:16:56 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 10:43:51 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,18 @@ static void	exec_non_builtin(char *cmd_name, char **argv, t_vars *vars)
 }
 
 // always forking in this function is called
-static int	exec_empty_cmd(t_vars *vars)
+static bool	exec_empty_cmd(const char *cmd_name, t_vars *vars)
 {
-	free_vars(vars);
-	exit(EXIT_SUCCESS);
+	if (ft_strcmp(cmd_name, ":") == 0
+		|| ft_strcmp(cmd_name, "!") == 0
+		|| (ft_strcmp(cmd_name, "") == 0 && ft_strchr(vars->line, '\'') == NULL
+			&& ft_strchr(vars->line, '\"') == NULL))
+	{
+		free_vars(vars);
+		exit(EXIT_SUCCESS);
+		return (true);
+	}
+	return (false);
 }
 
 int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
@@ -93,8 +101,8 @@ int	exec_word(t_commande *cmd, t_vars *vars, bool forking)
 	}
 	else if (is_builtin_command(cmd) == true && forking == false)
 		return (exec_builtin(argv, vars));
-	else if (ft_strcmp(cmd_name, ":") == 0 || ft_strcmp(cmd_name, "!") == 0)
-		exec_empty_cmd(vars);
+	else if (exec_empty_cmd(cmd_name, vars) == true)
+		return (EXIT_FAILURE);
 	else
 		exec_non_builtin(cmd_name, argv, vars);
 	return (EXIT_FAILURE);

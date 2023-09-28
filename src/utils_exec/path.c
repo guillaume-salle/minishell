@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 09:47:55 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/26 06:41:51 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 10:53:25 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	is_relative_path(const char *path, t_vars *vars)
 		return (true);
 }
 
-static char	*find_absolute_path(const char *command, t_vars *vars)
+static char	*test_pathname(const char *command, t_vars *vars)
 {
 	char		*full_path;
 	struct stat	st;
@@ -110,19 +110,10 @@ static char	*find_in_path_env(const char *command, t_vars *vars)
 // Does not free command parameter and return an allocated path
 char	*find_command_path(const char *command, t_vars *vars)
 {
-	char	*path;
-
 	if (command == NULL)
 		return (NULL);
-	if (command[0] == '/')
-		return (find_absolute_path(command, vars));
-	else if (is_relative_path(command, vars))
-	{
-		path = ft_strdup3(command);
-		if (path == NULL)
-			display_error_and_exit("ft_strdup", vars);
-		return (path);
-	}
+	if (command[0] == '/' || is_relative_path(command, vars) == true)
+		return (test_pathname(command, vars));
 	else
 		return (find_in_path_env(command, vars));
 }
