@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 14:43:22 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 20:50:04 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 09:03:07 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ static void	exec_partition_no_pipe(t_partition *head, t_vars *vars)
 	if (is_builtin_command(head->cmds) == true)
 	{
 		vars->last_exit_status = exec_command_list(head->cmds, vars, 0);
+		safe_dup2(vars->saved_stdin, STDIN_FILENO, vars);
+		safe_dup2(vars->saved_stdout, STDOUT_FILENO, vars);
 		return ;
 	}
 	pid = fork();

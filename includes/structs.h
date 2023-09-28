@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 16:35:39 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 20:48:00 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 09:03:54 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_vars
 	int					last_pid;
 	int					last_exit_status;
 	int					saved_stdin;
+	int					saved_stdout;
 	int					nb_line;
 	bool				is_a_tty;
 }						t_vars;
