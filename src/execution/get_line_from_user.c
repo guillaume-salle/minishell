@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:22:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/28 11:54:35 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 12:07:23 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,10 +143,11 @@
 //	}
 //}
 
+//	if (isatty(STDIN_FILENO))
 int	get_line_from_user(t_vars *vars)
 {
 	setup_signal_handlers_prompt(vars);
-	if (isatty(STDIN_FILENO))
+	if (true)
 		vars->line = readline("minishell> ");
 	else
 		vars->line = readline("");
