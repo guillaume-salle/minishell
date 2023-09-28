@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 20:22:26 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/28 10:37:36 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 11:54:35 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,35 +127,32 @@
 //		return (false);
 //	return (true);
 //}
+//
+//static void	get_line_from_fd(t_vars *vars)
+//{
+//	char	*newline;
+//
+//	setup_signal_handlers_parent(vars);
+//	vars->line = get_next_line(STDIN_FILENO);
+//	vars->nb_line++;
+//	if (vars->line != NULL)
+//	{
+//		newline = ft_strchr(vars->line, '\n');
+//		if (newline)
+//			*newline = '\0';
+//	}
+//}
 
-static void	get_line_from_fd(t_vars *vars)
-{
-	char	*newline;
-
-	setup_signal_handlers_parent(vars);
-	vars->line = get_next_line(STDIN_FILENO);
-	vars->nb_line++;
-	if (vars->line != NULL)
-	{
-		newline = ft_strchr(vars->line, '\n');
-		if (newline)
-			*newline = '\0';
-	}
-}
-
-//	if (isatty(STDIN_FILENO))
 int	get_line_from_user(t_vars *vars)
 {
-	if (true)
-	{
-		setup_signal_handlers_prompt(vars);
+	setup_signal_handlers_prompt(vars);
+	if (isatty(STDIN_FILENO))
 		vars->line = readline("minishell> ");
-		if (g_signal_received != 0)
-			signal_received(vars);
-		setup_signal_handlers_parent(vars);
-	}
 	else
-		get_line_from_fd(vars);
+		vars->line = readline("");
+	if (g_signal_received != 0)
+		signal_received(vars);
+	setup_signal_handlers_parent(vars);
 	if (vars->line == NULL)
 		line_null_free_exit(vars);
 	if (!check_spaces_append_history(vars->line))
