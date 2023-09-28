@@ -6,16 +6,16 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 12:56:31 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/28 17:26:52 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 17:28:53 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell_exec.h"
 
-static void	case_terminated_by_signal(int status, pid_t wait_pid,
-		bool *newline,t_vars *vars)
+static void	case_terminated_by_signal(int status, pid_t wait_pid, bool *newline,
+		t_vars *vars)
 {
-	int		signal_number;
+	int	signal_number;
 
 	signal_number = WTERMSIG(status);
 	if (wait_pid == vars->last_pid)
