@@ -30,8 +30,7 @@ SRCS		= main.c	\
 			  execution/exec_word.c	\
 			  execution/redirections.c	\
 			  execution/heredoc.c	\
-			  execution/wait_for_children.c	\
-			  execution/termcap.c
+			  execution/wait_for_children.c
 
 SRCS		+= parsing/add_spaces.c \
 			   parsing/list_cmd.c \
