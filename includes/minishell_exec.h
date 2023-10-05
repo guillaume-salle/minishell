@@ -6,7 +6,7 @@
 /*   By: gusalle <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 11:41:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 19:41:25 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/29 00:21:39 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		print_env(t_list *head);
 void		print_env_export(t_list *head);
 bool		check_spaces_append_history(char *line);
 bool		is_builtin_command(t_commande *cmd_list);
-void		increment_shlvl(t_vars *vars);
+void		init_vars(t_vars *vars);
 
 // PATH
 char		*find_command_path(const char *command, t_vars *vars);

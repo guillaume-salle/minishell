@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/21 15:45:25 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/27 20:50:21 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 23:52:37 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,4 +105,6 @@ void	reset_vars_zero(t_vars *vars)
 	if (my_getenv("?", vars) == NULL)
 		my_putenv("?", "0", vars);
 	vars->is_a_tty = isatty(STDIN_FILENO);
+	if (vars->pwd != NULL)
+		free_and_nullify(&vars->pwd);
 }

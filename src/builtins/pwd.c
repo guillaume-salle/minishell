@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 12:48:14 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/06 15:49:15 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/29 00:27:20 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	pwd(int argc, char *argv[], t_vars *vars)
 		free(cwd);
 		return (0);
 	}
+	else if (vars->pwd !=NULL)
+		ft_putendl_fd(vars->pwd, STDOUT_FILENO);
 	else
 	{
 		perror("getcwd");

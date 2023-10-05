@@ -6,7 +6,7 @@
 /*   By: kyacini <kyacini@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 14:43:32 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/28 09:04:06 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 23:54:59 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_memset(&vars, 0, sizeof(t_vars));
 	vars.is_a_tty = isatty(STDIN_FILENO);
 	init_envp_list(envp, &(vars.envp_list));
-	increment_shlvl(&vars);
+	init_vars(&vars);
 	vars.saved_stdin = safe_dup(STDIN_FILENO, &vars);
 	vars.saved_stdout = safe_dup(STDOUT_FILENO, &vars);
 	while (1)

@@ -5,6 +5,7 @@ OBJS_DIR	= obj
 INC_DIR		= includes
 
 SRCS		= main.c	\
+			  utils_exec/init_vars.c	\
 			  utils_exec/free.c	\
 			  utils_exec/exiting.c	\
 			  utils_exec/handle_history.c	\

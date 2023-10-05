@@ -6,7 +6,7 @@
 /*   By: gusalle <gusalle@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 23:02:34 by gusalle           #+#    #+#             */
-/*   Updated: 2023/09/17 12:18:21 by gusalle          ###   ########.fr       */
+/*   Updated: 2023/09/28 23:50:11 by gusalle          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	check_empty_redirection(t_commande *cmd)
 	if ((cmd->id == R_DIR || cmd->id == RD_DIR || cmd->id == L_DIR)
 		&& ft_strcmp(cmd->cmd, "") == 0)
 	{
-		if (ft_strcmp(cmd->without_exp, "") == 0)
+		if (ft_strcmp(cmd->without_exp, "") != 0)
 		{
 			ft_putstr_fd("minishell: ", STDERR_FILENO);
 			ft_putstr_fd(cmd->without_exp, STDERR_FILENO);
